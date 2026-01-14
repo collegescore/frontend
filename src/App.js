@@ -1,8 +1,20 @@
+import { Box, Typography } from "@mui/material";
+
 function App() {
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <h1 className="text-dark">Welcome</h1>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        bgcolor: "background.default",
+      }}
+    >
+      <Typography variant="h1" color="primary">
+        Welcome
+      </Typography>
+    </Box>
   );
 }
 
