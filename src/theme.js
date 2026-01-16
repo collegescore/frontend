@@ -13,6 +13,12 @@ let theme = createTheme({
     primary: {
       main: "#29527A",
     },
+    grayscale:{
+      //NOTICE:If we switch to typscript this will break  until we augment the pallet https://mui.com/material-ui/customization/palette/
+      main: "#666666",
+      light: "#ffffff",
+      dark: "#1a1a1a",
+    },
   },
   typography: {
     fontFamily: "'Inter', sans-serif",
@@ -41,6 +47,9 @@ theme = createTheme(theme, {
     h2: headingStyles,
     h3: headingStyles,
     h4: headingStyles,
+    body1: {
+      color: theme.palette.grayscale.main
+    },
     button: {
       textTransform: "none",
       fontSize: "1rem",
