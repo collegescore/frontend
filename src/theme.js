@@ -37,7 +37,6 @@ theme = createTheme(theme, {
     },*/
   },
   typography: {
-    fontFamily: "'Inter', sans-serif",
     h1: headingStyles,
     h2: headingStyles,
     h3: headingStyles,
