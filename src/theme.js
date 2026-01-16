@@ -34,13 +34,6 @@ theme = createTheme(theme, {
       dark:"#e6e6e6",
       contrastText: theme.palette.primary.main,
     },
-    /*Alternate to having white as secondary, we can create a custom color
-      primaryContrast: { //NOTICE:If we switch to typscript this will break  until we augment the pallet https://mui.com/material-ui/customization/palette/
-      main: "#FFFFFF",
-      light: "#f2f2f2",
-      dark:"#e6e6e6",
-      contrastText: theme.palette.primary.main,
-    },*/
   },
   typography: {
     h1: headingStyles,
@@ -84,15 +77,6 @@ theme = createTheme(theme, {
         outlined:{
           borderWidth: "1.5px",
         },
-        /*Use if using custom color primaryContrast instead of secondary as white
-          outlinedPrimaryContrast:{
-          color: theme.palette.primary.main,
-          borderColor: theme.palette.primary.main,
-          "&:hover": {
-            borderColor: theme.palette.primary.main,
-            backgroundColor: theme.palette.action.hover,
-          },
-        },*/
       },
     },
   },
