@@ -1,11 +1,13 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 import InterWoff2 from './fonts/Inter-VariableFont_wght.woff2'
 
+// Common styles for headings to avoid repetition
 const headingStyles = {
   fontWeight: 700,
   textTransform: "capitalize",
 };
 
+// Initial theme creation
 let theme = createTheme({
   palette: {
     primary: {
@@ -17,6 +19,8 @@ let theme = createTheme({
   },
 });
 
+// Extend the initial theme with more customizations
+// Benifit: This way we can easily use theme.palette values in our customizations
 theme = createTheme(theme, {
   palette: {
     secondary: {
@@ -70,9 +74,9 @@ theme = createTheme(theme, {
           transition: "background-color 0.4s ease",
         },
         outlined:{
-          borderWidth: "2px",
+          borderWidth: "1.5px",
         },
-        /*Use if using custom color instead of secondary white
+        /*Use if using custom color primaryContrast instead of secondary as white
           outlinedPrimaryContrast:{
           color: theme.palette.primary.main,
           borderColor: theme.palette.primary.main,
