@@ -1,18 +1,6 @@
 import React, { useState } from 'react';
-import {
-  AppBar,
-  Box,
-  Toolbar,
-  IconButton,
-  Typography,
-  Container,
-  Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, Container, Button, Drawer, 
+    List, ListItem, ListItemButton, ListItemText, } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const navLinks = [
@@ -57,7 +45,12 @@ function Header() {
           {navLinks.map((item) => (
             <ListItem key={item.title} disablePadding>
               <ListItemButton component="a" href={item.path} sx={{ textAlign: 'center' }}>
-                <ListItemText primary={item.title} />
+                <ListItemText 
+                  primary={item.title} 
+                  primaryTypographyProps={{ 
+                    fontWeight: 600, 
+                    color: 'grayscale.main',
+                  }}/>
               </ListItemButton>
             </ListItem>
           ))}
