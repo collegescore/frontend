@@ -2,31 +2,23 @@ import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Container, Button, Drawer, 
     List, ListItem, ListItemButton, ListItemText, } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import AddReviewButton from './AddReviewButton';
 
+// Navigation links (simple data array used for both desktop and mobile nav)
 const navLinks = [
   { title: 'Home', path: '/' },
   { title: 'About', path: '/about' },
   { title: 'Search', path: '/search' },
 ];
 
-/**
- * Reusable "Add Review" Button Component
- * Accepts 'sx' props so we can style margins differently for mobile vs desktop
- */
-const AddReviewButton = ({ sx = {} }) => (
-  <Button 
-    variant="contained" 
-    color="primary" 
-    href="/review"
-    sx={{ fontWeight: 600, ...sx }} // Merge default styles with passed styles
-  >
-    Add a Review
-  </Button>
-);
-
+// Header Component
 function Header() {
+  // State to manage whether the mobile drawer is open or closed
+  // Only used for small screens: clicking the MenuIcon toggles this.
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Toggle handler for the mobile drawer.
+  // Called by the hamburger IconButton and the Drawer onClose.
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -34,12 +26,14 @@ function Header() {
   // Drawer content for mobile view
   const drawerContent = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+       {/* App title shown in the drawer */}
       <Typography
         variant="h6"
         sx={{ my: 2, fontWeight: 800, color: 'primary.main' }}
       >
         CollegeScore
       </Typography>
+      {/* Navigation list (re-uses navLinks array) */}
       <Box component="nav">
         <List>
           {navLinks.map((item) => (
@@ -69,7 +63,11 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           
-          {/* --- DESKTOP TITLE --- */}
+          {/* --- DESKTOP TITLE --- 
+              Visible only on medium screens and up.
+              The `display: { xs: 'none', md: 'flex' }` controls this using MUI breakpoints.
+              By default `md` corresponds to >= 900px. 
+          */}
           <Typography
             variant="h6"
             component="a"
@@ -109,7 +107,10 @@ function Header() {
             <AddReviewButton sx={{ ml: 2 }} />
           </Box>
 
-          {/* --- MOBILE MENU ICON --- */}
+          {/* --- MOBILE MENU ICON --- 
+              Visible only on small screens.
+              Clicking this toggles `mobileOpen` which controls the Drawer. 
+          */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -141,7 +142,11 @@ function Header() {
         </Toolbar>
       </Container>
 
-      {/* --- DRAWER (Popup Menu) --- */}
+      {/* --- DRAWER (Popup Menu) --- 
+          Temporary drawer used for mobile navigation.
+          It is only shown on xs..sm screens because of `display: { xs: 'block', md: 'none' }`.
+          The `open` prop is controlled by `mobileOpen`. 
+      */}
       <Box component="nav">
         <Drawer
           variant="temporary"
