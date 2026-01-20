@@ -11,15 +11,24 @@ const navLinks = [
 ];
 
 function Header() {
+  // if screen size is small (mobile), use hamburger menu for navigation
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  
+  // Drawer content for mobile view
   const drawerContent = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2, fontWeight: 700 }}>
+      <Typography 
+        variant="h6" 
+        sx={{ 
+            my: 2, 
+            fontWeight: 800, 
+            color: 'primary.main',
+        }}>
+
         CollegeScore
       </Typography>
       <Box component="nav">
@@ -32,11 +41,14 @@ function Header() {
             </ListItem>
           ))}
           {/* Mobile "Add Review" Button */}
-           <ListItem disablePadding>
-              <ListItemButton component="a" href="/review" sx={{ textAlign: 'center' }}>
-                <ListItemText primary="Add a Review" primaryTypographyProps={{ color: 'primary', fontWeight: 600 }} />
-              </ListItemButton>
-            </ListItem>
+           <Button
+              variant="contained" 
+              color="primary"
+              href="/review"
+              sx={{ ml: 2 }}
+            >
+              Add a Review
+            </Button>
         </List>
       </Box>
     </Box>
@@ -56,7 +68,7 @@ function Header() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontWeight: 800,
-              color: 'grayscale.dark', // Ensure this color exists in your theme
+              color: 'grayscale.dark',
               textDecoration: 'none',
               flexGrow: 1, 
             }}
@@ -115,8 +127,8 @@ function Header() {
               mr: 2,
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
-              fontWeight: 700,
-              color: 'primary.main',
+              fontWeight: 800,
+              color: 'grayscale.dark',
               textDecoration: 'none',
             }}
           >
