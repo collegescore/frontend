@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 import {
-  AppBar, Box, Toolbar, IconButton, Typography, Container, Button, Drawer,
-  List, ListItem, ListItemButton, ListItemText,} from '@mui/material';
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Container,
+  Button,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const navLinks = [
@@ -10,25 +21,35 @@ const navLinks = [
   { title: 'Search', path: '/search' },
 ];
 
+/**
+ * Reusable "Add Review" Button Component
+ * Accepts 'sx' props so we can style margins differently for mobile vs desktop
+ */
+const AddReviewButton = ({ sx = {} }) => (
+  <Button 
+    variant="contained" 
+    color="primary" 
+    href="/review"
+    sx={{ fontWeight: 600, ...sx }} // Merge default styles with passed styles
+  >
+    Add a Review
+  </Button>
+);
+
 function Header() {
-  // if screen size is small (mobile), use hamburger menu for navigation
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  
+
   // Drawer content for mobile view
   const drawerContent = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography 
-        variant="h6" 
-        sx={{ 
-            my: 2, 
-            fontWeight: 800, 
-            color: 'primary.main',
-        }}>
-
+      <Typography
+        variant="h6"
+        sx={{ my: 2, fontWeight: 800, color: 'primary.main' }}
+      >
         CollegeScore
       </Typography>
       <Box component="nav">
@@ -40,15 +61,11 @@ function Header() {
               </ListItemButton>
             </ListItem>
           ))}
-          {/* Mobile "Add Review" Button */}
-           <Button
-              variant="contained" 
-              color="primary"
-              href="/review"
-              sx={{ ml: 2 }}
-            >
-              Add a Review
-            </Button>
+          
+          {/* Mobile Button - Centered with margin top */}
+          <ListItem sx={{ justifyContent: 'center', mt: 2 }}>
+            <AddReviewButton />
+          </ListItem>
         </List>
       </Box>
     </Box>
@@ -70,7 +87,7 @@ function Header() {
               fontWeight: 800,
               color: 'grayscale.dark',
               textDecoration: 'none',
-              flexGrow: 1, 
+              flexGrow: 1,
             }}
           >
             CollegeScore
@@ -82,27 +99,21 @@ function Header() {
               <Button
                 key={item.title}
                 href={item.path}
-                sx={{ 
+                sx={{
                   fontWeight: 600,
-                  color: 'grayscale.main', 
+                  color: 'grayscale.main',
                   '&:hover': {
                     color: 'grayscale.dark',
-                    backgroundColor: 'transparent'
-                  }
+                    backgroundColor: 'transparent',
+                  },
                 }}
               >
                 {item.title}
               </Button>
             ))}
             
-            <Button 
-              variant="contained" 
-              color="primary"
-              href="/review"
-              sx={{ ml: 2 }}
-            >
-              Add a Review
-            </Button>
+            {/* Desktop Button - Added left margin to separate from links */}
+            <AddReviewButton sx={{ ml: 2 }} />
           </Box>
 
           {/* --- MOBILE MENU ICON --- */}
