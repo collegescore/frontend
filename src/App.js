@@ -1,9 +1,10 @@
 import {Stack, Box, Typography, Button, Container } from "@mui/material";
+import Header from './components/header'; 
 
 function App() {
   return (
     <>
-    <header>Header!</header>{/* change this to be a proper AppBar with responsive menu later */}
+    <Header />
     <main> 
       {/*replace this with routes later */}
       <Container component="section">
