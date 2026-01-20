@@ -8,7 +8,8 @@ import AddReviewButton from './AddReviewButton';
 const navLinks = [
   { title: 'Home', path: '/' },
   { title: 'About', path: '/about' },
-  { title: 'Search', path: '/search' },
+  //Search page not implemented for V0
+  //{ title: 'Search', path: '/search' },
 ];
 
 // Header Component
