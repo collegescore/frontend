@@ -65,12 +65,13 @@ function Header() {
           </Typography>
 
           {/* --- DESKTOP NAV --- */}
-          <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, alignItems: 'center' }}>
+          <Box component="nav" sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             {navLinks.map((item) => (
               <Button
                 key={item.title}
                 href={item.path}
                 sx={{ 
+                  fontWeight: 600,
                   color: 'grayscale.main', 
                   '&:hover': {
                     color: 'grayscale.dark',
