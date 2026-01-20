@@ -75,7 +75,7 @@ function Header() {
                   color: 'grayscale.main', // Using your custom theme color safely
                   display: 'block',
                   '&:hover': {
-                    color: 'primary.main',
+                    color: 'grayscale.dark',
                     backgroundColor: 'transparent' // optional: removes gray hover background
                   }
                 }}
