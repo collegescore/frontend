@@ -3,9 +3,9 @@ import {AppBar, Box, Toolbar, IconButton, Typography, Container, Button, Drawer,
   ListItem, ListItemButton, ListItemText,} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu'; 
 const navLinks = [
-  { title: 'Home', path: '#home' },
-  { title: 'About', path: '#about' },
-  { title: 'Search', path: '#search' },
+  { title: 'Home', path: 'home' },
+  { title: 'About', path: 'about' },
+  { title: 'Search', path: 'search' },
 ];
 
 /**
@@ -53,8 +53,8 @@ function Header() {
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontWeight: 700,
-              color: 'primary.main',
+              fontWeight: 800,
+              color: 'grayscale.dark',
               textDecoration: 'none',
               flexGrow: 1, // Pushes the nav links to the right
             }}
