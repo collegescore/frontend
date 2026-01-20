@@ -32,7 +32,7 @@ const headingStyles: CSSProperties = {
   textTransform: "capitalize",
 };
 
-// Extend the initial theme with more customizations
+// Extend the initial theme with more color customizations
 // Benifit: This way we can easily use theme.palette values in our customizations
 theme = createTheme(theme, {
   palette: {
@@ -48,8 +48,12 @@ theme = createTheme(theme, {
         dark: "#1a1a1a",
       },
       name: 'grayscale',
-    }), 
-  },
+    })
+  }
+});
+
+//Extend the initial theme with typography and component customizations
+theme = createTheme(theme, {
   typography: {
     h1: headingStyles,
     h2: headingStyles,
