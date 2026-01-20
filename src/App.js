@@ -1,5 +1,5 @@
 import {Stack, Box, Typography, Button, Container } from "@mui/material";
-import Header from './components/header'; 
+import Header from './components/Header'; 
 
 function App() {
   return (
