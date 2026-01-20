@@ -1,0 +1,33 @@
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  
+  "compilerOptions": {
+    // --- React & Browser Requirements ---
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "jsx": "react-jsx",
+    
+    // --- Migration Settings ---
+    // Note: These settings help ease migration from JS to TS. They will enforce strict
+    // type checking on TS/TSX files, while ignoring the JS files for now. 
+    // We can write "// @ts-check" at the top of JS files to type check them individually as we
+    // migrate them to TS.
+    "allowJs": true,          // Allows JS files to exist in the project
+    "checkJs": false,         // STRICTLY ignores errors in JS files
+    "noEmit": true,           // Do not generate output files (React Scripts handles this)
+    "strict": true,           // STRICT type checking for TS/TSX files
+
+    // --- Module Resolution ---
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // --- Performance & Safety ---
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
+}
