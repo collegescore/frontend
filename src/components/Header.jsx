@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Container, Button, Drawer, 
     List, ListItem, ListItemButton, ListItemText, } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import AddReviewButton from './AddReviewButton';
+import BasicButton from './BasicButton';
 
 // Navigation links (simple data array used for both desktop and mobile nav)
 const navLinks = [
@@ -52,7 +52,7 @@ function Header() {
           
           {/* Mobile Button - Centered with margin top */}
           <ListItem sx={{ justifyContent: 'center', mt: 2 }}>
-            <AddReviewButton />
+            <BasicButton text="Add Review" color="primary" />
           </ListItem>
         </List>
       </Box>
@@ -105,7 +105,7 @@ function Header() {
             ))}
             
             {/* Desktop Button - Added left margin to separate from links */}
-            <AddReviewButton sx={{ ml: 2 }} />
+            <BasicButton text="Add Review" color="primary" sx={{ ml: 2 }} />
           </Box>
 
           {/* --- MOBILE MENU ICON --- 

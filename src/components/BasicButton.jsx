@@ -5,15 +5,15 @@ import { Button } from '@mui/material';
  * Reusable "Add Review" Button Component
  * Accepts 'sx' props so we can style margins differently for mobile vs desktop
  **/
-const AddReviewButton = ({ sx = {} }) => (
+const BasicButton = ({ text, color, sx = {} }) => (
   <Button 
     variant="contained" 
-    color="primary" 
+    color={color || "primary"} 
     href="/review"
     sx={{ fontWeight: 600, ...sx }} // Merge default styles with passed styles
   >
-    Add a Review
+    {text || "Basic Button"}
   </Button>
 );
 
-export default AddReviewButton;
+export default BasicButton;
