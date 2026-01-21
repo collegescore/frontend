@@ -41,8 +41,10 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
+    "@types/node": "^25.0.9",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
+    "@types/testing-library__jest-dom": "^5.14.9",
     "typescript": "^5.9.3"
   }
 }
