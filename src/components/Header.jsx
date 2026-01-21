@@ -52,7 +52,7 @@ function Header() {
           
           {/* Mobile Button - Centered with margin top */}
           <ListItem sx={{ justifyContent: 'center', mt: 2 }}>
-            <BasicButton text="Add Review" color="primary" />
+            <BasicButton text="Add Review" color="primary" href="/review"/>
           </ListItem>
         </List>
       </Box>
@@ -105,7 +105,7 @@ function Header() {
             ))}
             
             {/* Desktop Button - Added left margin to separate from links */}
-            <BasicButton text="Add Review" color="primary" sx={{ ml: 2 }} />
+            <BasicButton text="Add Review" color="primary" href="/review" sx={{ ml: 2 }} />
           </Box>
 
           {/* --- MOBILE MENU ICON --- 

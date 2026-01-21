@@ -10,7 +10,7 @@ const BasicButton = ({ text, color, href, sx = {} }) => (
     variant="contained" 
     // color defaults to primary if not provided
     color={color || "primary"} 
-    href={href || "/review"}
+    href={href}
     // default fontWeight of 600, can be overridden by sx prop
     sx={{ fontWeight: 600, ...sx }} 
   >
