@@ -5,13 +5,12 @@ orbs:
   node: circleci/node@5.1.0
 
 jobs:
-  check-and-test:
+  lint-and-type-check:
     docker:
       - image: cimg/node:22.12 # matches the Node version from our documentation
     steps:
       - checkout
       
-      # 1. Install dependencies with caching automatically handled by the orb
       - node/install-packages:
           pkg-manager: npm
 
@@ -26,22 +25,33 @@ jobs:
           # compromising the stability of the build.
           override-ci-command: npm install --legacy-peer-deps
 
-      # 2. Check Formatting (Prettier)
+      # Check Formatting (Prettier)
       - run:
           name: Check Formatting
           command: npm run format:check
 
-      # 3. Static Type Checking (TypeScript)
+      # Static Type Checking (TypeScript)
       - run:
           name: TypeScript Type Check
           command: npm run type-check
 
-      # 4. Run All Tests
+  unit-tests:
+    docker:
+      - image: cimg/node:22.12
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+          override-ci-command: npm install --legacy-peer-deps
+      # run all unit tests
       - run:
-          name: Run Tests
+          name: Run Jest Tests
           command: npm test
 
 workflows:
-  build-and-test:
+  quality-gate:
     jobs:
-      - check-and-test
+      - lint-and-type-check
+      - unit-tests:
+          requires:
+            - lint-and-type-check # Only run tests if types and formatting pass
