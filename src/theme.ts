@@ -1,23 +1,24 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import InterWoff2 from './fonts/Inter-VariableFont_wght.woff2'
+import { Theme } from '@mui/material/styles';
+import InterWoff2 from './fonts/Inter-VariableFont_wght.woff2';
+import {CSSProperties} from 'react';
 
-// Common styles for headings to avoid repetition
-const headingStyles = {
-  fontWeight: 700,
-  textTransform: "capitalize",
-};
+// Augment the palette to include a grayscale color
+declare module '@mui/material/styles' {
+  interface Palette {
+    grayscale: Palette['primary'];
+  }
+
+  interface PaletteOptions {
+    grayscale?: PaletteOptions['primary'];
+  }
+}
 
 // Initial theme creation
-let theme = createTheme({
+let theme: Theme = createTheme({
   palette: {
     primary: {
       main: "#29527A",
-    },
-    grayscale:{
-      //NOTICE:If we switch to typscript this will break  until we augment the pallet https://mui.com/material-ui/customization/palette/
-      main: "#666666",
-      light: "#ffffff",
-      dark: "#1a1a1a",
     },
   },
   typography: {
@@ -25,7 +26,13 @@ let theme = createTheme({
   },
 });
 
-// Extend the initial theme with more customizations
+// Common styles for headings to avoid repetition
+const headingStyles: CSSProperties = {
+  fontWeight: 700,
+  textTransform: "capitalize",
+};
+
+// Extend the initial theme with more color customizations
 // Benifit: This way we can easily use theme.palette values in our customizations
 theme = createTheme(theme, {
   palette: {
@@ -34,7 +41,19 @@ theme = createTheme(theme, {
       dark:"#e6e6e6",
       contrastText: theme.palette.primary.main,
     },
-  },
+    grayscale: theme.palette.augmentColor({
+      color:{
+        main: "#666666",
+        light: "#ffffff",
+        dark: "#1a1a1a",
+      },
+      name: 'grayscale',
+    })
+  }
+});
+
+//Extend the initial theme with typography and component customizations
+theme = createTheme(theme, {
   typography: {
     h1: headingStyles,
     h2: headingStyles,
@@ -82,4 +101,6 @@ theme = createTheme(theme, {
   },
 });
 
-export default responsiveFontSizes(theme);
+const finalTheme: Theme = responsiveFontSizes(theme);
+
+export default finalTheme;
