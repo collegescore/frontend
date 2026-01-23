@@ -18,7 +18,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false --passWithNoTests",
+    "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "format:check": "prettier --check 'src/**/*.{js,jsx,ts,tsx,css,md}'",
+    "format:fix": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md}'",
+    "type-check": "tsc --noEmit",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -45,6 +49,7 @@
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "@types/testing-library__jest-dom": "^5.14.9",
+    "prettier": "3.8.0",
     "typescript": "^5.9.3"
   }
 }

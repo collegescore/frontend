@@ -1,14 +1,14 @@
-
-import {Stack, Box, Typography, Button, Container } from "@mui/material";
+import { Stack, Box, Typography, Button, Container } from "@mui/material";
 
 function App() {
   return (
     <>
-    <header>Header!</header>{/* change this to be a proper AppBar with responsive menu later */}
-    <main> 
-      {/*replace this with routes later */}
-      <Container component="section">
-        <Stack alignItems={"center"} gap={2}>
+      <header>Header!</header>
+      {/* change this to be a proper AppBar with responsive menu later */}
+      <main>
+        {/*replace this with routes later */}
+        <Container component="section">
+          <Stack alignItems={"center"} gap={2}>
             <Typography variant="h1" color="primary" textTransform="uppercase">
               H1
             </Typography>
@@ -48,26 +48,27 @@ function App() {
             <Typography variant="overline" color="primary">
               overline
             </Typography>
-          <Box bgcolor="primary.main" p={2} >
-          <Button variant="outlined" color="secondary">
-            Outlined Secondary
-          </Button>
-          </Box>
-          <Button variant="outlined" color="primary">
-            Outlined Primary
-          </Button>
-          <Button variant="contained" color="primary">
-            Contained Primary
-          </Button>
-          <Box bgcolor="primary.main" p={2} >
-          <Button variant="contained" color="secondary">
-            Contained Secondary
-          </Button>
-          </Box>
-        </Stack>
-      </Container>
-    </main>
-    <footer>Footer!</footer>{/* change this to be a proper footer later */}
+            <Box bgcolor="primary.main" p={2}>
+              <Button variant="outlined" color="secondary">
+                Outlined Secondary
+              </Button>
+            </Box>
+            <Button variant="outlined" color="primary">
+              Outlined Primary
+            </Button>
+            <Button variant="contained" color="primary">
+              Contained Primary
+            </Button>
+            <Box bgcolor="primary.main" p={2}>
+              <Button variant="contained" color="secondary">
+                Contained Secondary
+              </Button>
+            </Box>
+          </Stack>
+        </Container>
+      </main>
+      <footer>Footer!</footer>
+      {/* change this to be a proper footer later */}
     </>
   );
 }

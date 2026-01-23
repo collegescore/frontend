@@ -1,16 +1,16 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { Theme } from '@mui/material/styles';
-import InterWoff2 from './fonts/Inter-VariableFont_wght.woff2';
-import {CSSProperties} from 'react';
+import { Theme } from "@mui/material/styles";
+import InterWoff2 from "./fonts/Inter-VariableFont_wght.woff2";
+import { CSSProperties } from "react";
 
 // Augment the palette to include a grayscale color
-declare module '@mui/material/styles' {
+declare module "@mui/material/styles" {
   interface Palette {
-    grayscale: Palette['primary'];
+    grayscale: Palette["primary"];
   }
 
   interface PaletteOptions {
-    grayscale?: PaletteOptions['primary'];
+    grayscale?: PaletteOptions["primary"];
   }
 }
 
@@ -38,18 +38,18 @@ theme = createTheme(theme, {
   palette: {
     secondary: {
       main: "#ffffff",
-      dark:"#e6e6e6",
+      dark: "#e6e6e6",
       contrastText: theme.palette.primary.main,
     },
     grayscale: theme.palette.augmentColor({
-      color:{
+      color: {
         main: "#666666",
         light: "#ffffff",
         dark: "#1a1a1a",
       },
-      name: 'grayscale',
-    })
-  }
+      name: "grayscale",
+    }),
+  },
 });
 
 //Extend the initial theme with typography and component customizations
@@ -60,7 +60,7 @@ theme = createTheme(theme, {
     h3: headingStyles,
     h4: headingStyles,
     body1: {
-      color: theme.palette.grayscale.main
+      color: theme.palette.grayscale.main,
     },
     button: {
       textTransform: "none",
@@ -68,7 +68,7 @@ theme = createTheme(theme, {
       fontWeight: 600,
     },
   },
-  components:{
+  components: {
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
@@ -86,14 +86,14 @@ theme = createTheme(theme, {
         disableRipple: true,
         disableElevation: true,
       },
-      styleOverrides:{
-        root:{
+      styleOverrides: {
+        root: {
           paddingInline: "2rem",
           paddingBlock: "0.75rem",
           borderRadius: "8px",
           transition: "background-color 0.4s ease",
         },
-        outlined:{
+        outlined: {
           borderWidth: "1.5px",
         },
       },
