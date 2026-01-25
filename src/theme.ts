@@ -1,4 +1,4 @@
-'use client'; // Required for MUI themes in Next.js
+"use client"; // Required for MUI themes in Next.js
 
 import { createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
 import { CSSProperties } from "react";
