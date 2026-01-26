@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
 import "./globals.css";
-import Header from '@/components/layout/header';
+import Header from "@/components/layout/header";
 
 export default function RootLayout({
   children,
@@ -18,9 +18,7 @@ export default function RootLayout({
             <CssBaseline />
             <Header /> {/* Header stays at the top */}
             {/* Main tag with ID for the "Skip to Content" link */}
-            <main id="main-content">
-              {children}
-            </main>
+            <main id="main-content">{children}</main>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
