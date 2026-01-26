@@ -1,8 +1,15 @@
 "use client";
 import React from "react";
-import { AppBar, Toolbar, Typography, Container, Box, Link as MuiLink } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Box,
+  Link as MuiLink,
+} from "@mui/material";
 import Link from "next/link";
-import NextLink from 'next/link';
+import NextLink from "next/link";
 import BasicButton from "../common/button";
 
 const Header = () => {
@@ -20,9 +27,9 @@ const Header = () => {
       elevation={0}
       component="header" // Accessibility landmark
       sx={{
-      borderBottom: '1px solid',
-      borderColor: 'divider', // Uses the standard MUI divider color (very subtle)
-  }}
+        borderBottom: "1px solid",
+        borderColor: "divider", // Uses the standard MUI divider color (very subtle)
+      }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
@@ -42,15 +49,14 @@ const Header = () => {
               College Score
             </Link>
           </Typography>
-          
 
           {/* Navigation Section */}
-          <Box 
-            component="nav" 
-            sx={{ 
-              display: 'flex', 
-              gap: 4, 
-              alignItems: 'center' 
+          <Box
+            component="nav"
+            sx={{
+              display: "flex",
+              gap: 4,
+              alignItems: "center",
             }}
           >
             {navLinks.map((link) => (
@@ -60,17 +66,17 @@ const Header = () => {
                 href={link.href}
                 underline="none"
                 sx={{
-                  color: 'grayscale.main',
+                  color: "grayscale.main",
                   fontWeight: 525,
-                  transition: 'color 0.2s ease-in-out',
-                  '&:hover': {
-                    color: 'grayscale.dark', // changes to darker gray on click
+                  transition: "color 0.2s ease-in-out",
+                  "&:hover": {
+                    color: "grayscale.dark", // changes to darker gray on click
                   },
-                  '&:focus-visible': {
-                    outline: '2px solid',
-                    outlineColor: 'primary.main',
-                    outlineOffset: '4px',
-                  }
+                  "&:focus-visible": {
+                    outline: "2px solid",
+                    outlineColor: "primary.main",
+                    outlineOffset: "4px",
+                  },
                 }}
               >
                 {link.name}
