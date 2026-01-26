@@ -1,7 +1,7 @@
-import React from 'react';
-import { Button, ButtonProps } from '@mui/material';
-import Link from 'next/link';
-import { SxProps, Theme } from '@mui/material/styles';
+import React from "react";
+import { Button, ButtonProps } from "@mui/material";
+import Link from "next/link";
+import { SxProps, Theme } from "@mui/material/styles";
 
 /**
  * Props definition for the BasicButton
@@ -10,19 +10,26 @@ import { SxProps, Theme } from '@mui/material/styles';
 interface BasicButtonProps {
   text: string;
   href?: string;
-  color?: "primary" | "secondary" | "inherit" | "success" | "error" | "info" | "warning";
+  color?:
+    | "primary"
+    | "secondary"
+    | "inherit"
+    | "success"
+    | "error"
+    | "info"
+    | "warning";
   sx?: SxProps<Theme>;
-  ariaLabel?: string; 
+  ariaLabel?: string;
   onClick?: () => void;
 }
 
-const BasicButton = ({ 
-  text, 
-  color = "primary", 
-  href, 
-  sx = {}, 
+const BasicButton = ({
+  text,
+  color = "primary",
+  href,
+  sx = {},
   ariaLabel,
-  onClick 
+  onClick,
 }: BasicButtonProps) => {
   return (
     <Button
@@ -32,13 +39,13 @@ const BasicButton = ({
       // Use aria-label if provided, otherwise fallback to button text
       aria-label={ariaLabel || text}
       // Next.js Link Integration
-      component={href ? Link : 'button'}
-      href={href ?? ''}
+      component={href ? Link : "button"}
+      href={href ?? ""}
       // Styling
-      sx={{ 
-        fontWeight: 600, 
-        textTransform: 'none', // Better for readability/a11y than all-caps
-        ...sx 
+      sx={{
+        fontWeight: 600,
+        textTransform: "none", // Better for readability/a11y than all-caps
+        ...sx,
       }}
     >
       {text}
