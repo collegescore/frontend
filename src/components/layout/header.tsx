@@ -17,8 +17,12 @@ const Header = () => {
     <AppBar
       position="sticky"
       color="inherit"
-      elevation={1}
+      elevation={0}
       component="header" // Accessibility landmark
+      sx={{
+      borderBottom: '1px solid',
+      borderColor: 'divider', // Uses the standard MUI divider color (very subtle)
+  }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
@@ -56,11 +60,11 @@ const Header = () => {
                 href={link.href}
                 underline="none"
                 sx={{
-                  color: 'grayscale.main', // Your #666666
-                  fontWeight: 600,
+                  color: 'grayscale.main',
+                  fontWeight: 525,
                   transition: 'color 0.2s ease-in-out',
                   '&:hover': {
-                    color: 'grayscale.dark', // Your darker gray
+                    color: 'grayscale.dark', // changes to darker gray on click
                   },
                   '&:focus-visible': {
                     outline: '2px solid',
@@ -73,7 +77,7 @@ const Header = () => {
               </MuiLink>
             ))}
 
-            {/* CTA Button remains at the end */}
+            {/* Call to action button to add a review */}
             <BasicButton text="Add Review" href="/add-review" />
           </Box>
         </Toolbar>
