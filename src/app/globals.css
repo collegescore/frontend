@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* removed the :root background colors so MUI Theme can take over */
+
+body {
+  /* This ensures the body takes up the full screen but doesn't force a font */
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

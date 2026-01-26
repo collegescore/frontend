@@ -14,21 +14,15 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
 
-          # OVERRIDE: We use --legacy-peer-deps because react-scripts (v5.0.1) 
-          # has a peer dependency conflict with TypeScript (v5.x). 
-          # This flag allows the build to proceed despite the version mismatch.
-
-          # WHY THIS IS SAFE: React Scripts 5's internal build tools (Webpack/Babel) 
-          # are functionally compatible with TypeScript 5 syntax. The mismatch is 
-          # purely a metadata restriction in react-scripts' package.json that was 
-          # never updated. Using this flag bypasses the version check without 
-          # compromising the stability of the build.
-          override-ci-command: npm install --legacy-peer-deps
-
       # Check Formatting (Prettier)
       - run:
           name: Check Formatting
           command: npm run format:check
+      
+      # Linting (ESLint)
+      - run:
+          name: Lint
+          command: npm run lint
 
       # Static Type Checking (TypeScript)
       - run:
@@ -42,7 +36,6 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-          override-ci-command: npm install --legacy-peer-deps
       # run all unit tests
       - run:
           name: Run Jest Tests

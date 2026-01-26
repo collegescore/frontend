@@ -1,20 +1,19 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { Theme } from "@mui/material/styles";
-import InterWoff2 from "./fonts/Inter-VariableFont_wght.woff2";
+"use client"; // Required for MUI themes in Next.js
+
+import { createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
 import { CSSProperties } from "react";
 
-// Augment the palette to include a grayscale color
+// Augment the palette
 declare module "@mui/material/styles" {
   interface Palette {
     grayscale: Palette["primary"];
   }
-
   interface PaletteOptions {
     grayscale?: PaletteOptions["primary"];
   }
 }
 
-// Initial theme creation
+// 1. Initial theme creation
 let theme: Theme = createTheme({
   palette: {
     primary: {
@@ -22,18 +21,17 @@ let theme: Theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "'Inter', sans-serif",
+    // USE THE VARIABLE HERE:
+    fontFamily: "sans-serif",
   },
 });
 
-// Common styles for headings to avoid repetition
 const headingStyles: CSSProperties = {
   fontWeight: 700,
   textTransform: "capitalize",
 };
 
-// Extend the initial theme with more color customizations
-// Benifit: This way we can easily use theme.palette values in our customizations
+// 2. Extend with colors
 theme = createTheme(theme, {
   palette: {
     secondary: {
@@ -52,7 +50,7 @@ theme = createTheme(theme, {
   },
 });
 
-//Extend the initial theme with typography and component customizations
+// 3. Extend with typography & components
 theme = createTheme(theme, {
   typography: {
     h1: headingStyles,
@@ -69,18 +67,7 @@ theme = createTheme(theme, {
     },
   },
   components: {
-    MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Inter';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 100 900;
-          src: url(${InterWoff2}) format('woff2');
-          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2202, U+2206, U+220F, U+2211, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-      `,
-    },
+    // REMOVED: MuiCssBaseline styleOverrides (handled by Next.js now)
     MuiButton: {
       defaultProps: {
         disableRipple: true,
@@ -102,5 +89,4 @@ theme = createTheme(theme, {
 });
 
 const finalTheme: Theme = responsiveFontSizes(theme);
-
 export default finalTheme;
