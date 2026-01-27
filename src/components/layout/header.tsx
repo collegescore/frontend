@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import NextLink from "next/link";
-import BasicButton from "../common/button";
+import BasicButton from "../common/Button";
 
 const Header = () => {
   // List of navigation links
@@ -50,7 +50,7 @@ const Header = () => {
             </Link>
           </Typography>
 
-          {/* Navigation Section */}
+          {/* Navigation Link Section */}
           <Box
             component="nav"
             sx={{
