@@ -36,7 +36,7 @@ const Header = () => {
           {/* Logo which also functions as Home Link */}
           <Typography
             variant="h6" // style as h6 but use h1 for semantics
-            component="h1" 
+            component="h1"
             sx={{
               fontWeight: 700,
               textDecoration: "none",
