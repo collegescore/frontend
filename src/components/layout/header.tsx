@@ -25,18 +25,18 @@ const Header = () => {
       position="sticky"
       color="inherit"
       elevation={0}
-      component="header" // Accessibility landmark
+      component="header"
       sx={{
         borderBottom: "1px solid",
-        borderColor: "divider", // Uses the standard MUI divider color (very subtle)
+        borderColor: "divider", // Uses the standard MUI divider color, a subtle gray
       }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           {/* Logo which also functions as Home Link */}
           <Typography
-            variant="h6" // Visual size (Small)
-            component="h1" // Semantic level (A11y Top Level)
+            variant="h6" // style as h6 but use h1 for semantics
+            component="h1" 
             sx={{
               fontWeight: 700,
               textDecoration: "none",
@@ -70,7 +70,7 @@ const Header = () => {
                   fontWeight: 525,
                   transition: "color 0.2s ease-in-out",
                   "&:hover": {
-                    color: "grayscale.dark", // changes to darker gray on click
+                    color: "grayscale.dark", // changes to darker gray on hover/click
                   },
                   "&:focus-visible": {
                     outline: "2px solid",
