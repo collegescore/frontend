@@ -84,7 +84,7 @@ const Header = () => {
             ))}
 
             {/* Call to action button to add a review */}
-            <BasicButton text="Add Review" href="/add-review" />
+            <BasicButton text="Add Review" color="primary" href="/add-review" />
           </Box>
         </Toolbar>
       </Container>
