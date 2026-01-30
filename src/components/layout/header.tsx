@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import NextLink from "next/link";
-import BasicButton from "../common/Button";
+import AddReviewButton from "../common/AddReviewButton";
 
 const Header = () => {
   // List of navigation links
@@ -84,7 +84,7 @@ const Header = () => {
             ))}
 
             {/* Call to action button to add a review */}
-            <BasicButton text="Add Review" color="primary" href="/add-review" />
+            <AddReviewButton text="Add Review" color="primary"/>
           </Box>
         </Toolbar>
       </Container>
