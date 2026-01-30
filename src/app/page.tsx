@@ -4,8 +4,6 @@ import { Stack, Box, Typography, Button, Container } from "@mui/material";
 function App() {
   return (
     <>
-      <header>Header!</header>
-      {/* change this to be a proper AppBar with responsive menu later */}
       <main>
         {/*replace this with routes later */}
         <Container component="section">
@@ -68,7 +66,6 @@ function App() {
           </Stack>
         </Container>
       </main>
-      <footer>Footer!</footer>
       {/* change this to be a proper footer later */}
     </>
   );
