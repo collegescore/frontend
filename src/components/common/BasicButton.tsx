@@ -21,6 +21,7 @@ export interface BasicButtonProps {
   sx?: SxProps<Theme>;
   ariaLabel?: string;
   onClick?: () => void;
+  variant?: ButtonProps["variant"];
 }
 
 const BasicButton = ({
@@ -30,10 +31,11 @@ const BasicButton = ({
   sx = {},
   ariaLabel,
   onClick,
+  variant = "contained", //button variant defaults to 'contained' if not specified
 }: BasicButtonProps) => {
   return (
     <Button
-      variant="contained"
+      variant={variant}
       color={color}
       onClick={onClick}
       // Use aria-label if provided, otherwise fallback to button text
