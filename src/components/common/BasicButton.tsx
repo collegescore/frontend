@@ -7,7 +7,7 @@ import { SxProps, Theme } from "@mui/material/styles";
  * Props definition for the BasicButton
  * extend MUI's own ButtonProps to stay consistent
  */
-interface BasicButtonProps {
+export interface BasicButtonProps {
   text: string;
   href?: string;
   color?:

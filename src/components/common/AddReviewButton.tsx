@@ -1,44 +1,23 @@
 "use client";
 
 import React from "react";
-import BasicButton from "./Button";
+import BasicButton, { BasicButtonProps } from "./BasicButton";
 import { SxProps, Theme } from "@mui/material/styles";
 
-interface AddReviewButtonProps {
-  // Can choose text and color
-  text?: string;
-  color?:
-    | "primary"
-    | "secondary"
-    | "inherit"
-    | "success"
-    | "error"
-    | "info"
-    | "warning";
-  ariaLabel?: string;
-  sx?: SxProps<Theme>;
-}
+//inherits all props from BasicButton except 'href' which is fixed
+interface AddReviewButtonProps extends Partial<
+  Omit<BasicButtonProps, "href">
+> {}
 
 /**
  * Specialized component that extends BasicButton but ALWAYS points to /add-review.
  * Text and color can be customized, but the href is fixed.
  */
 const AddReviewButton = ({
-  text = "Add Review",
-  color = "primary",
-  ariaLabel,
-  sx,
+  text = "Add Review", //default text if none provided
+  ...props
 }: AddReviewButtonProps) => {
-  return (
-    <BasicButton
-      text={text}
-      color={color}
-      // always goes to /add-review
-      href="/add-review"
-      ariaLabel={ariaLabel || "Add a new college review"}
-      sx={sx}
-    />
-  );
+  return <BasicButton {...props} text={text} href="/add-review" />;
 };
 
 export default AddReviewButton;
