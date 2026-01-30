@@ -5,6 +5,7 @@ import theme from "@/theme";
 import "./globals.css";
 import Header from "@/components/layout/header";
 
+/**layout.tsx files are for UI that wraps different pages */
 export default function RootLayout({
   children,
 }: {

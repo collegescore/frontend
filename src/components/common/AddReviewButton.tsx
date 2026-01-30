@@ -14,7 +14,7 @@ const AddReviewButton = ({
   text = "Add Review", //default text if none provided
   ...props
 }: AddReviewButtonProps) => {
-  return <BasicButton {...props} text={text} href="/add-review" />;
+  return <BasicButton {...props} text={text} href="/review" />;
 };
 
 export default AddReviewButton;
