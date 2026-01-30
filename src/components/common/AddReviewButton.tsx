@@ -4,7 +4,7 @@ import React from "react";
 import BasicButton, { BasicButtonProps } from "./BasicButton";
 
 //inherits all props from BasicButton except 'href' which is fixed
-type AddReviewButtonProps = Partial<Omit<BasicButtonProps, 'href'>>;
+type AddReviewButtonProps = Partial<Omit<BasicButtonProps, "href">>;
 
 /**
  * Specialized component that extends BasicButton but ALWAYS points to /add-review.
