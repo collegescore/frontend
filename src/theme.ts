@@ -85,14 +85,6 @@ theme = createTheme(theme, {
         },
       },
     },
-    MuiContainer: {
-      styleOverrides: {
-        root: {
-          maxWidth: "1200px",
-          paddingBlock: "6rem",
-        },
-      },
-    },
   },
 });
 
