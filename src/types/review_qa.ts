@@ -8,7 +8,7 @@ export type Questions = StarRatingQ | YesNoQ | DateRangeQ | TextQ;
 /**Base interface for all question types*/
 export interface BaseQuestion{
     /**Corresponds to the column name in the DB */
-    questionId: string; 
+    id: string; 
     /**The text of the question being asked */
     question: string;
     /**Is this question required to be answered */
@@ -45,6 +45,6 @@ interface TextQ extends BaseQuestion{
 
 /**What answers to survey questions look like */
 export interface Answer {
-    /**questionId must correspond to the column name in the DB */
-    [questionId: string]: string | number | boolean | Date | null;
+    /**id must correspond to the column name in the DB */
+    [id: string]: string | number | boolean | Date | null;
 }
