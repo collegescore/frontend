@@ -68,7 +68,6 @@ function App() {
         </Container>
         <CTASection />
       </main>
-      {/* change this to be a proper footer later */}
     </>
   );
 }
