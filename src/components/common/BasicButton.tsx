@@ -39,7 +39,7 @@ const BasicButton = ({
       color={color}
       onClick={onClick}
       // Use aria-label if provided, otherwise fallback to button text
-      aria-label={ariaLabel || text}
+      aria-label={ariaLabel}
       // Next.js Link Integration
       component={href ? Link : "button"}
       href={href ?? ""}
