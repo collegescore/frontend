@@ -57,9 +57,6 @@ theme = createTheme(theme, {
     h2: headingStyles,
     h3: headingStyles,
     h4: headingStyles,
-    body1: {
-      color: theme.palette.grayscale.main,
-    },
     button: {
       textTransform: "none",
       fontSize: "1rem",
