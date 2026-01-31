@@ -18,13 +18,14 @@ export default function AboutPage() {
       <AboutSection id="mission" heading="Our Mission">
         <Paragraph>
           Choosing a college is about more than rankings, tuition, or test
-          scores. For many students, it's about feeling safe, supported, and
-          included.
+          scores. For many students, it&apos;s about feeling safe, supported,
+          and included.
         </Paragraph>
         <Paragraph>
           Yet information about accessibility, disability support, safety,
           cultural climate, and inclusion is often hard to find–or filtered
-          through institutional promises rather than students' lived experience.
+          through institutional promises rather than students&apos; lived
+          experience.
         </Paragraph>
         <Paragraph>College Score exists to change that.</Paragraph>
         <Paragraph>
@@ -49,8 +50,8 @@ export default function AboutPage() {
             fontStyle: "italic",
           }}
         >
-          "Even though the accessibility and academics were perfect, the
-          cultural fit wasn't safe."
+          &quot; Even though the accessibility and academics were perfect, the
+          cultural fit wasn&apos;t safe.&quot;
         </Typography>
         <Paragraph>
           Those distinctions matter, and students deserve tools that reflect
@@ -61,7 +62,8 @@ export default function AboutPage() {
       <AboutSection id="difference" heading="What Makes Us Different?">
         <Paragraph>
           Most college search tools rely on schools describing themselves. While
-          that information is important, it shouldn’t be where the story ends.
+          that information is important, it shouldn&apos;t be where the story
+          ends.
         </Paragraph>
         <Paragraph sx={{ mb: 0 }}>
           College Score centers student experiences.{" "}
