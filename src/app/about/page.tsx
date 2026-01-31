@@ -2,6 +2,7 @@ import { Container, Typography } from "@mui/material";
 import Section from "@/components/common/Section";
 import AboutSection from "@/components/about/AboutSection";
 import Paragraph from "@/components/common/Paragraph";
+import CTASection from "@/components/common/CallToAction";
 
 export default function AboutPage() {
   return (
@@ -89,6 +90,7 @@ export default function AboutPage() {
           stories, shared experiences, and word-of-mouth.
         </Paragraph>
       </AboutSection>
+      <CTASection />
     </>
   );
 }
