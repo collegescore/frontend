@@ -6,17 +6,15 @@ import AddReviewButton from './AddReviewButton';
 
 const CTASection = () => {
   return (
-    <Box
-      component="section"
+      <Container 
+      component="section" 
+      id="cta-section"
       sx={{
         bgcolor: 'primary.main',
         color: 'white',
-        py: { xs: 8, md: 12 }, // Increased padding for a more "hero" feel
         textAlign: 'center',
         width: '100%',
-      }}
-    >
-      <Container maxWidth="md">
+      }}>
         <Typography 
           variant="h2" 
           component="h2" 
@@ -30,11 +28,12 @@ const CTASection = () => {
           Share your experience
         </Typography>
 
-        <Typography 
+        <Typography
+          //styled like h6, but semantically a paragraph for screen readers
           variant="h6" 
           component="p"
           sx={{ 
-            mb: 5, 
+            mb: 4, 
             opacity: 0.9, 
             fontWeight: 400,
             maxWidth: '600px',
@@ -47,24 +46,9 @@ const CTASection = () => {
 
         <AddReviewButton 
           text="Rate your school"
-          sx={{ 
-            bgcolor: 'white', 
-            color: 'primary.main',
-            px: 6, // Extra wide padding for a high-importance button
-            py: 1.5,
-            fontSize: '1.1rem',
-            fontWeight: 700,
-            borderRadius: '8px',
-            '&:hover': {
-              bgcolor: 'rgba(255, 255, 255, 0.9)',
-              transform: 'translateY(-2px)', // Subtle lift effect
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.15)',
-            },
-            transition: 'all 0.2s ease-in-out',
-          }}
+          color="secondary"
         />
       </Container>
-    </Box>
   );
 };
 

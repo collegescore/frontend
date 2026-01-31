@@ -1,4 +1,5 @@
 "use client";
+import CTASection from "@/components/common/CallToAction";
 import { Stack, Box, Typography, Button, Container } from "@mui/material";
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
             </Box>
           </Stack>
         </Container>
+        <CTASection />
       </main>
       {/* change this to be a proper footer later */}
     </>
