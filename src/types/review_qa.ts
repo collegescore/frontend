@@ -3,7 +3,7 @@
 export type QuestionType = 'star-rating' | 'yes-no' | 'date-range' | 'text'; //possible question types that we can filter by
 
 /**Union type of all possible question types */
-export type Questions = StarRatingQ | YesNoQ | DateRangeQ | TextQ;
+export type Question = StarRatingQ | YesNoQ | DateRangeQ | TextQ;
 
 /**Base interface for all question types*/
 export interface BaseQuestion{
