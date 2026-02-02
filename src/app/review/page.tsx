@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   Stack,
   Box,
@@ -16,10 +17,33 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 
 function ReviewPage() {
   const router = useRouter();
+  const [answers, setAnswers] = useState<Answer>({});
 
   const handleCancel = () => {
     router.back();
   };
+
+  const handleAnswerChange = (questionId: string, value: any) => {
+    setAnswers(prev => ({ ...prev, [questionId]: value }));
+  };
+
+  // Filter questions based on conditional logic
+  const visibleQuestions = reviewQuestions.filter(question => {
+    // Check if this is a follow-up question by finding its parent
+    const parentQuestion = reviewQuestions.find(
+      q => q.type === 'yes-no' && 
+           q.conditional && 
+           q.followUpQuestionId === question.id  // Parent's followUpQuestionId points to this question
+    );
+    
+    // If this question has a parent, only show it if parent was answered "yes"
+    if (parentQuestion) {
+      return answers[parentQuestion.id] === 'yes';
+    }
+    
+    // Show all non-follow-up questions by default
+    return true;
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -74,13 +98,16 @@ function ReviewPage() {
         </IconButton>
       </Container>
 
-      {reviewQuestions.map((question) => (
+      {visibleQuestions.map((question) => (
         <Container
           key={question.id}
           maxWidth="lg"
           sx={{ bgcolor: "white", borderRadius: 4, pt: 3 }}
         >
-          <ReviewQuestion question={question} />
+          <ReviewQuestion 
+            question={question} 
+            onChange={handleAnswerChange}
+          />
         </Container>
       ))}
       <Button

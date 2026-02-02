@@ -16,9 +16,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 interface ReviewQuestionProps {
   question: Question;
+  onChange?: (questionId: string, value: any) => void;
 }
 
-function ReviewQuestion({ question }: ReviewQuestionProps) {
+function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
   const renderInput = (question: Question) => {
     switch (question.type) {
       case "star-rating":
@@ -36,6 +37,7 @@ function ReviewQuestion({ question }: ReviewQuestionProps) {
             aria-labelledby={`${question.id}-label`}
             name={question.id}
             id={question.id}
+            onChange={(e) => onChange?.(question.id, e.target.value)}
           >
             <FormControlLabel
               value="yes"
