@@ -17,9 +17,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 interface ReviewQuestionProps {
   question: Question;
   onChange?: (questionId: string, value: any) => void;
+  value?: any;
 }
 
-function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
+function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
   const renderInput = (question: Question) => {
     switch (question.type) {
       case "star-rating":
@@ -28,6 +29,8 @@ function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
             name={question.id}
             id={question.id}
             aria-labelledby={`${question.id}-label`}
+            value={value || null}
+            onChange={(e, newValue) => onChange?.(question.id, newValue)}
           />
         );
       case "yes-no":
@@ -37,6 +40,7 @@ function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
             aria-labelledby={`${question.id}-label`}
             name={question.id}
             id={question.id}
+            value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
           >
             <FormControlLabel
@@ -60,12 +64,14 @@ function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
                 name={`${question.id}-start`}
                 views={["year"]}
                 format="YYYY"
+                onChange={(newValue) => onChange?.(`${question.id}-start`, newValue?.year())}
               />
               <DatePicker
                 label="End Year"
                 name={`${question.id}-end`}
                 views={["year"]}
                 format="YYYY"
+                onChange={(newValue) => onChange?.(`${question.id}-end`, newValue?.year())}
               />
             </Stack>
           </LocalizationProvider>
@@ -79,6 +85,8 @@ function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
             multiline
             maxRows={4}
             fullWidth
+            value={value || ""}
+            onChange={(e) => onChange?.(question.id, e.target.value)}
           />
         );
       case "multiple-choice":
@@ -87,7 +95,17 @@ function ReviewQuestion({ question, onChange }: ReviewQuestionProps) {
                 {question.options.map((option, index) => (
                     <FormControlLabel
                         key={index}
-                        control={<Checkbox name={`${question.id}-option-${index}`} />}
+                        control={
+                          <Checkbox 
+                            name={`${question.id}-option-${index}`}
+                            onChange={(e) => {
+                              // Get current selections or empty array
+                              const currentSelections = onChange ? [] : [];
+                              // Update selections based on checked state
+                              onChange?.(question.id, e.target.checked ? option : null);
+                            }}
+                          />
+                        }
                         label={option}
                     />
                 ))}

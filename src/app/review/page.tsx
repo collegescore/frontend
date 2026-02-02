@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Stack,
-  Box,
-  Typography,
-  Container,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Stack, Box, Typography, Container, Button, IconButton} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -19,18 +12,12 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 
 function ReviewPage() {
   const router = useRouter();
-  const [answers, setAnswers] = useState<Answer>({});
-  const [currentStep, setCurrentStep] = useState(0);
+  const [answers, setAnswers] = useState<Answer>({});//Store answers to questions
 
+  // Step management
+  const [currentStep, setCurrentStep] = useState(0);
   const STEPS = ["Demographics","Rating", "Written"];
 
-  const handleCancel = () => {
-    router.back();
-  };
-
-  const handleAnswerChange = (questionId: string, value: any) => {
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
-  };
 
   // Filter questions based on conditional logic AND current step
   const visibleQuestions = reviewQuestions.filter(question => {
@@ -47,18 +34,27 @@ function ReviewPage() {
     );
     
     if (parentQuestion) {
-      return answers[parentQuestion.id] === 'yes';
+      return answers[parentQuestion.id] === 'yes';//Question is shown only if parent was answered 'yes'
     }
     
-    return true;
+    return true;//Question is not conditional, show it
   });
 
+  // Handle cancel action
+  const handleCancel = () => {
+    router.back();
+  };
+  // Handle answer changes
+  const handleAnswerChange = (questionId: string, value: any) => {
+    setAnswers(prev => ({ ...prev, [questionId]: value }));
+  };
+
+ // Navigation handlers
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
       setCurrentStep(prev => prev + 1);
     }
   };
-
   const handlePrevious = () => {
     if (currentStep > 0) {
       setCurrentStep(prev => prev - 1);
@@ -68,22 +64,15 @@ function ReviewPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
-    const reviewData: Answer = {};
-
-    // Convert FormData to object
-    formData.forEach((value, key) => {
-      reviewData[key] = value.toString();
-    });
-
-    console.log("Review data to submit:", reviewData);
+    // Use the answers state instead of FormData since not all questions are visible at submit time
+    console.log("Review data to submit:", answers);
 
     // TODO: Send to backend
     // try {
     //     const response = await fetch('BACKEND_URL/api/reviews', {
     //         method: 'POST',
     //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(reviewData)
+    //         body: JSON.stringify(answers)
     //     });
     //     if (response.ok) {
     //         // Handle success (e.g., redirect or show success message)
@@ -108,7 +97,7 @@ function ReviewPage() {
       >
         <IconButton
           onClick={handleCancel}
-          aria-label="Close and cancel review form"
+          aria-label="Close and cancel your review"
           sx={{
             color: "white",
             "&:hover": { bgcolor: "rgba(255, 255, 255, 0.1)" },
@@ -128,6 +117,7 @@ function ReviewPage() {
         <Box sx={{ width: 48 }} />
       </Container>
 
+      {/* Render visible questions for the current step */}
       {visibleQuestions.map((question) => (
         <Container
           key={question.id}
@@ -137,6 +127,7 @@ function ReviewPage() {
           <ReviewQuestion 
             question={question} 
             onChange={handleAnswerChange}
+            value={answers[question.id]}
           />
         </Container>
       ))}
