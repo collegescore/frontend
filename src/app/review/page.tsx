@@ -53,7 +53,10 @@ function ReviewPage() {
     router.back();
   };
   // Handle answer changes
-  const handleAnswerChange = (questionId: string, value: any) => {
+  const handleAnswerChange = (
+    questionId: string,
+    value: string | number | boolean | Date | null,
+  ) => {
     setAnswers((prev) => {
       const newAnswers = { ...prev, [questionId]: value };
 

@@ -9,15 +9,17 @@ import {
 } from "@mui/material";
 import { Rating, Radio, RadioGroup, TextField, Checkbox } from "@mui/material";
 import { Question } from "@/types/review_qa";
-import { error } from "console";
 
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 interface ReviewQuestionProps {
   question: Question;
-  onChange?: (questionId: string, value: any) => void;
-  value?: any;
+  onChange?: (
+    questionId: string,
+    value: string | number | boolean | Date | null,
+  ) => void;
+  value?: string | number | boolean | Date | null;
 }
 
 function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
@@ -29,7 +31,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             name={question.id}
             id={question.id}
             aria-labelledby={`${question.id}-label`}
-            value={value || null}
+            value={typeof value === "number" ? value : null}
             onChange={(e, newValue) => onChange?.(question.id, newValue)}
           />
         );
@@ -72,7 +74,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}-start`, newValue?.year())
+                  onChange?.(`${question.id}-start`, newValue?.year() ?? null)
                 }
               />
               <DatePicker
@@ -81,7 +83,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}-end`, newValue?.year())
+                  onChange?.(`${question.id}-end`, newValue?.year() ?? null)
                 }
               />
             </Stack>
