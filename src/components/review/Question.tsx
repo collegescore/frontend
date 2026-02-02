@@ -7,7 +7,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import { Rating, Radio, RadioGroup, TextField, Checkbox} from "@mui/material";
+import { Rating, Radio, RadioGroup, TextField, Checkbox } from "@mui/material";
 import { Question } from "@/types/review_qa";
 import { error } from "console";
 
@@ -34,7 +34,10 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           />
         );
       case "yes-no":
-        const hasFollowUp = question.type === 'yes-no' && question.conditional && question.followUpQuestionId;
+        const hasFollowUp =
+          question.type === "yes-no" &&
+          question.conditional &&
+          question.followUpQuestionId;
         return (
           <RadioGroup
             row
@@ -43,7 +46,9 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             id={question.id}
             value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
-            aria-controls={hasFollowUp ? question.followUpQuestionId : undefined}
+            aria-controls={
+              hasFollowUp ? question.followUpQuestionId : undefined
+            }
           >
             <FormControlLabel
               value="yes"
@@ -66,14 +71,18 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 name={`${question.id}-start`}
                 views={["year"]}
                 format="YYYY"
-                onChange={(newValue) => onChange?.(`${question.id}-start`, newValue?.year())}
+                onChange={(newValue) =>
+                  onChange?.(`${question.id}-start`, newValue?.year())
+                }
               />
               <DatePicker
                 label="End Year"
                 name={`${question.id}-end`}
                 views={["year"]}
                 format="YYYY"
-                onChange={(newValue) => onChange?.(`${question.id}-end`, newValue?.year())}
+                onChange={(newValue) =>
+                  onChange?.(`${question.id}-end`, newValue?.year())
+                }
               />
             </Stack>
           </LocalizationProvider>
@@ -92,26 +101,26 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           />
         );
       case "multiple-choice":
-        return(
-            <FormGroup>
-                {question.options.map((option, index) => (
-                    <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox 
-                            name={`${question.id}-option-${index}`}
-                            onChange={(e) => {
-                              // Get current selections or empty array
-                              const currentSelections = onChange ? [] : [];
-                              // Update selections based on checked state
-                              onChange?.(question.id, e.target.checked ? option : null);
-                            }}
-                          />
-                        }
-                        label={option}
-                    />
-                ))}
-            </FormGroup>
+        return (
+          <FormGroup>
+            {question.options.map((option, index) => (
+              <FormControlLabel
+                key={index}
+                control={
+                  <Checkbox
+                    name={`${question.id}-option-${index}`}
+                    onChange={(e) => {
+                      // Get current selections or empty array
+                      const currentSelections = onChange ? [] : [];
+                      // Update selections based on checked state
+                      onChange?.(question.id, e.target.checked ? option : null);
+                    }}
+                  />
+                }
+                label={option}
+              />
+            ))}
+          </FormGroup>
         );
       default:
         return null;
