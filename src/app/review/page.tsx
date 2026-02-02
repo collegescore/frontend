@@ -1,11 +1,13 @@
 "use client";
 
-import {Stack, Box, Typography, Container, Button} from "@mui/material";
+import {Stack, Box, Typography, Container, Button, IconButton} from "@mui/material";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import ReviewQuestion from "@/components/review/Question";
 import { Question, Answer } from "@/types/review_qa";
 import BasicButton from "@/components/common/BasicButton";
+import { useRouter } from "next/navigation";
 
 const questions: Question[] = [
     {
@@ -37,6 +39,12 @@ const questions: Question[] = [
 ];
 
 function ReviewPage() {
+    const router = useRouter();
+
+    const handleCancel = () => {
+        router.back();
+    };
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         
@@ -74,6 +82,19 @@ function ReviewPage() {
             bgcolor="primary.main" 
             sx={{ py: 6 }}
         >
+            <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'flex-start', mb: 2 }}>
+                <IconButton 
+                    onClick={handleCancel}
+                    aria-label="Go back to previous page"
+                    sx={{ 
+                        color: 'white',
+                        '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.1)' }
+                    }}
+                >
+                    <ArrowBackIcon />
+                </IconButton>
+            </Container>
+            
             {questions.map((question) => (
                     <Container 
                         key={question.id} 
@@ -86,9 +107,10 @@ function ReviewPage() {
                 variant="contained" 
                 color="secondary" 
                 sx={{ pt: 2 }}
-                type="submit" 
-                children="Submit Review"
-            />
+                type="submit"
+            >
+                Submit Review
+            </Button>
         </Stack>
     );
 }
