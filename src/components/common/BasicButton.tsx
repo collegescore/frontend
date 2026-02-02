@@ -6,7 +6,7 @@ import Link from "next/link";
  * Props definition for the BasicButton
  * Extends MUI's ButtonProps while adding custom props
  */
-export interface BasicButtonProps extends Omit<ButtonProps, 'href'> {
+export interface BasicButtonProps extends Omit<ButtonProps, "href"> {
   text: string;
   href?: string;
   ariaLabel?: string;
