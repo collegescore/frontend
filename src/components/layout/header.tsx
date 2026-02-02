@@ -35,8 +35,8 @@ const Header = () => {
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           {/* Logo which also functions as Home Link */}
           <Typography
-            variant="h6" // style as h6 but use h1 for semantics
-            component="h1"
+            variant="h6"
+            component="div"
             sx={{
               fontWeight: 700,
               textDecoration: "none",
