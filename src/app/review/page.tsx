@@ -13,6 +13,7 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 function ReviewPage() {
   const router = useRouter();
   const [answers, setAnswers] = useState<Answer>({});//Store answers to questions
+  const [announcement, setAnnouncement] = useState<string>("");
 
   // Step management
   const [currentStep, setCurrentStep] = useState(0);
@@ -46,7 +47,24 @@ function ReviewPage() {
   };
   // Handle answer changes
   const handleAnswerChange = (questionId: string, value: any) => {
-    setAnswers(prev => ({ ...prev, [questionId]: value }));
+    setAnswers(prev => {
+      const newAnswers = { ...prev, [questionId]: value };
+      
+      // Check if this answer triggers a conditional question
+      const question = reviewQuestions.find(q => q.id === questionId);
+      if (question?.type === 'yes-no' && question.conditional && question.followUpQuestionId) {
+        if (value === 'yes') {
+          const followUpQuestion = reviewQuestions.find(q => q.id === question.followUpQuestionId);
+          if (followUpQuestion) {
+            setAnnouncement(`Additional question appeared: ${followUpQuestion.question}`);
+          }
+        } else if (value === 'no') {
+          setAnnouncement(`Follow-up question hidden`);
+        }
+      }
+      
+      return newAnswers;
+    });
   };
 
  // Navigation handlers
@@ -91,6 +109,22 @@ function ReviewPage() {
       bgcolor="primary.main"
       sx={{ py: 6 }}
     >
+      {/* Screen reader announcements for conditional questions */}
+      <div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        style={{
+          position: 'absolute',
+          left: '-10000px',
+          width: '1px',
+          height: '1px',
+          overflow: 'hidden'
+        }}
+      >
+        {announcement}
+      </div>
+
       <Container
         maxWidth="lg"
         sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}
