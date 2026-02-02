@@ -4,6 +4,8 @@ export type QuestionType = "star-rating" | "yes-no" | "date-range" | "text" | "m
 /**Union type of all possible question types */
 export type Question = StarRatingQ | YesNoQ | DateRangeQ | TextQ | MultipleChoiceQ;
 
+type category = "Demographics" | "Rating" | "Written";
+
 /**Base interface for all question types*/
 export interface BaseQuestion {
   /**Corresponds to the column name in the DB */
@@ -14,6 +16,8 @@ export interface BaseQuestion {
   required?: boolean;
   /**Additional help text for the question */
   helpText?: string;
+/**Category the question belongs to */
+  category?: category;
 }
 
 /**Question should be answered with a star rating */
