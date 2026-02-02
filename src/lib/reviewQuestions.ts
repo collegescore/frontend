@@ -6,18 +6,28 @@ import { Question } from "@/types/review_qa";
  */
 export const reviewQuestions: Question[] = [
   {
-    id: "q1",
+    id: "q0",
     category: "Demographics",
     type: "yes-no",
     question: "Do or Did you attend this institution?",
+    required: true,
+    conditional: true,
+    followUpQuestionId: "q1",
+  },
+  {
+    id: "q1",
+    category: "Demographics",
+    type: "date-range",
+    question: "What years did you attend this institution?",
+    helpText: "If you are currently attending, select your start year and the year you expect to graduate.",
     required: true,
   },
   {
     id: "q2",
     category: "Demographics",
-    type: "date-range",
-    question: "What years did you attend this institution?",
-    helpText: "If you are currently attending, select your start year and the year you expect to graduate.",
+    type: "yes-no",
+    question: "Have you used accessibility services at this institution?",
+    helpText: "Accessibility services may use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
     required: true,
   },
   {
@@ -58,9 +68,10 @@ export const reviewQuestions: Question[] = [
     id: "q7",
     category: "Demographics",
     type: "yes-no",
-    question: "Have you used accessibility services at this institution?",
-    helpText: "Accessibility services may use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
+    question: "Do you identify as a person with a disability?",
     required: true,
+    conditional: true,
+    followUpQuestionId: "q8",
   },
   {
     id: "q8",

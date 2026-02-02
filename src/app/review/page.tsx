@@ -9,7 +9,9 @@ import {
   Button,
   IconButton,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ReviewQuestion from "@/components/review/Question";
 import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
@@ -18,6 +20,9 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 function ReviewPage() {
   const router = useRouter();
   const [answers, setAnswers] = useState<Answer>({});
+  const [currentStep, setCurrentStep] = useState(0);
+
+  const STEPS = ["Demographics","Rating", "Written"];
 
   const handleCancel = () => {
     router.back();
@@ -27,23 +32,38 @@ function ReviewPage() {
     setAnswers(prev => ({ ...prev, [questionId]: value }));
   };
 
-  // Filter questions based on conditional logic
+  // Filter questions based on conditional logic AND current step
   const visibleQuestions = reviewQuestions.filter(question => {
-    // Check if this is a follow-up question by finding its parent
+    // First check if question belongs to current step category
+    if (question.category !== STEPS[currentStep]) {
+      return false;
+    }
+
+    // Then check conditional logic
     const parentQuestion = reviewQuestions.find(
       q => q.type === 'yes-no' && 
            q.conditional && 
            q.followUpQuestionId === question.id  // Parent's followUpQuestionId points to this question
     );
     
-    // If this question has a parent, only show it if parent was answered "yes"
     if (parentQuestion) {
       return answers[parentQuestion.id] === 'yes';
     }
     
-    // Show all non-follow-up questions by default
     return true;
   });
+
+  const handleNext = () => {
+    if (currentStep < STEPS.length - 1) {
+      setCurrentStep(prev => prev + 1);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
+    }
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -84,18 +104,28 @@ function ReviewPage() {
     >
       <Container
         maxWidth="lg"
-        sx={{ display: "flex", justifyContent: "flex-start", mb: 2 }}
+        sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}
       >
         <IconButton
           onClick={handleCancel}
-          aria-label="Go back to previous page"
+          aria-label="Close and cancel review form"
           sx={{
             color: "white",
             "&:hover": { bgcolor: "rgba(255, 255, 255, 0.1)" },
           }}
         >
-          <ArrowBackIcon />
+          <CloseIcon />
         </IconButton>
+        
+        {/* Progress indicator */}
+        <Box sx={{ color: "white", textAlign: "center", flex: 1 }}>
+          <Typography variant="caption" sx={{ mt: 1, display: "block" }}>
+            Step {currentStep + 1} of {STEPS.length}
+          </Typography>
+        </Box>
+        
+        {/* Spacer for alignment */}
+        <Box sx={{ width: 48 }} />
       </Container>
 
       {visibleQuestions.map((question) => (
@@ -110,14 +140,45 @@ function ReviewPage() {
           />
         </Container>
       ))}
-      <Button
-        variant="contained"
-        color="secondary"
-        sx={{ pt: 2 }}
-        type="submit"
-      >
-        Submit Review
-      </Button>
+      
+      {/* Navigation buttons */}
+      <Stack direction="row" spacing={2} sx={{ pt: 2 }}>
+        {currentStep > 0 && (
+          <IconButton
+            onClick={handlePrevious}
+            aria-label="Previous step"
+            sx={{
+              color: "white",
+              bgcolor: "rgba(255, 255, 255, 0.1)",
+              "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
+            }}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        )}
+        
+        {currentStep < STEPS.length - 1 ? (
+          <IconButton
+            onClick={handleNext}
+            aria-label="Next step"
+            sx={{
+              color: "white",
+              bgcolor: "rgba(255, 255, 255, 0.1)",
+              "&:hover": { bgcolor: "rgba(255, 255, 255, 0.2)" },
+            }}
+          >
+            <ArrowForwardIcon />
+          </IconButton>
+        ) : (
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+          >
+            Submit Review
+          </Button>
+        )}
+      </Stack>
     </Stack>
   );
 }
