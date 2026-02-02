@@ -1,7 +1,10 @@
-import { FormControl, FormControlLabel, FormLabel, FormHelperText, Typography } from "@mui/material";
+import { FormControl, FormControlLabel, FormLabel, FormHelperText, Typography, Stack } from "@mui/material";
 import {Rating, Radio, RadioGroup, TextField} from "@mui/material";
 import { Question } from "@/types/review_qa";
 import { error } from "console";
+
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 interface ReviewQuestionProps {
     question: Question;
@@ -11,16 +14,33 @@ function ReviewQuestion({ question}: ReviewQuestionProps) {
     const renderInput = (question: Question) => {
         switch(question.type) {
             case "star-rating":
-                return <Rating id={question.id} aria-labelledby={`${question.id}-label`} />;
+                return <Rating name={question.id} id={question.id} aria-labelledby={`${question.id}-label`} />;
             case "yes-no":
-                return <RadioGroup row aria-labelledby={`${question.id}-label`} id={question.id}>
+                return <RadioGroup row aria-labelledby={`${question.id}-label`} name={question.id} id={question.id}>
                             <FormControlLabel value="yes" control={<Radio id={`${question.id}-yes`} />} label="Yes" />
                             <FormControlLabel value="no" control={<Radio id={`${question.id}-no`} />} label="No" />
                         </RadioGroup>
-            //case "date-range":
-                //return <DatePicker/>;
+            case "date-range":
+                return (
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Stack direction="row" spacing={2}>
+                            <DatePicker 
+                                label="Start Year" 
+                                name={`${question.id}-start`}
+                                views={['year']}
+                                format="YYYY"
+                            />
+                            <DatePicker 
+                                label="End Year" 
+                                name={`${question.id}-end`}
+                                views={['year']}
+                                format="YYYY"
+                            />
+                        </Stack>
+                    </LocalizationProvider>
+                );
             case "text":
-                return <TextField id={question.id} aria-labelledby={`${question.id}-label`} multiline maxRows={4} fullWidth />;
+                return <TextField name={question.id} id={question.id} aria-labelledby={`${question.id}-label`} multiline maxRows={4} fullWidth />;
             default:
                 return null;
         }
