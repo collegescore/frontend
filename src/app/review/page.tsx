@@ -127,7 +127,7 @@ function ReviewPage() {
           <ReviewQuestion 
             question={question} 
             onChange={handleAnswerChange}
-            value={answers[question.id]}
+            value={answers[question.id]}//Empty or previous answer
           />
         </Container>
       ))}
