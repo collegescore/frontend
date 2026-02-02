@@ -2,11 +2,8 @@
 
 import {Stack, Box, Typography, Container, Button, IconButton} from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Section from "@/components/common/Section";
-import Paragraph from "@/components/common/Paragraph";
 import ReviewQuestion from "@/components/review/Question";
 import { Question, Answer } from "@/types/review_qa";
-import BasicButton from "@/components/common/BasicButton";
 import { useRouter } from "next/navigation";
 
 const questions: Question[] = [
