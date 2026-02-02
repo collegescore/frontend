@@ -10,37 +10,9 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ReviewQuestion from "@/components/review/Question";
-import { Question, Answer } from "@/types/review_qa";
+import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
-
-const questions: Question[] = [
-  {
-    id: "q1",
-    type: "star-rating",
-    question: "How satisfied are you with our service?",
-    required: true,
-  },
-  {
-    id: "q2",
-    type: "yes-no",
-    question: "Would you recommend our service to others?",
-    required: true,
-  },
-  {
-    id: "q3",
-    type: "date-range",
-    question: "Select the date range for your experience",
-    required: true,
-  },
-  {
-    id: "q4",
-    type: "text",
-    question: "Please provide any additional comments",
-    multiline: true,
-    maxLength: 500,
-    placeholder: "Enter your comments here...",
-  },
-];
+import { reviewQuestions } from "@/lib/reviewQuestions";
 
 function ReviewPage() {
   const router = useRouter();
@@ -102,7 +74,7 @@ function ReviewPage() {
         </IconButton>
       </Container>
 
-      {questions.map((question) => (
+      {reviewQuestions.map((question) => (
         <Container
           key={question.id}
           maxWidth="lg"
