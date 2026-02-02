@@ -1,8 +1,11 @@
-import {Stack, Box, Typography, Container} from "@mui/material";
+"use client";
+
+import {Stack, Box, Typography, Container, Button} from "@mui/material";
 import Section from "@/components/common/Section";
 import Paragraph from "@/components/common/Paragraph";
 import ReviewQuestion from "@/components/review/Question";
-import { Question } from "@/types/review_qa";
+import { Question, Answer } from "@/types/review_qa";
+import BasicButton from "@/components/common/BasicButton";
 
 const questions: Question[] = [
     {
@@ -34,9 +37,43 @@ const questions: Question[] = [
 ];
 
 function ReviewPage() {
-    return (
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        
+        const formData = new FormData(event.currentTarget);
+        const reviewData: Answer = {};
+        
+        // Convert FormData to object
+        formData.forEach((value, key) => {
+            reviewData[key] = value.toString();
+        });
+        
+        console.log('Review data to submit:', reviewData);
+        
+        // TODO: Send to backend
+        // try {
+        //     const response = await fetch('BACKEND_URL/api/reviews', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(reviewData)
+        //     });
+        //     if (response.ok) {
+        //         // Handle success (e.g., redirect or show success message)
+        //     }
+        // } catch (error) {
+        //     console.error('Error submitting review:', error);
+        // }
+    };
 
-        <Stack component="form" spacing={2} alignItems="center" bgcolor="primary.main" sx={{ py: 6}}>
+    return (
+        <Stack 
+            component="form" 
+            onSubmit={handleSubmit}
+            spacing={2} 
+            alignItems="center" 
+            bgcolor="primary.main" 
+            sx={{ py: 6 }}
+        >
             {questions.map((question) => (
                     <Container 
                         key={question.id} 
@@ -45,6 +82,13 @@ function ReviewPage() {
                         <ReviewQuestion question={question} />
                     </Container>
             ))}
+            <Button 
+                variant="contained" 
+                color="secondary" 
+                sx={{ pt: 2 }}
+                type="submit" 
+                children="Submit Review"
+            />
         </Stack>
     );
 }
