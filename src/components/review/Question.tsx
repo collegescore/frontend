@@ -1,12 +1,13 @@
 import {
   FormControl,
+  FormGroup,
   FormControlLabel,
   FormLabel,
   FormHelperText,
   Typography,
   Stack,
 } from "@mui/material";
-import { Rating, Radio, RadioGroup, TextField } from "@mui/material";
+import { Rating, Radio, RadioGroup, TextField, Checkbox} from "@mui/material";
 import { Question } from "@/types/review_qa";
 import { error } from "console";
 
@@ -77,6 +78,18 @@ function ReviewQuestion({ question }: ReviewQuestionProps) {
             maxRows={4}
             fullWidth
           />
+        );
+      case "multiple-choice":
+        return(
+            <FormGroup>
+                {question.options.map((option, index) => (
+                    <FormControlLabel
+                        key={index}
+                        control={<Checkbox name={`${question.id}-option-${index}`} />}
+                        label={option}
+                    />
+                ))}
+            </FormGroup>
         );
       default:
         return null;
