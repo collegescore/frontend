@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Autocomplete, TextField, Box, Typography } from '@mui/material';
 import { College } from '../../types/college';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 // Hardcoded List of Approved Colleges for v0
 const V0_COLLEGES: College[] = [
@@ -17,7 +19,7 @@ export const UniversitySearch = () => {
       
       <Autocomplete
         options={V0_COLLEGES}
-        // Displays the college name in the dropdown
+        // Displays the college name field (as opposed to slug or id etc) in the dropdown
         getOptionLabel={(option) => option.name}
         // Ensures the component handles the "Selected" state correctly
         value={value}
@@ -34,6 +36,14 @@ export const UniversitySearch = () => {
             {...params} 
             label="Search Colleges" 
             placeholder="e.g. University of..." 
+            InputProps={{
+                ...params.InputProps,
+                startAdornment: (
+                <InputAdornment position="start">
+                    <SearchIcon color="action" />
+                </InputAdornment>
+                ),
+            }}
           />
         )}
       />
