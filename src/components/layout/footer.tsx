@@ -58,7 +58,7 @@ const Footer = () => {
               </MuiLink>
               <MuiLink
                 component={NextLink}
-                href="/add-review"
+                href="/review"
                 color="inherit"
                 underline="hover"
               >
