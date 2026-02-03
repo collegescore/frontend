@@ -1,24 +1,16 @@
 import React, { useState } from 'react';
 import { Autocomplete, TextField, Box, Typography } from '@mui/material';
+import { College } from '../../types/college';
 
-// Define the shape of your university data
-interface University {
-  id: string;
-  name: string;
-  location: string;
-}
-
-// v0 Hardcoded List
-const APPROVED_COLLEGES: University[] = [
-  { id: '1', name: 'University of Washington', location: 'Seattle, WA' },
-  { id: '2', name: 'Stanford University', location: 'Stanford, CA' },
-  { id: '3', name: 'MIT', location: 'Cambridge, MA' },
-  { id: '4', name: 'Georgia Institute of Technology', location: 'Atlanta, GA' },
-  // Add your other v0 schools here
+// Hardcoded List of Approved Colleges for v0
+const V0_COLLEGES: College[] = [
+  { id: 377555, slug: 'university-of-washington-bothell-campus-bothell-wa', name: 'University of Washington-Bothell Campus', city: 'Bothell', state: 'WA' },
+  { id: 236948, slug: 'university-of-washington-seattle-campus-seattle-wa', name: 'University of Washington-Seattle Campus', city: 'Seattle', state: 'WA' },
+  { id: 377564, slug: 'university-of-washington-tacoma-campus-tacoma-wa', name: 'University of Washington-Tacoma Campus', city: 'Tacoma', state: 'WA' },
 ];
 
 export const UniversitySearch = () => {
-  const [value, setValue] = useState<University | null>(null);
+  const [value, setValue] = useState<College | null>(null);
 
   return (
     <Box sx={{ width: 400, margin: '2rem auto' }}>
@@ -27,8 +19,8 @@ export const UniversitySearch = () => {
       </Typography>
       
       <Autocomplete
-        options={APPROVED_COLLEGES}
-        // Tells MUI which property to display in the list
+        options={V0_COLLEGES}
+        // Displays the college name in the dropdown
         getOptionLabel={(option) => option.name}
         // Ensures the component handles the "Selected" state correctly
         value={value}
@@ -46,17 +38,6 @@ export const UniversitySearch = () => {
             label="Search Schools" 
             placeholder="e.g. University of..." 
           />
-        )}
-        // Custom rendering for the dropdown items (optional)
-        renderOption={(props, option) => (
-          <Box component="li" {...props} key={option.id}>
-            <Box>
-              <Typography variant="body1">{option.name}</Typography>
-              <Typography variant="caption" color="text.secondary">
-                {option.location}
-              </Typography>
-            </Box>
-          </Box>
         )}
       />
     </Box>
