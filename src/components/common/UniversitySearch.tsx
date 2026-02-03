@@ -9,6 +9,7 @@ const V0_COLLEGES: College[] = [
   { id: 377555, slug: 'university-of-washington-bothell-campus-bothell-wa', name: 'University of Washington-Bothell Campus', city: 'Bothell', state: 'WA' },
   { id: 236948, slug: 'university-of-washington-seattle-campus-seattle-wa', name: 'University of Washington-Seattle Campus', city: 'Seattle', state: 'WA' },
   { id: 377564, slug: 'university-of-washington-tacoma-campus-tacoma-wa', name: 'University of Washington-Tacoma Campus', city: 'Tacoma', state: 'WA' },
+  { id: 211943, slug: 'emerson-college-boston-ma', name: 'Emerson College', city: 'Boston', state: 'MA' },
 ];
 
 export const UniversitySearch = () => {
@@ -24,14 +25,14 @@ export const UniversitySearch = () => {
         
         // Custom filter to allow search by name, city, or state
         filterOptions={(options, { inputValue }) => {
-            // put user input to lowercase for case-insensitive matching
-            const searchTerm = inputValue.toLowerCase();
-            return options.filter((college) => 
-            // put college fields to lowercase for case-insensitive matching
-            college.name.toLowerCase().includes(searchTerm) ||
-            college.city.toLowerCase().includes(searchTerm) ||
-            college.state.toLowerCase().includes(searchTerm)
-            );
+          // change input to lowercase and trim whitespace for better matching
+          const query = inputValue.toLowerCase().trim();
+          return options.filter((college) => 
+            // check if query matches name, city, or state stored in database (in lowercase for matching)
+            college.name.toLowerCase().includes(query) ||
+            college.city.toLowerCase().includes(query) ||
+            college.state.toLowerCase().includes(query)
+          );
         }}
 
         // Ensures the component handles the "Selected" state correctly
