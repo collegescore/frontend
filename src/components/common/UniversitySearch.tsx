@@ -14,9 +14,6 @@ export const UniversitySearch = () => {
 
   return (
     <Box sx={{ width: 400, margin: '2rem auto' }}>
-      <Typography variant="h6" gutterBottom>
-        Find your University
-      </Typography>
       
       <Autocomplete
         options={V0_COLLEGES}
@@ -35,7 +32,7 @@ export const UniversitySearch = () => {
         renderInput={(params) => (
           <TextField 
             {...params} 
-            label="Search Schools" 
+            label="Search Colleges" 
             placeholder="e.g. University of..." 
           />
         )}
