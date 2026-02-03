@@ -29,7 +29,11 @@ const V0_COLLEGES: College[] = [
   },
 ];
 
-export const UniversitySearch = () => {
+interface UniversitySearchProps {
+  onSelect?: (college: College | null) => void;
+}
+
+export const UniversitySearch = ({ onSelect }: UniversitySearchProps) => {
   const [value, setValue] = useState<College | null>(null);
 
   return (
@@ -38,6 +42,20 @@ export const UniversitySearch = () => {
         options={V0_COLLEGES}
         // Displays the college name field (as opposed to slug or id etc) in the dropdown
         getOptionLabel={(option) => option.name}
+        // a11y custom rendering of each option in the dropdown for better screen reader support
+        renderOption={(props, option) => {
+          const { key, ...optionProps } = props;
+          return (
+            <li key={option.id} {...optionProps}>
+              <Box>
+                <Typography variant="body1">{option.name}</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {option.city}, {option.state}
+                </Typography>
+              </Box>
+            </li>
+          );
+        }}
         // Custom filter to allow search by name, city, or state
         filterOptions={(options, { inputValue }) => {
           // change input to lowercase and trim whitespace for better matching
@@ -54,8 +72,12 @@ export const UniversitySearch = () => {
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
-          if (newValue) {
-            console.log(`Selected: ${newValue.name} (ID: ${newValue.id})`);
+
+          // basically sends the selected college back to the parent component if onSelect is provided
+          // for example, in the survey page, it uses this to set the selected college for the review form
+          // on the search page, it uses this to potentially redirect to the college's review page
+          if (onSelect) {
+            onSelect(newValue);
           }
         }}
         // The search logic (default is starts-with/contains)
@@ -68,7 +90,7 @@ export const UniversitySearch = () => {
               startAdornment: (
                 // this is for the magnifying glass search icon
                 <InputAdornment position="start">
-                  <SearchIcon color="action" />
+                  <SearchIcon color="action" aria-hidden="true" />
                 </InputAdornment>
               ),
             }}
