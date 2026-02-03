@@ -28,43 +28,50 @@ const Footer = () => {
 
           {/* Column 2: Quick Links */}
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
+            <Typography
+              variant="subtitle1"
+              id="footer-links"
+              sx={{ fontWeight: 700, mb: 2 }}
+            >
               Quick Links
             </Typography>
-            <Stack spacing={1}>
-              <MuiLink
-                component={NextLink}
-                href="/"
-                color="inherit"
-                underline="hover"
-              >
-                Home
-              </MuiLink>
-              <MuiLink
-                component={NextLink}
-                href="/search"
-                color="inherit"
-                underline="hover"
-              >
-                Search Schools
-              </MuiLink>
-              <MuiLink
-                component={NextLink}
-                href="/about"
-                color="inherit"
-                underline="hover"
-              >
-                About Us
-              </MuiLink>
-              <MuiLink
-                component={NextLink}
-                href="/review"
-                color="inherit"
-                underline="hover"
-              >
-                Write a Review
-              </MuiLink>
-            </Stack>
+
+            <nav aria-labelledby="footer-links">
+              <Stack spacing={1}>
+                <MuiLink
+                  component={NextLink}
+                  href="/"
+                  color="inherit"
+                  underline="hover"
+                >
+                  Home
+                </MuiLink>
+                <MuiLink
+                  component={NextLink}
+                  href="/search"
+                  color="inherit"
+                  underline="hover"
+                >
+                  Search Schools
+                </MuiLink>
+                <MuiLink
+                  component={NextLink}
+                  href="/about"
+                  color="inherit"
+                  underline="hover"
+                >
+                  About Us
+                </MuiLink>
+                <MuiLink
+                  component={NextLink}
+                  href="/review"
+                  color="inherit"
+                  underline="hover"
+                >
+                  Write a Review
+                </MuiLink>
+              </Stack>
+            </nav>
           </Grid>
 
           {/* Column 3: CREATE Acknowledgment */}
