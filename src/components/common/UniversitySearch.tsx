@@ -21,24 +21,36 @@ export const UniversitySearch = () => {
         options={V0_COLLEGES}
         // Displays the college name field (as opposed to slug or id etc) in the dropdown
         getOptionLabel={(option) => option.name}
+        
+        // Custom filter to allow search by name, city, or state
+        filterOptions={(options, { inputValue }) => {
+            // put user input to lowercase for case-insensitive matching
+            const searchTerm = inputValue.toLowerCase();
+            return options.filter((college) => 
+            // put college fields to lowercase for case-insensitive matching
+            college.name.toLowerCase().includes(searchTerm) ||
+            college.city.toLowerCase().includes(searchTerm) ||
+            college.state.toLowerCase().includes(searchTerm)
+            );
+        }}
+
         // Ensures the component handles the "Selected" state correctly
         value={value}
         onChange={(event, newValue) => {
           setValue(newValue);
           if (newValue) {
             console.log(`Selected: ${newValue.name} (ID: ${newValue.id})`);
-            // Here is where you'd navigate to the review page
           }
         }}
         // The search logic (default is starts-with/contains)
         renderInput={(params) => (
           <TextField 
             {...params} 
-            label="Search Colleges" 
-            placeholder="e.g. University of..." 
+            placeholder="Search by school name or location" 
             InputProps={{
                 ...params.InputProps,
                 startAdornment: (
+                // this is for the magnifying glass search icon
                 <InputAdornment position="start">
                     <SearchIcon color="action" />
                 </InputAdornment>
