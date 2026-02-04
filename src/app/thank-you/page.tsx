@@ -46,77 +46,55 @@ export default function ThankYouPage() {
               share this resource with students from other schools. We&apos;ll
               reach out when we&apos;re ready to expand!
             </Paragraph>
-          </Stack>
-        </Container>
-      </Section>
 
-      <Section bgcolor="primary.main" id="stay-updated">
-        <Container
-          sx={{
-            color: "white",
-            textAlign: "center",
-          }}
-        >
-          <Typography
-            variant="h2"
-            component="h2"
-            sx={{
-              fontWeight: 800,
-              mb: 2,
-              fontSize: { xs: "2.25rem", sm: "3rem", md: "3.75rem" },
-              lineHeight: 1.2,
-            }}
-          >
-            Stay Updated
-          </Typography>
-
-          <Typography
-            variant="h6"
-            component="p"
-            sx={{
-              mb: 4,
-              opacity: 0.9,
-              fontWeight: 400,
-              maxWidth: "600px",
-              mx: "auto",
-              lineHeight: 1.6,
-            }}
-          >
-            Enter your email to receive updates on the project and be notified
-            when we need help finding more respondents.
-          </Typography>
-
-          <Box
-            component="form"
-            onSubmit={handleEmailSubmit}
-            sx={{
-              maxWidth: 500,
-              mx: "auto",
-            }}
-          >
-            <Stack spacing={2}>
-              <TextField
-                type="email"
-                label="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                fullWidth
-                disabled={submitted}
-                placeholder="your.email@example.com"
-                aria-label="Email address for project updates"
-                sx={{
-                  bgcolor: "white",
-                  borderRadius: 1,
-                }}
-              />
+            <Box
+              component="form"
+              onSubmit={handleEmailSubmit}
+              sx={{
+                width: "100%",
+                maxWidth: 600,
+                mt: 2,
+              }}
+            >
+              <Stack direction="row" spacing={0}>
+                <TextField
+                  type="email"
+                  label="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  fullWidth
+                  disabled={submitted}
+                  placeholder="your.email@example.com"
+                  aria-label="Email address for project updates"
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      borderTopRightRadius: 0,
+                      borderBottomRightRadius: 0,
+                    },
+                  }}
+                />
+                <BasicButton
+                  text="Keep Me Updated"
+                  type="submit"
+                  variant="contained"
+                  disabled={submitted}
+                  sx={{
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                    whiteSpace: "nowrap",
+                    minWidth: "fit-content",
+                  }}
+                />
+              </Stack>
               <Typography
                 variant="caption"
                 sx={{
-                  color: "white",
-                  opacity: 0.8,
+                  color: "grayscale.main",
+                  display: "block",
                   textAlign: "left",
                   fontSize: "0.75rem",
+                  mt: 1,
                   px: 1,
                 }}
               >
@@ -124,29 +102,22 @@ export default function ThankYouPage() {
                 from College Score about the project and opportunities to
                 contribute.
               </Typography>
-              <BasicButton
-                text={submitted ? "Thank You!" : "Subscribe for Updates"}
-                type="submit"
-                variant="contained"
-                color="secondary"
-                disabled={submitted}
-                sx={{ width: "100%" }}
-              />
-            </Stack>
-            {submitted && (
-              <Typography
-                variant="body2"
-                sx={{
-                  mt: 2,
-                  color: "white",
-                  fontWeight: 600,
-                }}
-                role="status"
-              >
-                Thanks for subscribing! We&apos;ll keep you posted.
-              </Typography>
-            )}
-          </Box>
+              {submitted && (
+                <Typography
+                  variant="body2"
+                  color="success.main"
+                  sx={{
+                    mt: 2,
+                    fontWeight: 600,
+                    textAlign: "center",
+                  }}
+                  role="status"
+                >
+                  Thanks for subscribing! We&apos;ll keep you posted.
+                </Typography>
+              )}
+            </Box>
+          </Stack>
         </Container>
       </Section>
     </>
