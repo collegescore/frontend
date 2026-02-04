@@ -117,7 +117,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how safe do you feel on campus and the surrounding area as a person with your identities?" +
-      "\n 1 being not safe at all, 5 being incredibly safe.",
+      "\n 1 being not safe at all, 5 being very safe.",
   },
   {
     id: "q10",
@@ -125,7 +125,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how inclusive to your identities are your peers" +
-      "\n 1 being not inclusive at all, 5 being incredibly inclusive.",
+      "\n 1 being not inclusive at all, 5 being very inclusive.",
   },
   {
     id: "q11",
@@ -133,7 +133,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how inclusive to your identities is your institution (such as staff and faculty)" +
-      "\n 1 being not supportive at all, 5 being incredibly supportive.",
+      "\n 1 being not supportive at all, 5 being very supportive.",
   },
   {
     id: "q12",
@@ -157,7 +157,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how accessible is your campus infrastructure?" +
-      "\n 1 being not accessible at all, 5 being incredibly accessible.",
+      "\n 1 being not accessible at all, 5 being very accessible.",
   },
   {
     id: "q15",
@@ -173,7 +173,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how reliable are your accommodations provided by DRS/faculty" +
-      "\n 1 being not reliable at all, 5 being incredibly reliable.",
+      "\n 1 being not reliable at all, 5 being very reliable.",
   },
   //Write-in Questions
   {
