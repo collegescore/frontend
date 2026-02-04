@@ -30,16 +30,21 @@ export default function ThankYouPage() {
             <Typography variant="h1" textAlign="center">
               Thank You!
             </Typography>
-            <Paragraph sx={{ textAlign: "center", mb: 0 }} role="status" aria-live="polite">
+            <Paragraph
+              sx={{ textAlign: "center", mb: 0 }}
+              role="status"
+              aria-live="polite"
+            >
               Your review has been successfully submitted. Your insights will
               help prospective students make informed decisions about their
               college experience.
             </Paragraph>
             <Paragraph sx={{ textAlign: "center" }}>
-              We appreciate your support during this early data collection phase. 
-              As we are currently focused on gathering responses from University of Washington students, 
-              we kindly ask that you wait to share this resource with students from other schools. 
-              We&apos;ll reach out when we&apos;re ready to expand!
+              We appreciate your support during this early data collection
+              phase. As we are currently focused on gathering responses from
+              University of Washington students, we kindly ask that you wait to
+              share this resource with students from other schools. We&apos;ll
+              reach out when we&apos;re ready to expand!
             </Paragraph>
           </Stack>
         </Container>
@@ -77,7 +82,7 @@ export default function ThankYouPage() {
               lineHeight: 1.6,
             }}
           >
-            Enter your email to receive updates on the project and be notified 
+            Enter your email to receive updates on the project and be notified
             when we need help finding more respondents.
           </Typography>
 
@@ -115,8 +120,9 @@ export default function ThankYouPage() {
                   px: 1,
                 }}
               >
-                By providing your email, you consent to receive periodic updates 
-                from College Score about the project and opportunities to contribute.
+                By providing your email, you consent to receive periodic updates
+                from College Score about the project and opportunities to
+                contribute.
               </Typography>
               <BasicButton
                 text={submitted ? "Thank You!" : "Subscribe for Updates"}
@@ -130,7 +136,7 @@ export default function ThankYouPage() {
             {submitted && (
               <Typography
                 variant="body2"
-                sx={{ 
+                sx={{
                   mt: 2,
                   color: "white",
                   fontWeight: 600,
