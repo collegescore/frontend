@@ -31,6 +31,7 @@ const V0_COLLEGES: College[] = [
 
 interface UniversitySearchProps {
   onSelect?: (college: College | null) => void;
+  // width of search bar is adjustable, parent component can decide how wide the search bar should be.
   width?: string | number;
 }
 

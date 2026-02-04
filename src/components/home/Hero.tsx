@@ -45,8 +45,8 @@ const HeroSection = () => {
           disclose how well they meet accessibility needs. College Score is
           working to change that.
         </Typography>
-        <UniversitySearch />
-        <AddReviewButton text="Add Your Review" color="primary" />
+        <UniversitySearch/>
+        <AddReviewButton text="Add Your Review" color="primary"/>
       </Container>
     </Section>
   );
