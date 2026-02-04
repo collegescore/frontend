@@ -1,11 +1,13 @@
 "use client";
 import CTASection from "@/components/common/CallToAction";
 import { Stack, Box, Typography, Button, Container } from "@mui/material";
+import HeroSection from "@/components/home/Hero";
 
 function App() {
   return (
     <>
       <main>
+        <HeroSection />
         {/*replace this with routes later */}
         <Container component="section">
           <Stack alignItems={"center"} gap={2}>
