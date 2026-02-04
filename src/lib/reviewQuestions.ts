@@ -140,8 +140,8 @@ export const reviewQuestions: Question[] = [
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how rarely do you hear ableist/derogatory language from students?",
-    helpText: "1 being frequently, 5 being never.",
+      "On a scale of 1-5 how rarely do you hear ableist/derogatory language from students?"
+    +  "\n1 being frequently, 5 being never.", //TODO:  figure out the math so we can do the wording to make more sense
   },
   {
     id: "q13",
@@ -149,7 +149,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1-5 how rarely do you hear ableist/derogatory language from staff?",
-    helpText: "1 being frequently, 5 being never.",
+    helpText: "1 being frequently, 5 being never.",  //TODO:  figure out the math so we can do the wording to make more sense
   },
   {
     id: "q14",
