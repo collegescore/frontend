@@ -29,7 +29,7 @@ export const reviewQuestions: Question[] = [
     type: "yes-no",
     question: "Have you used accessibility services at this institution?",
     helpText:
-      "Accessibility services may use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
+      "Accessibility services may include use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
     required: true,
   },
   {
@@ -164,8 +164,7 @@ export const reviewQuestions: Question[] = [
     type: "star-rating",
     question:
       "On a scale of 1–5, how easy is it for students to find and participate in disability communities and spaces on or near campus?",
-    helpText:
-      "1 being not accessible at all, 5 being very accessible and welcoming.",
+    helpText: "1 being very difficult, 5 being very easy.",
   },
   {
     id: "q16",
@@ -212,30 +211,4 @@ export const reviewQuestions: Question[] = [
     multiline: true,
     placeholder: "Enter your response here...",
   },
-  /*{
-    id: "q1",
-    type: "star-rating",
-    question: "How satisfied are you with our service?",
-    required: true,
-  },
-  {
-    id: "q2",
-    type: "yes-no",
-    question: "Would you recommend our service to others?",
-    required: true,
-  },
-  {
-    id: "q3",
-    type: "date-range",
-    question: "Select the date range for your experience",
-    required: true,
-  },
-  {
-    id: "q4",
-    type: "text",
-    question: "Please provide any additional comments",
-    multiline: true,
-    maxLength: 500,
-    placeholder: "Enter your comments here...",
-  },*/
 ];
