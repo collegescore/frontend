@@ -18,18 +18,16 @@ export const reviewQuestions: Question[] = [
     id: "q1",
     category: "Demographics",
     type: "date-range",
-    question: "What years did you attend this institution?",
-    helpText:
-      "If you are currently attending, select your start year and the year you expect to graduate.",
+    question: "What years did you attend this institution?"
+    + "\nIf you are currently attending, select your start year and the year you expect to graduate.",
     required: true,
   },
   {
     id: "q2",
     category: "Demographics",
     type: "yes-no",
-    question: "Have you used accessibility services at this institution?",
-    helpText:
-      "Accessibility services may include use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
+    question: "Have you used accessibility services at this institution?"
+    + "\n Accessibility services may include use of an assistive technology, extended test time, note taking assistance, accessible housing, etc.",
     required: true,
   },
   {
@@ -116,24 +114,24 @@ export const reviewQuestions: Question[] = [
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how safe do you feel on campus and the surrounding area as a person with your identities?",
-    helpText: "1 being not safe at all, 5 being incredibly safe.",
+      "On a scale of 1-5 how safe do you feel on campus and the surrounding area as a person with your identities?"
+    + "\n 1 being not safe at all, 5 being incredibly safe.",
   },
   {
     id: "q10",
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how inclusive to your identities are your peers",
-    helpText: "1 being not inclusive at all, 5 being incredibly inclusive.",
+      "On a scale of 1-5 how inclusive to your identities are your peers"
+    + "\n 1 being not inclusive at all, 5 being incredibly inclusive.",
   },
   {
     id: "q11",
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how inclusive to your identities is your institution (such as staff and faculty)",
-    helpText: "1 being not supportive at all, 5 being incredibly supportive.",
+      "On a scale of 1-5 how inclusive to your identities is your institution (such as staff and faculty)"
+    + "\n 1 being not supportive at all, 5 being incredibly supportive.",
   },
   {
     id: "q12",
@@ -148,31 +146,31 @@ export const reviewQuestions: Question[] = [
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how rarely do you hear ableist/derogatory language from staff?",
-    helpText: "1 being frequently, 5 being never.",  //TODO:  figure out the math so we can do the wording to make more sense
+      "On a scale of 1-5 how rarely do you hear ableist/derogatory language from staff?"
+    + "\n 1 being frequently, 5 being never.",  //TODO:  figure out the math so we can do the wording to make more sense
   },
   {
     id: "q14",
     category: "Rating",
     type: "star-rating",
-    question: "On a scale of 1-5 how accessible is your campus infrastructure?",
-    helpText: "1 being not accessible at all, 5 being incredibly accessible.",
+    question: "On a scale of 1-5 how accessible is your campus infrastructure?"
+    + "\n 1 being not accessible at all, 5 being incredibly accessible.",
   },
   {
     id: "q15",
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1–5, how easy is it for students to find and participate in disability communities and spaces on or near campus?",
-    helpText: "1 being very difficult, 5 being very easy.",
+      "On a scale of 1–5, how easy is it for students to find and participate in disability communities and spaces on or near campus?"
+    + "\n 1 being very difficult, 5 being very easy.",
   },
   {
     id: "q16",
     category: "Rating",
     type: "star-rating",
     question:
-      "On a scale of 1-5 how reliable are your accommodations provided by DRS/faculty",
-    helpText: "1 being not reliable at all, 5 being incredibly reliable.",
+      "On a scale of 1-5 how reliable are your accommodations provided by DRS/faculty"
+    + "\n 1 being not reliable at all, 5 being incredibly reliable.",
   },
   //Write-in Questions
   {

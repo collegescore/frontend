@@ -136,7 +136,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
       sx={{ py: 4 }}
       fullWidth
     >
-      <FormLabel component="legend" id={`${question.id}-label`}>
+      <FormLabel component="legend" id={`${question.id}-label`} sx={{ whiteSpace: 'pre-line' }}>
         {question.question}
       </FormLabel>
       {question.helpText && (
