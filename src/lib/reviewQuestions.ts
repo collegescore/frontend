@@ -8,11 +8,9 @@ export const reviewQuestions: Question[] = [
   {
     id: "q0",
     category: "Demographics",
-    type: "yes-no",
-    question: "Do or Did you attend this institution?",
+    type: "school-select",
+    question: "Select the institution you are reviewing:",
     required: true,
-    conditional: true,
-    followUpQuestionId: "q1",
   },
   {
     id: "q1",

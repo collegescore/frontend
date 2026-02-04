@@ -4,7 +4,8 @@ export type QuestionType =
   | "yes-no"
   | "date-range"
   | "text"
-  | "multiple-choice"; //possible question types that we can filter by
+  | "multiple-choice"
+  | "school-select"; //possible question types that we can filter by
 
 /**Union type of all possible question types */
 export type Question =
@@ -12,7 +13,8 @@ export type Question =
   | YesNoQ
   | DateRangeQ
   | TextQ
-  | MultipleChoiceQ;
+  | MultipleChoiceQ
+  | SchoolQ;
 
 type category = "Demographics" | "Rating" | "Written";
 
@@ -53,6 +55,9 @@ interface DateRangeQ extends BaseQuestion {
   type: "date-range";
 }
 
+interface SchoolQ extends BaseQuestion {
+    type: "school-select";
+}
 /**Question should be answered with a text input */
 interface TextQ extends BaseQuestion {
   type: "text";

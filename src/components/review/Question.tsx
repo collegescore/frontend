@@ -12,6 +12,7 @@ import { Question } from "@/types/review_qa";
 
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { UniversitySearch } from "../common/UniversitySearch";
 
 interface ReviewQuestionProps {
   question: Question;
@@ -123,6 +124,14 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
               />
             ))}
           </FormGroup>
+        );
+      case "school-select":
+        return (
+          <UniversitySearch //TODO: fix value handling after the branch is merged
+            onSelect={(college) =>
+              onChange?.(question.id, college?.slug ?? null)
+            }
+          />
         );
       default:
         return null;
