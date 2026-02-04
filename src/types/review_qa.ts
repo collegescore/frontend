@@ -56,7 +56,7 @@ interface DateRangeQ extends BaseQuestion {
 }
 
 interface SchoolQ extends BaseQuestion {
-    type: "school-select";
+  type: "school-select";
 }
 /**Question should be answered with a text input */
 interface TextQ extends BaseQuestion {
