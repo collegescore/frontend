@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import theme from "@/theme";
 import "./globals.css";
 import Header from "@/components/layout/header";
+import Footer from "@/components/layout/footer";
 
 /**layout.tsx files are for UI that wraps different pages */
 export default function RootLayout({
@@ -20,6 +21,7 @@ export default function RootLayout({
             <Header /> {/* Header stays at the top */}
             {/* Main tag with ID for the "Skip to Content" link */}
             <main id="main-content">{children}</main>
+            <Footer /> {/* Footer stays at the bottom */}
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
