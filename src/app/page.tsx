@@ -1,11 +1,13 @@
 "use client";
 import CTASection from "@/components/common/CallToAction";
 import { Stack, Box, Typography, Button, Container } from "@mui/material";
+import DataCollectionPopup from "@/components/common/DataCollectionPopup";
 
 function App() {
   return (
     <>
       <main>
+        <DataCollectionPopup />
         {/*replace this with routes later */}
         <Container component="section">
           <Stack alignItems={"center"} gap={2}>
