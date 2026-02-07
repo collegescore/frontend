@@ -1,10 +1,6 @@
 import { Typography, TypographyProps } from "@mui/material";
 
-interface SubtitleProps extends TypographyProps {
-  // We extend TypographyProps so we can still use variant, color, etc.
-}
-
-const Subtitle = ({ children, sx, ...props }: SubtitleProps) => {
+const Subtitle = ({ children, sx, ...props }: TypographyProps) => {
   return (
     <Typography
       variant="h6"
