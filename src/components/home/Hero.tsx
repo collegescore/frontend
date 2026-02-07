@@ -2,6 +2,7 @@ import Section from "../common/Section";
 import { Container, Typography, Box } from "@mui/material";
 import { UniversitySearch } from "../common/UniversitySearch";
 import AddReviewButton from "../common/AddReviewButton";
+import Subtitle from "../common/Subtitle";
 
 const HeroSection = () => {
   return (
@@ -28,23 +29,11 @@ const HeroSection = () => {
           </Box>{" "}
           Fit
         </Typography>
-        <Typography
-          variant="h6"
-          component="p"
-          sx={{
-            mb: 4,
-            opacity: 0.9,
-            fontWeight: 500,
-            maxWidth: "600px",
-            mx: "auto",
-            lineHeight: 1.6,
-            color: "grayscale.main",
-          }}
-        >
+        <Subtitle>
           20% of College Students are disabled, but 100% of schools fail to
           disclose how well they meet accessibility needs. College Score is
           working to change that.
-        </Typography>
+        </Subtitle>
         <UniversitySearch />
         <AddReviewButton text="Add Your Review" color="primary" />
       </Container>
