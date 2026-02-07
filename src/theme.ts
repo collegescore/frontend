@@ -16,7 +16,7 @@ declare module "@mui/material/styles" {
 // Augment the Button's color prop to include "grayscale"
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
-    grayscale: true; // This tells MUI: "grayscale is a valid string for the color prop"
+    grayscale: true;
   }
 }
 
