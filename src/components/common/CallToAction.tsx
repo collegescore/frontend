@@ -28,7 +28,7 @@ const CTASection = () => {
           Share your experience
         </Typography>
 
-        <Subtitle sx={{ color: "white"}}>
+        <Subtitle sx={{ color: "white" }}>
           Help prospective students make informed decisions by sharing your
           experience.
         </Subtitle>
