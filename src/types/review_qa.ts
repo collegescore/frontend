@@ -1,8 +1,22 @@
 /**What answer type the question expects */
-export type QuestionType = "star-rating" | "yes-no" | "date-range" | "text"; //possible question types that we can filter by
+export type QuestionType =
+  | "star-rating"
+  | "yes-no"
+  | "date-range"
+  | "text"
+  | "multiple-choice"
+  | "school-select"; //possible question types that we can filter by
 
 /**Union type of all possible question types */
-export type Question = StarRatingQ | YesNoQ | DateRangeQ | TextQ;
+export type Question =
+  | StarRatingQ
+  | YesNoQ
+  | DateRangeQ
+  | TextQ
+  | MultipleChoiceQ
+  | SchoolQ;
+
+type category = "Demographics" | "Rating" | "Written";
 
 /**Base interface for all question types*/
 export interface BaseQuestion {
@@ -14,6 +28,8 @@ export interface BaseQuestion {
   required?: boolean;
   /**Additional help text for the question */
   helpText?: string;
+  /**Category the question belongs to */
+  category?: category;
 }
 
 /**Question should be answered with a star rating */
@@ -24,6 +40,14 @@ interface StarRatingQ extends BaseQuestion {
 /**Question should be answered with a yes or no radio input */
 interface YesNoQ extends BaseQuestion {
   type: "yes-no";
+  conditional?: boolean;
+  followUpQuestionId?: string;
+}
+
+/**Question should be answered with a multiple choice input */
+interface MultipleChoiceQ extends BaseQuestion {
+  type: "multiple-choice";
+  options: string[];
 }
 
 /**Question should be answered with a date range picker */
@@ -31,6 +55,9 @@ interface DateRangeQ extends BaseQuestion {
   type: "date-range";
 }
 
+interface SchoolQ extends BaseQuestion {
+  type: "school-select";
+}
 /**Question should be answered with a text input */
 interface TextQ extends BaseQuestion {
   type: "text";

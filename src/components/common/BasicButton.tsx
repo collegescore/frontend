@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button, ButtonProps } from "@mui/material";
 import Link from "next/link";
@@ -29,7 +31,7 @@ const BasicButton = ({
       aria-label={ariaLabel}
       // Next.js Link Integration
       component={href ? Link : "button"}
-      href={href ?? ""}
+      href={href || undefined}
       // Styling
       sx={{
         fontWeight: 600,
