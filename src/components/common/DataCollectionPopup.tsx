@@ -9,6 +9,7 @@ import GenericPopup from "@/components/common/GenericPopup";
 export default function DataCollectionPopup() {
   const [open, setOpen] = useState(false);
 
+  // Only show the popup if the user hasn't seen it before (checked via localStorage)
   useEffect(() => {
     if (!localStorage.getItem("hasSeenDataCollectionNotice")) {
       setOpen(true);

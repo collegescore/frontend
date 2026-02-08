@@ -17,9 +17,22 @@ const GenericPopup = ({ open, onClose, title, children, actions, id }: GenericPo
       onClose={onClose}
       aria-labelledby={`${id}-title`}
       aria-describedby={`${id}-description`}
-      PaperProps={{ sx: { borderRadius: 3, p: 2 } }}
+      PaperProps={{ sx: { borderRadius: 3, p: 2, position: 'relative' } }}
     >
-      <DialogTitle id={`${id}-title`} sx={{ fontWeight: 800, textAlign: "center" }}>
+      <IconButton
+        aria-label="close"
+        onClick={onClose}
+        sx={{
+          position: 'absolute',
+          left: 8,
+          top: 8,
+          color: (theme) => theme.palette.grey[500],
+        }}
+      >
+        <CloseIcon />
+      </IconButton>
+
+      <DialogTitle id={`${id}-title`} sx={{ fontWeight: 800, textAlign: "center", pt: 4 }}>
         {title}
       </DialogTitle>
       
