@@ -30,19 +30,23 @@ export default function DataCollectionPopup() {
       actions={
         <>
           <AddReviewButton text="Add a Review Now" onClick={handleClose} />
-          <BasicButton text="Learn More" href="/about" color="grayscale" onClick={handleClose} />
+          <BasicButton
+            text="Learn More"
+            href="/about"
+            color="grayscale"
+            onClick={handleClose}
+          />
         </>
       }
     >
       <Paragraph sx={{ textAlign: "center", mb: 0 }}>
-        CollegeScore is currently in its{" "}
-          <strong>Data Collection Phase</strong>. We rely on anonymus reviews
-          from students like you to build a comprehensive database of college
-          experiences. Taking 5 minutes to share your experience can help
-          thousands of future students find the college that will best support
-          their unique identity and accessibility needs. Thank you for
-          supporting our mission to pass on your accessibility experiences to
-          future students!
+        CollegeScore is currently in its <strong>Data Collection Phase</strong>.
+        We rely on anonymus reviews from students like you to build a
+        comprehensive database of college experiences. Taking 5 minutes to share
+        your experience can help thousands of future students find the college
+        that will best support their unique identity and accessibility needs.
+        Thank you for supporting our mission to pass on your accessibility
+        experiences to future students!
       </Paragraph>
     </GenericPopup>
   );
