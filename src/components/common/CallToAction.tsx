@@ -4,6 +4,7 @@ import React from "react";
 import { Container, Typography } from "@mui/material";
 import AddReviewButton from "./AddReviewButton";
 import Section from "./Section";
+import Subtitle from "./Subtitle";
 
 const CTASection = () => {
   return (
@@ -27,21 +28,10 @@ const CTASection = () => {
           Share your experience
         </Typography>
 
-        <Typography
-          variant="h6"
-          component="p"
-          sx={{
-            mb: 4,
-            opacity: 0.9,
-            fontWeight: 400,
-            maxWidth: "600px",
-            mx: "auto",
-            lineHeight: 1.6,
-          }}
-        >
+        <Subtitle sx={{ color: "white" }}>
           Help prospective students make informed decisions by sharing your
           experience.
-        </Typography>
+        </Subtitle>
 
         <AddReviewButton text="Rate your school" color="secondary" />
       </Container>

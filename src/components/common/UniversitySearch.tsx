@@ -31,13 +31,19 @@ const V0_COLLEGES: College[] = [
 
 interface UniversitySearchProps {
   onSelect?: (college: College | null) => void;
+  // width of search bar is adjustable, parent component can decide how wide the search bar should be.
+  width?: string | number;
 }
 
-export const UniversitySearch = ({ onSelect }: UniversitySearchProps) => {
+// Search bar has default width of 400px, can be overridden via props
+export const UniversitySearch = ({
+  onSelect,
+  width = "100%",
+}: UniversitySearchProps) => {
   const [value, setValue] = useState<College | null>(null);
 
   return (
-    <Box sx={{ width: 400, margin: "2rem auto" }}>
+    <Box sx={{ width: width, maxWidth: 800, margin: "2rem auto" }}>
       <Autocomplete
         options={V0_COLLEGES}
         // Displays the college name field (as opposed to slug or id etc) in the dropdown
