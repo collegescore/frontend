@@ -1,12 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from "@mui/material";
 import AddReviewButton from "./AddReviewButton";
 import BasicButton from "./BasicButton";
 import Paragraph from "@/components/common/Paragraph";
