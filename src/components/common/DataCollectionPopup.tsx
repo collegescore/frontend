@@ -45,8 +45,8 @@ export default function DataCollectionPopup() {
       <DialogContent id="data-popup-description">
         <Paragraph sx={{ textAlign: "center", mb: 0 }}>
           CollegeScore is currently in its{" "}
-          <strong>Data Collection Phase</strong>. We rely on anonymus reviews from
-          students like you to build a comprehensive database of college
+          <strong>Data Collection Phase</strong>. We rely on anonymus reviews
+          from students like you to build a comprehensive database of college
           experiences. Taking 5 minutes to share your experience can help
           thousands of future students find the college that will best support
           their unique identity and accessibility needs. Thank you for
@@ -57,15 +57,15 @@ export default function DataCollectionPopup() {
 
       {/* Stack buttons horizontally and center them */}
       <DialogActions sx={{ justifyContent: "center", gap: 2, pb: 2, px: 3 }}>
-        <AddReviewButton 
-          text="Add a Review Now" 
-          variant="contained" 
+        <AddReviewButton
+          text="Add a Review Now"
+          variant="contained"
           color="primary"
           onClick={handleClose}
         />
-        <BasicButton 
-          text="Learn More" 
-          href="/about" 
+        <BasicButton
+          text="Learn More"
+          href="/about"
           color="grayscale"
           onClick={handleClose}
         />
