@@ -15,8 +15,6 @@ const GenericPopup = ({ open, onClose, title, children, actions, id }: GenericPo
     <Dialog
       open={open}
       onClose={onClose}
-      aria-labelledby={`${id}-title`}
-      aria-describedby={`${id}-description`}
       PaperProps={{ sx: { borderRadius: 3, p: 2, position: 'relative' } }}
     >
       <IconButton
