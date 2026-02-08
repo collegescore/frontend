@@ -6,8 +6,6 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  Typography,
-  Box,
 } from "@mui/material";
 import AddReviewButton from "./AddReviewButton";
 import BasicButton from "./BasicButton";
@@ -17,7 +15,7 @@ export default function DataCollectionPopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Check if the user has already seen this
+    // Check if the user has already seen this, only show the popup if they haven't
     const hasSeen = localStorage.getItem("hasSeenDataCollectionNotice");
     if (!hasSeen) {
       setOpen(true);
@@ -35,7 +33,6 @@ export default function DataCollectionPopup() {
       onClose={handleClose}
       aria-labelledby="data-popup-title"
       aria-describedby="data-popup-description"
-      // Makes it look a bit more modern/rounded
       PaperProps={{ sx: { borderRadius: 3, p: 2 } }}
     >
       <DialogTitle
