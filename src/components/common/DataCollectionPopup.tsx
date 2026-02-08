@@ -7,14 +7,13 @@ import Paragraph from "@/components/common/Paragraph";
 import GenericPopup from "@/components/common/GenericPopup";
 
 export default function DataCollectionPopup() {
-  const [open, setOpen] = useState(false);
-
-  // Only show the popup if the user hasn't seen it before (checked via localStorage)
-  useEffect(() => {
-    if (!localStorage.getItem("hasSeenDataCollectionNotice")) {
-      setOpen(true);
+  // only show the popup if the user hasn't seen it before (stored in localStorage)
+  const [open, setOpen] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !localStorage.getItem("hasSeenDataCollectionNotice");
     }
-  }, []);
+    return false;
+  });
 
   const handleClose = () => {
     localStorage.setItem("hasSeenDataCollectionNotice", "true");
