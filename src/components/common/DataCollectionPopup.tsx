@@ -10,14 +10,13 @@ import {
 import AddReviewButton from "./AddReviewButton";
 import BasicButton from "./BasicButton";
 import Paragraph from "@/components/common/Paragraph";
+import GenericPopup from "@/components/common/GenericPopup";
 
 export default function DataCollectionPopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    // Check if the user has already seen this, only show the popup if they haven't
-    const hasSeen = localStorage.getItem("hasSeenDataCollectionNotice");
-    if (!hasSeen) {
+    if (!localStorage.getItem("hasSeenDataCollectionNotice")) {
       setOpen(true);
     }
   }, []);
@@ -28,23 +27,20 @@ export default function DataCollectionPopup() {
   };
 
   return (
-    <Dialog
+    <GenericPopup
+      id="data-collection"
       open={open}
       onClose={handleClose}
-      aria-labelledby="data-popup-title"
-      aria-describedby="data-popup-description"
-      PaperProps={{ sx: { borderRadius: 3, p: 2 } }}
+      title="College Score Needs Your Help!"
+      actions={
+        <>
+          <AddReviewButton text="Add a Review Now" onClick={handleClose} />
+          <BasicButton text="Learn More" href="/about" color="grayscale" onClick={handleClose} />
+        </>
+      }
     >
-      <DialogTitle
-        id="data-popup-title"
-        sx={{ fontWeight: 800, textAlign: "center" }}
-      >
-        College Score Needs Your Help!
-      </DialogTitle>
-
-      <DialogContent id="data-popup-description">
-        <Paragraph sx={{ textAlign: "center", mb: 0 }}>
-          CollegeScore is currently in its{" "}
+      <Paragraph sx={{ textAlign: "center", mb: 0 }}>
+        CollegeScore is currently in its{" "}
           <strong>Data Collection Phase</strong>. We rely on anonymus reviews
           from students like you to build a comprehensive database of college
           experiences. Taking 5 minutes to share your experience can help
@@ -52,24 +48,7 @@ export default function DataCollectionPopup() {
           their unique identity and accessibility needs. Thank you for
           supporting our mission to pass on your accessibility experiences to
           future students!
-        </Paragraph>
-      </DialogContent>
-
-      {/* Stack buttons horizontally and center them */}
-      <DialogActions sx={{ justifyContent: "center", gap: 2, pb: 2, px: 3 }}>
-        <AddReviewButton
-          text="Add a Review Now"
-          variant="contained"
-          color="primary"
-          onClick={handleClose}
-        />
-        <BasicButton
-          text="Learn More"
-          href="/about"
-          color="grayscale"
-          onClick={handleClose}
-        />
-      </DialogActions>
-    </Dialog>
+      </Paragraph>
+    </GenericPopup>
   );
 }
