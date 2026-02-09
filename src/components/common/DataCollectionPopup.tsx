@@ -28,25 +28,21 @@ export default function DataCollectionPopup() {
       open={open}
       onClose={handleClose}
       title="College Score Needs Your Help!"
-      actions={
-        <EmailSubscription buttonColor="grayscale"/>
-      }
+      actions={<EmailSubscription buttonColor="grayscale" />}
     >
       <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
         <Paragraph>
-          We're currently in our <strong>data collection phase</strong>, gathering responses from 
-          University of Washington students. Taking 5 minutes to anonymously share your 
-          accessibility experience can support thousands of future students. Thank you for your contribution!
+          We're currently in our <strong>data collection phase</strong>,
+          gathering responses from University of Washington students. Taking 5
+          minutes to anonymously share your accessibility experience can support
+          thousands of future students. Thank you for your contribution!
         </Paragraph>
 
-        <AddReviewButton 
-          text="Add a Review Now" 
-          onClick={handleClose} 
-        />
+        <AddReviewButton text="Add a Review Now" onClick={handleClose} />
 
         <Paragraph>
-          <strong>Not a UW student?</strong> Stay in touch—we&apos;ll reach out when we&apos;re 
-          ready to expand to other schools.
+          <strong>Not a UW student?</strong> Stay in touch—we&apos;ll reach out
+          when we&apos;re ready to expand to other schools.
         </Paragraph>
       </Stack>
     </GenericPopup>

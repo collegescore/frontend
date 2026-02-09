@@ -7,10 +7,19 @@ import BasicButton from "./BasicButton";
 // Keep me updated email button allows different color options chosen by parent component,
 // defaults to primary unless specified.
 interface EmailSubscriptionProps {
-  buttonColor?: "primary" | "secondary" | "grayscale" | "error" | "info" | "success" | "warning";
+  buttonColor?:
+    | "primary"
+    | "secondary"
+    | "grayscale"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
 }
 
-export default function EmailSubscription({ buttonColor = "primary" }: EmailSubscriptionProps) {
+export default function EmailSubscription({
+  buttonColor = "primary",
+}: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
