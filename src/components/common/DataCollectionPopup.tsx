@@ -5,6 +5,8 @@ import AddReviewButton from "./AddReviewButton";
 import BasicButton from "./BasicButton";
 import Paragraph from "@/components/common/Paragraph";
 import GenericPopup from "@/components/common/GenericPopup";
+import EmailSubscription from "@/components/common/EmailSubscription";
+import { Box, Divider, Stack, Typography } from "@mui/material";
 
 export default function DataCollectionPopup() {
   // only show the popup if the user hasn't seen it before (stored in localStorage)
@@ -27,23 +29,26 @@ export default function DataCollectionPopup() {
       onClose={handleClose}
       title="College Score Needs Your Help!"
       actions={
-        <>
-          <AddReviewButton text="Add a Review Now" onClick={handleClose} />
-          <BasicButton
-            text="Learn More"
-            href="/about"
-            color="grayscale"
-            onClick={handleClose}
-          />
-        </>
+        <EmailSubscription />
       }
     >
-      <Paragraph sx={{ textAlign: "center", mb: 0 }}>
-        We're currently in our <strong>data collection phase</strong>, gathering responses from 
-        University of Washington students. Taking 5 minutes to anonymously share your 
-        accessibility experience can support thousands of future students in finding the 
-        college that will best meet their needs.
-      </Paragraph>
+      <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
+        <Paragraph>
+          We're currently in our <strong>data collection phase</strong>, gathering responses from 
+          University of Washington students. Taking 5 minutes to anonymously share your 
+          accessibility experience can support thousands of future students. Thank you for your contribution!
+        </Paragraph>
+
+        <AddReviewButton 
+          text="Add a Review Now" 
+          onClick={handleClose} 
+        />
+
+        <Paragraph>
+          <strong>Not a UW student?</strong> Stay in touch—we&apos;ll reach out when we&apos;re 
+          ready to expand to other schools.
+        </Paragraph>
+      </Stack>
     </GenericPopup>
   );
 }
