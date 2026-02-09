@@ -28,7 +28,6 @@ export default function DataCollectionPopup() {
       open={open}
       onClose={handleClose}
       title="College Score Needs Your Help!"
-      actions={<EmailSubscription buttonColor="grayscale" />}
     >
       <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
         <Paragraph>
@@ -44,6 +43,9 @@ export default function DataCollectionPopup() {
           <strong>Not a UW student?</strong> Stay in touch— we&apos;ll reach out
           when we&apos;re ready to expand to other schools.
         </Paragraph>
+
+        <EmailSubscription buttonColor="grayscale" />
+        
       </Stack>
     </GenericPopup>
   );
