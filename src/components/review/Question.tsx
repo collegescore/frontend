@@ -71,20 +71,20 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             <Stack direction="row" spacing={2}>
               <DatePicker
                 label="Start Year"
-                name={`${question.id}-start`}
+                name={`${question.id}_start`}
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}-start`, newValue?.year() ?? null)
+                  onChange?.(`${question.id}_start`, newValue?.year() ?? null)
                 }
               />
               <DatePicker
                 label="End Year"
-                name={`${question.id}-end`}
+                name={`${question.id}_end`}
                 views={["year"]}
                 format="YYYY"
                 onChange={(newValue) =>
-                  onChange?.(`${question.id}-end`, newValue?.year() ?? null)
+                  onChange?.(`${question.id}_end`, newValue?.year() ?? null)
                 }
               />
             </Stack>

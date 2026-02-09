@@ -6,14 +6,14 @@ import { Question } from "@/types/review_qa";
  */
 export const reviewQuestions: Question[] = [
   {
-    id: "q0",
+    id: "college_slug",
     category: "Demographics",
     type: "school-select",
     question: "Select the institution you are reviewing:",
     required: true,
   },
   {
-    id: "q1",
+    id: "attendance",
     category: "Demographics",
     type: "date-range",
     question:
@@ -22,7 +22,7 @@ export const reviewQuestions: Question[] = [
     required: true,
   },
   {
-    id: "q2",
+    id: "use_a11y_services",
     category: "Demographics",
     type: "yes-no",
     question:
@@ -31,16 +31,16 @@ export const reviewQuestions: Question[] = [
     required: true,
   },
   {
-    id: "q3",
+    id: "is_lgbtq",
     category: "Demographics",
     type: "yes-no",
     question: "Do you identify as LGBTQ+?",
     required: true,
     conditional: true,
-    followUpQuestionId: "q4",
+    followUpQuestionId: "lgbtq_identity",
   },
   {
-    id: "q4",
+    id: "lgbtq_identity",
     category: "Demographics",
     type: "multiple-choice",
     question: "How do you identify within the LGBTQ+ community?",
@@ -59,16 +59,16 @@ export const reviewQuestions: Question[] = [
     ],
   },
   {
-    id: "q5",
+    id: "is_poc",
     category: "Demographics",
     type: "yes-no",
     question: "Do you identify as a person of color (POC)?",
     required: true,
     conditional: true,
-    followUpQuestionId: "q6",
+    followUpQuestionId: "poc_identity",
   },
   {
-    id: "q6",
+    id: "poc_identity",
     category: "Demographics",
     type: "multiple-choice",
     question: "How do you identify as a person of color (POC)?",
@@ -83,16 +83,16 @@ export const reviewQuestions: Question[] = [
     ],
   },
   {
-    id: "q7",
+    id: "is_disabled",
     category: "Demographics",
     type: "yes-no",
     question: "Do you identify as a person with a disability?",
     required: true,
     conditional: true,
-    followUpQuestionId: "q8",
+    followUpQuestionId: "disability_identity",
   },
   {
-    id: "q8",
+    id: "disability_identity",
     category: "Demographics",
     type: "multiple-choice",
     question:
@@ -110,7 +110,7 @@ export const reviewQuestions: Question[] = [
   },
   //Rating Questions
   {
-    id: "q9",
+    id: "campus_safety",
     category: "Rating",
     type: "star-rating",
     question:
@@ -118,7 +118,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being not safe at all, 5 being very safe.",
   },
   {
-    id: "q10",
+    id: "peer_inclusivity",
     category: "Rating",
     type: "star-rating",
     question:
@@ -126,7 +126,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being not inclusive at all, 5 being very inclusive.",
   },
   {
-    id: "q11",
+    id: "institution_inclusivity",
     category: "Rating",
     type: "star-rating",
     question:
@@ -134,7 +134,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being not supportive at all, 5 being very supportive.",
   },
   {
-    id: "q12",
+    id: "student_language",
     category: "Rating",
     type: "star-rating",
     question:
@@ -142,7 +142,7 @@ export const reviewQuestions: Question[] = [
       "\n1 being frequently, 5 being never.", //TODO:  figure out the math so we can do the wording to make more sense
   },
   {
-    id: "q13",
+    id: "staff_language",
     category: "Rating",
     type: "star-rating",
     question:
@@ -150,7 +150,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being frequently, 5 being never.", //TODO:  figure out the math so we can do the wording to make more sense
   },
   {
-    id: "q14",
+    id: "campus_accessibility",
     category: "Rating",
     type: "star-rating",
     question:
@@ -158,7 +158,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being not accessible at all, 5 being very accessible.",
   },
   {
-    id: "q15",
+    id: "disability_community_access",
     category: "Rating",
     type: "star-rating",
     question:
@@ -166,7 +166,7 @@ export const reviewQuestions: Question[] = [
       "\n 1 being very difficult, 5 being very easy.",
   },
   {
-    id: "q16",
+    id: "accommodations_reliability",
     category: "Rating",
     type: "star-rating",
     question:
@@ -175,7 +175,7 @@ export const reviewQuestions: Question[] = [
   },
   //Write-in Questions
   {
-    id: "q17",
+    id: "share_accomodations",
     category: "Written",
     type: "text",
     question:
@@ -184,7 +184,7 @@ export const reviewQuestions: Question[] = [
     placeholder: "Enter your response here...",
   },
   {
-    id: "q18",
+    id: "share_positive",
     category: "Written",
     type: "text",
     question:
@@ -193,7 +193,7 @@ export const reviewQuestions: Question[] = [
     placeholder: "Enter your response here...",
   },
   {
-    id: "q19",
+    id: "share_challenges",
     category: "Written",
     type: "text",
     question:
@@ -202,7 +202,7 @@ export const reviewQuestions: Question[] = [
     placeholder: "Enter your response here...",
   },
   {
-    id: "q20",
+    id: "share_community_groups",
     category: "Written",
     type: "text",
     question:
