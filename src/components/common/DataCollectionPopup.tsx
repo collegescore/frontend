@@ -39,13 +39,10 @@ export default function DataCollectionPopup() {
       }
     >
       <Paragraph sx={{ textAlign: "center", mb: 0 }}>
-        CollegeScore is currently in its <strong>Data Collection Phase</strong>.
-        We rely on anonymus reviews from students like you to build a
-        comprehensive database of college experiences. Taking 5 minutes to share
-        your experience can help thousands of future students find the college
-        that will best support their unique identity and accessibility needs.
-        Thank you for supporting our mission to pass on your accessibility
-        experiences to future students!
+        We're currently in our <strong>data collection phase</strong>, gathering responses from 
+        University of Washington students. Taking 5 minutes to anonymously share your 
+        accessibility experience can support thousands of future students in finding the 
+        college that will best meet their needs.
       </Paragraph>
     </GenericPopup>
   );
