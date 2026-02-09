@@ -31,7 +31,7 @@ export default function DataCollectionPopup() {
     >
       <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
         <Paragraph>
-          We're currently in our data collection phase, gathering responses from{" "}
+          We&apos;re currently in our data collection phase, gathering responses from{" "}
           <strong>University of Washington students</strong>. Taking 5 minutes
           to anonymously share your accessibility experience can support
           thousands of future students. Thank you for your contribution!
