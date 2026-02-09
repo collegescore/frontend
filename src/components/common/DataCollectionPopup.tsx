@@ -29,7 +29,7 @@ export default function DataCollectionPopup() {
       onClose={handleClose}
       title="College Score Needs Your Help!"
       actions={
-        <EmailSubscription />
+        <EmailSubscription buttonColor="grayscale"/>
       }
     >
       <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
