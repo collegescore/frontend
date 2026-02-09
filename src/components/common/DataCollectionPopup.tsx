@@ -31,10 +31,11 @@ export default function DataCollectionPopup() {
     >
       <Stack spacing={3} alignItems="center" sx={{ textAlign: "center" }}>
         <Paragraph>
-          We&apos;re currently in our data collection phase, gathering responses from{" "}
-          <strong>University of Washington students</strong>. Taking 5 minutes
-          to anonymously share your accessibility experience can support
-          thousands of current and future students. Thank you for your contribution!
+          We&apos;re currently in our data collection phase, gathering responses
+          from <strong>University of Washington students</strong>. Taking 5
+          minutes to anonymously share your accessibility experience can support
+          thousands of current and future students. Thank you for your
+          contribution!
         </Paragraph>
 
         <AddReviewButton text="Add a Review Now" onClick={handleClose} />
