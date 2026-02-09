@@ -34,7 +34,7 @@ export default function DataCollectionPopup() {
           We&apos;re currently in our data collection phase, gathering responses from{" "}
           <strong>University of Washington students</strong>. Taking 5 minutes
           to anonymously share your accessibility experience can support
-          thousands of future students. Thank you for your contribution!
+          thousands of current and future students. Thank you for your contribution!
         </Paragraph>
 
         <AddReviewButton text="Add a Review Now" onClick={handleClose} />
