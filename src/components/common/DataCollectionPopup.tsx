@@ -41,7 +41,7 @@ export default function DataCollectionPopup() {
         <AddReviewButton text="Add a Review Now" onClick={handleClose} />
 
         <Paragraph>
-          <strong>Not a UW student?</strong> Stay in touch—we&apos;ll reach out
+          <strong>Not a UW student?</strong> Stay in touch— we&apos;ll reach out
           when we&apos;re ready to expand to other schools.
         </Paragraph>
       </Stack>
