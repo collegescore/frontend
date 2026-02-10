@@ -4,7 +4,7 @@ import React from "react";
 import BasicButton, { BasicButtonProps } from "./BasicButton";
 
 // inherits all props from BasicButton except 'href' which is fixed
-// can optionally accept a schoolSlug prop for future use (e.g. to pre-fill the review form), 
+// can optionally accept a schoolSlug prop for future use (e.g. to pre-fill the review form),
 // but it's not required for the button to function
 type AddReviewButtonProps = Partial<Omit<BasicButtonProps, "href">> & {
   schoolSlug?: string;
@@ -16,12 +16,12 @@ type AddReviewButtonProps = Partial<Omit<BasicButtonProps, "href">> & {
  */
 const AddReviewButton = ({
   text = "Add Review", //default text if none provided
-  schoolSlug, 
+  schoolSlug,
   ...props
 }: AddReviewButtonProps) => {
   // If a school is selected, go to /review?school=slug, otherwise just /review
-  const dynamicHref = schoolSlug 
-    ? `/review?school=${encodeURIComponent(schoolSlug)}` 
+  const dynamicHref = schoolSlug
+    ? `/review?school=${encodeURIComponent(schoolSlug)}`
     : "/review";
 
   return <BasicButton {...props} text={text} href={dynamicHref} />;

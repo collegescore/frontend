@@ -127,10 +127,11 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           </FormGroup>
         );
       case "school-select":
-        const selectedCollege = V0_COLLEGES.find(c => c.slug === value) || null;
+        const selectedCollege =
+          V0_COLLEGES.find((c) => c.slug === value) || null;
         return (
           <UniversitySearch //TODO: fix value handling after the branch is merged
-            value={selectedCollege} 
+            value={selectedCollege}
             onSelect={(college) =>
               onChange?.(question.id, college?.slug ?? null)
             }

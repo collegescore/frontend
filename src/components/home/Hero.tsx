@@ -9,7 +9,7 @@ import { College } from "@/types/college";
 const HeroSection = () => {
   //track if user has selected a college from the search bar
   const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
-  
+
   return (
     <Section bgcolor="grayscale.light" id="hero-section">
       <Container
@@ -39,10 +39,10 @@ const HeroSection = () => {
           disclose how well they meet accessibility needs. College Score is
           working to change that.
         </Subtitle>
-        <UniversitySearch onSelect={(college) => setSelectedCollege(college)}/>
-        <AddReviewButton 
-          text="Add Your Review" 
-          color="primary" 
+        <UniversitySearch onSelect={(college) => setSelectedCollege(college)} />
+        <AddReviewButton
+          text="Add Your Review"
+          color="primary"
           schoolSlug={selectedCollege?.slug || undefined}
         />
       </Container>
