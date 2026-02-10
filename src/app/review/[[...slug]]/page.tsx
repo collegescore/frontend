@@ -21,7 +21,7 @@ interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
 }
 
-function ReviewPage({params}: ReviewPageProps) {
+function ReviewPage({ params }: ReviewPageProps) {
   const resolvedParams = use(params);
   const schoolSlug = resolvedParams.slug?.[0];
   const router = useRouter();
