@@ -4,7 +4,22 @@ import { useState } from "react";
 import { Stack, TextField, Box, Typography } from "@mui/material";
 import BasicButton from "./BasicButton";
 
-export default function EmailSubscription() {
+// Keep me updated email button allows different color options chosen by parent component,
+// defaults to primary unless specified.
+interface EmailSubscriptionProps {
+  buttonColor?:
+    | "primary"
+    | "secondary"
+    | "grayscale"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
+}
+
+export default function EmailSubscription({
+  buttonColor = "primary",
+}: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -48,6 +63,7 @@ export default function EmailSubscription() {
           text="Keep Me Updated"
           type="submit"
           variant="contained"
+          color={buttonColor} // Use the color prop passed from parent, defaulting to primary
           disabled={submitted}
           sx={{
             borderTopLeftRadius: 0,

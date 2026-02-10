@@ -13,6 +13,13 @@ declare module "@mui/material/styles" {
   }
 }
 
+// Augment the Button's color prop to include "grayscale"
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    grayscale: true;
+  }
+}
+
 // 1. Initial theme creation
 let theme: Theme = createTheme({
   palette: {
