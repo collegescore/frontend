@@ -21,22 +21,24 @@ import { useEffect } from "react";
 
 function ReviewPage() {
   const router = useRouter();
-  const searchParams = useSearchParams(); 
+  const searchParams = useSearchParams();
   const [announcement, setAnnouncement] = useState<string>("");
   //Store answers to questions
   const [answers, setAnswers] = useState<Answer>(() => {
     const initialAnswers: Answer = {};
-    
+
     // Check for the school param in the URL and pre-fill the corresponding question if it exists
     if (searchParams) {
       const schoolFromUrl = searchParams.get("school");
-      const schoolQuestion = reviewQuestions.find(q => q.type === "school-select");
-      
+      const schoolQuestion = reviewQuestions.find(
+        (q) => q.type === "school-select",
+      );
+
       if (schoolFromUrl && schoolQuestion) {
         initialAnswers[schoolQuestion.id] = schoolFromUrl;
       }
     }
-    
+
     return initialAnswers;
   });
 
