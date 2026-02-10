@@ -16,11 +16,28 @@ import ReviewQuestion from "@/components/review/Question";
 import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 function ReviewPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [answers, setAnswers] = useState<Answer>({}); //Store answers to questions
   const [announcement, setAnnouncement] = useState<string>("");
+  
+  useEffect(() => {
+    if (!searchParams) return;
+
+    const schoolFromUrl = searchParams.get("school");
+    const schoolQuestion = reviewQuestions.find(q => q.type === "school-select");
+    
+    if (schoolFromUrl && schoolQuestion) {
+      setAnswers((prev) => ({
+        ...prev,
+        [schoolQuestion.id]: schoolFromUrl
+      }));
+    }
+  }, [searchParams]);
 
   // Step management
   const [currentStep, setCurrentStep] = useState(0);
