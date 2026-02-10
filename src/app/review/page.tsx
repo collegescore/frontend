@@ -21,26 +21,24 @@ import { useEffect } from "react";
 
 function ReviewPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const [answers, setAnswers] = useState<Answer>({}); //Store answers to questions
+  const searchParams = useSearchParams(); 
   const [announcement, setAnnouncement] = useState<string>("");
-
-  // check for a passed in school param in the url to pre-fill the school-select question if present
-  useEffect(() => {
-    if (!searchParams) return;
-
-    const schoolFromUrl = searchParams.get("school");
-    const schoolQuestion = reviewQuestions.find(
-      (q) => q.type === "school-select",
-    );
-
-    if (schoolFromUrl && schoolQuestion) {
-      setAnswers((prev) => ({
-        ...prev,
-        [schoolQuestion.id]: schoolFromUrl,
-      }));
+  //Store answers to questions
+  const [answers, setAnswers] = useState<Answer>(() => {
+    const initialAnswers: Answer = {};
+    
+    // Check for the school param in the URL and pre-fill the corresponding question if it exists
+    if (searchParams) {
+      const schoolFromUrl = searchParams.get("school");
+      const schoolQuestion = reviewQuestions.find(q => q.type === "school-select");
+      
+      if (schoolFromUrl && schoolQuestion) {
+        initialAnswers[schoolQuestion.id] = schoolFromUrl;
+      }
     }
-  }, [searchParams]);
+    
+    return initialAnswers;
+  });
 
   // Step management
   const [currentStep, setCurrentStep] = useState(0);
