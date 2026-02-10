@@ -3,31 +3,9 @@ import { Autocomplete, TextField, Box, Typography } from "@mui/material";
 import { College } from "../../types/college";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
+import { V0_COLLEGES } from "@/lib/V0Colleges";
 
-// Hardcoded List of Approved Colleges for v0
-export const V0_COLLEGES: College[] = [
-  {
-    id: 377555,
-    slug: "university-of-washington-bothell-campus-bothell-wa",
-    name: "University of Washington-Bothell Campus",
-    city: "Bothell",
-    state: "WA",
-  },
-  {
-    id: 236948,
-    slug: "university-of-washington-seattle-campus-seattle-wa",
-    name: "University of Washington-Seattle Campus",
-    city: "Seattle",
-    state: "WA",
-  },
-  {
-    id: 377564,
-    slug: "university-of-washington-tacoma-campus-tacoma-wa",
-    name: "University of Washington-Tacoma Campus",
-    city: "Tacoma",
-    state: "WA",
-  },
-];
+
 
 interface UniversitySearchProps {
   onSelect?: (college: College | null) => void;

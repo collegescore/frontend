@@ -13,7 +13,7 @@ import { Question } from "@/types/review_qa";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { UniversitySearch } from "../common/UniversitySearch";
-import { V0_COLLEGES } from "../common/UniversitySearch";
+import { V0_COLLEGES } from "@/lib/V0Colleges";
 
 interface ReviewQuestionProps {
   question: Question;
