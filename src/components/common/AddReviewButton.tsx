@@ -26,3 +26,5 @@ const AddReviewButton = ({
 
   return <BasicButton {...props} text={text} href={dynamicHref} />;
 };
+
+export default AddReviewButton;
