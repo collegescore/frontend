@@ -19,9 +19,9 @@ const AddReviewButton = ({
   schoolSlug,
   ...props
 }: AddReviewButtonProps) => {
-  // If a school is selected, go to /review?school=slug, otherwise just /review
+  // If a school is selected, go to /review/slug, otherwise just /review
   const dynamicHref = schoolSlug
-    ? `/review?school=${encodeURIComponent(schoolSlug)}`
+    ? `/review/${encodeURIComponent(schoolSlug)}`
     : "/review";
 
   return <BasicButton {...props} text={text} href={dynamicHref} />;
