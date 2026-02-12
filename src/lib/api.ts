@@ -52,4 +52,6 @@ export const addEmail = async (email: String) => {
       const errorText = await response.text();
       throw new Error (errorText || "Failed to add email")
     }
+
+    return response.json();
 }
