@@ -1,23 +1,20 @@
 /*All functions that call FastAPI backend */
-
+import type { Answer } from "@/types/review_qa";
 export const API_BASE_URL =
 	process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
-export type SubmitReviewAnswers = Record<
-	string,
-	string | number | boolean | null | string[] | Date
->;
-
+/**Columns that should be treated as arrays */
 const ARRAY_FIELDS = new Set([
 	"lgbtq_identity",
 	"poc_identity",
 	"disability_identity",
 ]);
 
-const normalizeAnswers = (answers: SubmitReviewAnswers) =>
+/**Convert answers to a format suitable for backend submission */
+const normalizeAnswers = (answers: Answer) =>
 	Object.fromEntries(
 		Object.entries(answers).map(([key, value]) => {
-			if (value instanceof Date) {
+			if (value instanceof Date) { //convert dates to ISO string
 				return [key, value.toISOString()];
 			}
 
@@ -29,7 +26,7 @@ const normalizeAnswers = (answers: SubmitReviewAnswers) =>
 		}),
 	);
 
-export const submitReview = async (answers: SubmitReviewAnswers) => {
+export const submitReview = async (answers: Answer) => {
 	const response = await fetch(`${API_BASE_URL}/v0/reviews`, {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
