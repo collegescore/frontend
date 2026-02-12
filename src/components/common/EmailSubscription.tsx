@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Stack, TextField, Box, Typography } from "@mui/material";
 import BasicButton from "./BasicButton";
+import { addEmail } from "@/lib/api";
 
 // Keep me updated email button allows different color options chosen by parent component,
 // defaults to primary unless specified.
@@ -23,11 +24,17 @@ export default function EmailSubscription({
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Send email to backend
-    console.log("Email submitted:", email);
-    setSubmitted(true);
+    // Send email to backend
+    try {
+      await addEmail(email)
+      console.log("Email submitted:", email);
+      setSubmitted(true);
+    } catch (error){
+      console.error("Failed to add email:", error);
+      setSubmitted(false);
+    }
   };
 
   return (
