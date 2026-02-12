@@ -107,10 +107,10 @@ function ReviewPage() {
     //Send to backend
     try {
       await submitReview(answers);
-        //Redirect to thank you page
-        router.push("/thank-you");
+      //Redirect to thank you page
+      router.push("/thank-you");
     } catch (error) {
-        console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
     }
   };
 
