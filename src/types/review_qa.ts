@@ -72,5 +72,5 @@ interface TextQ extends BaseQuestion {
 /**What answers to survey questions look like */
 export interface Answer {
   /**id must correspond to the column name in the DB */
-  [id: string]: string | number | boolean | Date | null;
+  [id: string]: string | number | boolean | Date | null | string[];
 }

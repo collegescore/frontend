@@ -18,9 +18,9 @@ interface ReviewQuestionProps {
   question: Question;
   onChange?: (
     questionId: string,
-    value: string | number | boolean | Date | null,
+    value: string | number | boolean | Date | null | string[],
   ) => void;
-  value?: string | number | boolean | Date | null;
+  value?: string | number | boolean | Date | null | string[];
 }
 
 function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
@@ -104,6 +104,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           />
         );
       case "multiple-choice":
+        const selectedOptions = Array.isArray(value) ? value : [];
         return (
           <FormGroup>
             {question.options.map((option, index) => (
@@ -112,11 +113,12 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
                 control={
                   <Checkbox
                     name={`${question.id}-option-${index}`}
+                    checked={selectedOptions.includes(option)}
                     onChange={(e) => {
-                      // Get current selections or empty array
-                      const currentSelections = onChange ? [] : [];
-                      // Update selections based on checked state
-                      onChange?.(question.id, e.target.checked ? option : null);
+                      const nextSelections = e.target.checked
+                        ? [...selectedOptions, option]
+                        : selectedOptions.filter((item) => item !== option);
+                      onChange?.(question.id, nextSelections);
                     }}
                   />
                 }

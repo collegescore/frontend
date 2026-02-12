@@ -16,6 +16,7 @@ import ReviewQuestion from "@/components/review/Question";
 import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
+import { submitReview } from "@/lib/api";
 
 function ReviewPage() {
   const router = useRouter();
@@ -55,7 +56,7 @@ function ReviewPage() {
   // Handle answer changes
   const handleAnswerChange = (
     questionId: string,
-    value: string | number | boolean | Date | null,
+    value: string | number | boolean | Date | null | string[],
   ) => {
     setAnswers((prev) => {
       const newAnswers = { ...prev, [questionId]: value };
@@ -105,15 +106,9 @@ function ReviewPage() {
 
     //Send to backend
     try {
-      const response = await fetch('http://localhost:8000/v0/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ answers })
-      });
-      if (response.ok) {
+      await submitReview(answers);
         //Redirect to thank you page
         router.push("/thank-you");
-      }
     } catch (error) {
         console.error('Error submitting review:', error);
     }
