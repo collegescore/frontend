@@ -103,19 +103,20 @@ function ReviewPage() {
     // Use the answers state instead of FormData since not all questions are visible at submit time
     console.log("Review data to submit:", answers);
 
-    // TODO: Send to backend
-    // try {
-    //     const response = await fetch('BACKEND_URL/api/reviews', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(answers)
-    //     });
-    //     if (response.ok) {
-    //         // Handle success (e.g., redirect or show success message)
-    //     }
-    // } catch (error) {
-    //     console.error('Error submitting review:', error);
-    // }
+    //Send to backend
+    try {
+      const response = await fetch('http://localhost:8000/v0/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers })
+      });
+      if (response.ok) {
+        //Redirect to thank you page
+        router.push("/thank-you");
+      }
+    } catch (error) {
+        console.error('Error submitting review:', error);
+    }
   };
 
   return (
