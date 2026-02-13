@@ -130,7 +130,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
         const selectedCollege =
           V0_COLLEGES.find((c) => c.slug === value) || null;
         return (
-          <UniversitySearch //TODO: fix value handling after the branch is merged
+          <UniversitySearch
             value={selectedCollege}
             onSelect={(college) =>
               onChange?.(question.id, college?.slug ?? null)
