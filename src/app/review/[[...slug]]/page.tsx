@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, use } from "react";
 import {
   Stack,
   Box,
@@ -18,10 +18,29 @@ import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
 
-function ReviewPage() {
+interface ReviewPageProps {
+  params: Promise<{ slug?: string[] }>;
+}
+
+function ReviewPage({ params }: ReviewPageProps) {
+  const resolvedParams = use(params);
+  const schoolSlug = resolvedParams.slug?.[0];
   const router = useRouter();
-  const [answers, setAnswers] = useState<Answer>({}); //Store answers to questions
   const [announcement, setAnnouncement] = useState<string>("");
+  //Store answers to questions
+  const [answers, setAnswers] = useState<Answer>(() => {
+    const initialAnswers: Answer = {};
+
+    const schoolQuestion = reviewQuestions.find(
+      (q) => q.type === "school-select",
+    );
+
+    if (schoolSlug && schoolQuestion) {
+      initialAnswers[schoolQuestion.id] = schoolSlug;
+    }
+
+    return initialAnswers;
+  });
 
   // Step management
   const [currentStep, setCurrentStep] = useState(0);

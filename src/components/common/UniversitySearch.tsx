@@ -3,51 +3,41 @@ import { Autocomplete, TextField, Box, Typography } from "@mui/material";
 import { College } from "../../types/college";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
-
-// Hardcoded List of Approved Colleges for v0
-const V0_COLLEGES: College[] = [
-  {
-    id: 377555,
-    slug: "university-of-washington-bothell-campus-bothell-wa",
-    name: "University of Washington-Bothell Campus",
-    city: "Bothell",
-    state: "WA",
-  },
-  {
-    id: 236948,
-    slug: "university-of-washington-seattle-campus-seattle-wa",
-    name: "University of Washington-Seattle Campus",
-    city: "Seattle",
-    state: "WA",
-  },
-  {
-    id: 377564,
-    slug: "university-of-washington-tacoma-campus-tacoma-wa",
-    name: "University of Washington-Tacoma Campus",
-    city: "Tacoma",
-    state: "WA",
-  },
-];
+import { V0_COLLEGES } from "@/lib/V0Colleges";
 
 interface UniversitySearchProps {
   onSelect?: (college: College | null) => void;
   // width of search bar is adjustable, parent component can decide how wide the search bar should be.
   width?: string | number;
+  // allow for a default value to be passed in, for example in the review form if the user has already
+  // selected a college from the search page and we want to pre-fill the search bar with their selected
+  // college. This should be a College object or null (if no college is selected) rather than just a
+  // string slug, so that the search bar can display the college name properly instead of just showing the slug.
+  value?: College | null;
 }
 
 // Search bar has default width of 400px, can be overridden via props
 export const UniversitySearch = ({
   onSelect,
   width = "100%",
+  value: controlledValue = null,
 }: UniversitySearchProps) => {
-  const [value, setValue] = useState<College | null>(null);
-
   return (
     <Box sx={{ width: width, maxWidth: 800, margin: "2rem auto" }}>
       <Autocomplete
         options={V0_COLLEGES}
         // Displays the college name field (as opposed to slug or id etc) in the dropdown
         getOptionLabel={(option) => option.name}
+        value={controlledValue}
+        onChange={(event, newValue) => {
+          // 5. Just notify the parent. The parent updates its 'answers' state,
+          // which flows back down into the 'value' prop.
+          if (onSelect) {
+            onSelect(newValue);
+          }
+        }}
+        // This ensures MUI can compare the object from the URL vs the list
+        isOptionEqualToValue={(option, value) => option.slug === value?.slug}
         // a11y custom rendering of each option in the dropdown for better screen reader support
         renderOption={(props, option) => {
           const { key, ...optionProps } = props;
@@ -73,18 +63,6 @@ export const UniversitySearch = ({
               college.city.toLowerCase().includes(query) ||
               college.state.toLowerCase().includes(query),
           );
-        }}
-        // Ensures the component handles the "Selected" state correctly
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-
-          // basically sends the selected college back to the parent component if onSelect is provided
-          // for example, in the survey page, it uses this to set the selected college for the review form
-          // on the search page, it uses this to potentially redirect to the college's review page
-          if (onSelect) {
-            onSelect(newValue);
-          }
         }}
         // The search logic (default is starts-with/contains)
         renderInput={(params) => (
