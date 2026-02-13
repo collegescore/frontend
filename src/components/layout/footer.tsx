@@ -82,8 +82,8 @@ const Footer = () => {
             <Typography variant="body2" sx={{ opacity: 0.8, lineHeight: 1.6 }}>
               We are proud to be part of <strong>CREATE</strong>, the Center for
               Research and Education on Accessible Technology and Experiences.
-              As such, our mission is to make technology accessible and to make
-              the world accessible through technology.
+              As such, our mission is to make education accessible and to make
+              the world accessible through education.
             </Typography>
           </Grid>
         </Grid>
