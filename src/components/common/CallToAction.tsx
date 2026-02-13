@@ -29,7 +29,7 @@ const CTASection = () => {
         </Typography>
 
         <Subtitle sx={{ color: "white" }}>
-          Help prospective students make informed decisions by sharing your
+          Help prospective and current students make informed decisions by sharing your
           experience.
         </Subtitle>
 
