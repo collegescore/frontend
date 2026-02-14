@@ -42,7 +42,7 @@ export const submitReview = async (answers: Answer) => {
   return response.json();
 };
 
-export const addEmail = async (email: String) => {
+export const addEmail = async (email: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/emails`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
