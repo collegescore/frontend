@@ -28,10 +28,10 @@ export default function EmailSubscription({
     e.preventDefault();
     // Send email to backend
     try {
-      await addEmail(email)
+      await addEmail(email);
       console.log("Email submitted:", email);
       setSubmitted(true);
-    } catch (error){
+    } catch (error) {
       console.error("Failed to add email:", error);
       setSubmitted(false);
     }

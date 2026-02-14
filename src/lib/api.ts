@@ -43,16 +43,16 @@ export const submitReview = async (answers: Answer) => {
 };
 
 export const addEmail = async (email: String) => {
-  const response = await fetch(`${API_BASE_URL}/v0/emails`,{
+  const response = await fetch(`${API_BASE_URL}/v0/emails`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email }),
   });
 
-    if (!response.ok){
-      const errorText = await response.text();
-      throw new Error (errorText || "Failed to add email")
-    }
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Failed to add email");
+  }
 
-    return response.json();
-}
+  return response.json();
+};
