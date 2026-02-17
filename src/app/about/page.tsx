@@ -99,8 +99,15 @@ export default function AboutPage() {
           College Score began as a capstone project at the University of
           Washington, shaped in collaboration with students and faculty with
           disabilities and accessibility advocates from the Center for Research
-          and Education in Accessible Technology and Experiences
-          (<a href="https://create.uw.edu" target="_blank" rel="noopener noreferrer">CREATE.uw.edu</a>).
+          and Education in Accessible Technology and Experiences (
+          <a
+            href="https://create.uw.edu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CREATE.uw.edu
+          </a>
+          ).
         </Paragraph>
         <Paragraph>
           Through that work, we learned how limited existing college search

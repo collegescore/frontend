@@ -14,11 +14,7 @@ import Section from "../common/Section";
 
 const Footer = () => {
   return (
-    <Box
-      component="footer"
-      bgcolor="grayscale.dark"
-      py={{ xs: 8, md: 10 }}
-      >
+    <Box component="footer" bgcolor="grayscale.dark" py={{ xs: 8, md: 10 }}>
       <Container sx={{ color: "white" }}>
         <Grid container spacing={4}>
           {/* Column 1: Logo/Branding */}
