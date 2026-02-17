@@ -36,8 +36,8 @@ const HeroSection = () => {
         </Typography>
         <Subtitle>
           20% of College Students are disabled, but 100% of schools fail to
-          disclose how well they meet accessibility needs. College Score is
-          working to change that.
+          disclose up-to-date accessibility data. College Score is working to
+          change that.
         </Subtitle>
         <UniversitySearch onSelect={(college) => setSelectedCollege(college)} />
         <AddReviewButton

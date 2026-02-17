@@ -17,7 +17,7 @@ export default function AboutPage() {
 
       <AboutSection id="mission" heading="Our Mission">
         <Paragraph>
-          Choosing a college is about more than rankings, tuition, or test
+          Succeeding in college is about more than rankings, tuition, or test
           scores. For many students, it&apos;s about feeling safe, supported,
           and included.
         </Paragraph>
@@ -29,15 +29,16 @@ export default function AboutPage() {
         </Paragraph>
         <Paragraph>College Score exists to change that.</Paragraph>
         <Paragraph>
-          We are a student-powered platform where current students and alumni
-          share their experiences of what it was like to attend their college so
-          that prospective students can make informed, confident decisions.
+          We are a student-powered platform where current and former disabled
+          students share their experiences attending their college so that
+          students and prospective students can make informed, confident
+          decisions.
         </Paragraph>
         <Paragraph>
           Students are not defined by a single identity. College Score is
           intentionally intersectional, allowing students to share how
-          overlapping identities–such as disability, race, gender, sexuality,
-          and socioeconomic background–shape their experiences.
+          overlapping identities–such as race, gender, sexuality, and
+          socioeconomic background–shape their disability experiences.
         </Paragraph>
         <Paragraph sx={{ mb: 0 }}>As one student told us:</Paragraph>
         <Typography
@@ -66,7 +67,7 @@ export default function AboutPage() {
           ends.
         </Paragraph>
         <Paragraph sx={{ mb: 0 }}>
-          College Score centers student experiences.{" "}
+          College Score centers disabled student experiences.{" "}
         </Paragraph>
         <Typography
           color="grayscale.main"
@@ -90,6 +91,40 @@ export default function AboutPage() {
         <Paragraph>
           This approach reflects how students already evaluate colleges: through
           stories, shared experiences, and word-of-mouth.
+        </Paragraph>
+      </AboutSection>
+
+      <AboutSection id="roots" heading="Our Roots">
+        <Paragraph>
+          College Score began as a capstone project at the University of
+          Washington, shaped in collaboration with students and faculty with
+          disabilities and accessibility advocates from the Center for Research
+          and Education in Accessible Technology and Experiences (
+          <a
+            href="https://create.uw.edu"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CREATE.uw.edu
+          </a>
+          ).
+        </Paragraph>
+        <Paragraph>
+          Through that work, we learned how limited existing college search
+          tools are when it comes to accessibility, inclusion, and lived
+          experience–and how heavily students rely on word-of-mouth to fill
+          those gaps.
+        </Paragraph>
+        <Paragraph>
+          Today, College Score is an open-source project. Want to contribute?{" "}
+          <a
+            href="https://github.com/collegescore/documentation"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Join Us
+          </a>
+          .
         </Paragraph>
       </AboutSection>
       <CTASection />
