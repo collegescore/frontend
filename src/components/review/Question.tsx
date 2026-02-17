@@ -38,10 +38,6 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           />
         );
       case "yes-no":
-        const hasFollowUp =
-          question.type === "yes-no" &&
-          question.conditional &&
-          question.followUpQuestionId;
         return (
           <RadioGroup
             row
@@ -50,9 +46,6 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             id={question.id}
             value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
-            aria-controls={
-              hasFollowUp ? question.followUpQuestionId : undefined
-            }
           >
             <FormControlLabel
               value="yes"
