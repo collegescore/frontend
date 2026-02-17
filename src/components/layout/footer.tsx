@@ -10,7 +10,6 @@ import {
   Stack,
 } from "@mui/material";
 import NextLink from "next/link";
-import Section from "../common/Section";
 
 const Footer = () => {
   return (
