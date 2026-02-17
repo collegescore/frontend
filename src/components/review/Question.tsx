@@ -89,6 +89,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           <TextField
             name={question.id}
             id={question.id}
+            label='Type your answer here...'
             aria-labelledby={`${question.id}-label`}
             multiline
             maxRows={4}
