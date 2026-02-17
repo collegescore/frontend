@@ -1,8 +1,9 @@
 import Section from "../common/Section";
 import { Container, Typography, Box } from "@mui/material";
 import Subtitle from "../common/Subtitle";
+import {UniversitySearch} from "../common/UniversitySearch";
 
-const Title = () => {
+const SearchHero = () => {
 
   return (
     <Section bgcolor="grayscale.light" id="title-section">
@@ -11,11 +12,12 @@ const Title = () => {
         </Typography>
 
         {/* Left align subtitle and remove horizontal centering */}
-        <Subtitle sx={{ mx: 0 }}> 
+        <Subtitle sx={{ mx: 0, mb: 1}}> 
             Find universities that support your unique identity and needs.
         </Subtitle>
+        <UniversitySearch/>
     </Section>
   );
 };
 
-export default Title;
+export default SearchHero;
