@@ -2,6 +2,7 @@
 
 import React from "react";
 import {
+  Box,
   Container,
   Typography,
   Link as MuiLink,
@@ -13,7 +14,11 @@ import Section from "../common/Section";
 
 const Footer = () => {
   return (
-    <Section bgcolor="grayscale.dark" id="footer-section">
+    <Box
+      component="footer"
+      bgcolor="grayscale.dark"
+      py={{ xs: 8, md: 10 }}
+      >
       <Container sx={{ color: "white" }}>
         <Grid container spacing={4}>
           {/* Column 1: Logo/Branding */}
@@ -88,7 +93,7 @@ const Footer = () => {
           </Grid>
         </Grid>
       </Container>
-    </Section>
+    </Box>
   );
 };
 
