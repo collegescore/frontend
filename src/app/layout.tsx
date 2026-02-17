@@ -5,6 +5,12 @@ import theme from "@/theme";
 import "./globals.css";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "College Score - Find The College That Fits You",
+  description: "Discover and review colleges based on real student experiences. Make informed decisions about your education.",
+};
 
 /**layout.tsx files are for UI that wraps different pages */
 export default function RootLayout({
