@@ -10,7 +10,7 @@ const SearchHero = () => {
         Search Colleges
       </Typography>
 
-      {/* Left align subtitle and remove horizontal centering */}
+      {/* Left align subtitle */}
       <Subtitle sx={{ mx: 0, mb: 1 }}>
         Find universities that support your unique identity and needs.
       </Subtitle>
