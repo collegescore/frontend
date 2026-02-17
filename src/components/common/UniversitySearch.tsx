@@ -23,7 +23,7 @@ export const UniversitySearch = ({
   value: controlledValue = null,
 }: UniversitySearchProps) => {
   return (
-    <Box sx={{ width: width, maxWidth: 800, margin: "2rem auto" }}>
+    <Box sx={{ width: width, margin: "2rem auto" }}>
       <Autocomplete
         options={V0_COLLEGES}
         // Displays the college name field (as opposed to slug or id etc) in the dropdown
