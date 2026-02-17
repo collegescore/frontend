@@ -6,15 +6,12 @@ const Title = () => {
 
   return (
     <Section bgcolor="grayscale.light" id="title-section">
-        <Typography 
-            variant="h1" 
-            component="h1" 
-            gutterBottom
-            sx={{ fontWeight: 'bold', color: 'text.primary' }}
-          >
-            Search Colleges
+        <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
+          Search Colleges
         </Typography>
-        <Subtitle>
+
+        {/* Left align subtitle and remove horizontal centering */}
+        <Subtitle sx={{ mx: 0 }}> 
             Find universities that support your unique identity and needs.
         </Subtitle>
     </Section>
