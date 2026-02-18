@@ -11,6 +11,8 @@ import {
 import NextLink from "next/link";
 import Section from "../common/Section";
 
+const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === 'true';
+
 const Footer = () => {
   return (
     <Section bgcolor="grayscale.dark" id="footer-section">
@@ -46,14 +48,17 @@ const Footer = () => {
                 >
                   Home
                 </MuiLink>
-                <MuiLink
-                  component={NextLink}
-                  href="/search"
-                  color="inherit"
-                  underline="hover"
-                >
-                  Search Schools
-                </MuiLink>
+                {/* Only show Search Schools if the flag is true */}
+                {isSearchEnabled && (
+                  <MuiLink
+                    component={NextLink}
+                    href="/search"
+                    color="inherit"
+                    underline="hover"
+                  >
+                    Search Schools
+                  </MuiLink>
+                )}
                 <MuiLink
                   component={NextLink}
                   href="/about"
