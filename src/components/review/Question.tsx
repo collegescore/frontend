@@ -33,6 +33,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             name={question.id}
             id={question.id}
             aria-labelledby={`${question.id}-label`}
+            aria-required={question.required}
             value={typeof value === "number" ? value : null}
             onChange={(e, newValue) => onChange?.(question.id, newValue)}
           />
@@ -41,6 +42,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
         return (
           <RadioGroup
             row
+            aria-required={question.required}
             aria-labelledby={`${question.id}-label`}
             name={question.id}
             id={question.id}
@@ -91,6 +93,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             id={question.id}
             label="Type your answer here..."
             aria-labelledby={`${question.id}-label`}
+            required={question.required}
             multiline
             maxRows={4}
             fullWidth
