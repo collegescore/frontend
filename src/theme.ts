@@ -94,22 +94,22 @@ theme = createTheme(theme, {
       },
       variants: [
         {
-          props: {color: "primary" },
+          props: { color: "primary" },
           style: {
             "&:focus-visible": {
               outlineColor: theme.palette.primary.main,
             },
-          }
+          },
         },
         {
-          props: {color: "secondary" },
+          props: { color: "secondary" },
           style: {
             "&:focus-visible": {
               outlineColor: theme.palette.secondary.main,
             },
-          }
+          },
         },
-      ]
+      ],
     },
   },
 });
