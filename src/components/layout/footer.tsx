@@ -11,7 +11,7 @@ import {
 import NextLink from "next/link";
 import Section from "../common/Section";
 
-const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === 'true';
+const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === "true";
 
 const Footer = () => {
   return (
