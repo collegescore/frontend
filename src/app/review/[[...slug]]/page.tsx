@@ -140,7 +140,7 @@ function ReviewPage({ params }: ReviewPageProps) {
       spacing={2}
       alignItems="center"
       bgcolor="primary.main"
-      sx={{ py: 6 }}
+      sx={{ py: 6, overflow: "hidden", width: "100%" }}
     >
       {/* Screen reader announcements for conditional questions */}
       <div
@@ -194,7 +194,7 @@ function ReviewPage({ params }: ReviewPageProps) {
         <Container
           key={question.id}
           maxWidth="lg"
-          sx={{ bgcolor: "white", borderRadius: 4, pt: 3 }}
+          sx={{ bgcolor: "white", borderRadius: 4, pt: 3, px: { xs: 1.5, sm: 3 } }}
         >
           <ReviewQuestion
             question={question}

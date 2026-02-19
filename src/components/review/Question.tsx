@@ -64,7 +64,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
       case "date-range":
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <DatePicker
                 label="Start Year"
                 name={`${question.id}_start`}
