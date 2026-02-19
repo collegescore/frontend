@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import NextLink from "next/link";
 import Section from "../common/Section";
+import { FEATURE_FLAGS } from "@/config/flag";
 
-const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === "true";
 
 const Footer = () => {
   return (
@@ -49,7 +49,7 @@ const Footer = () => {
                   Home
                 </MuiLink>
                 {/* Only show Search Schools if the flag is true */}
-                {isSearchEnabled && (
+                {FEATURE_FLAGS.isSearchEnabled && (
                   <MuiLink
                     component={NextLink}
                     href="/search"

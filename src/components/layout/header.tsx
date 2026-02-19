@@ -11,9 +11,8 @@ import {
 import Link from "next/link";
 import NextLink from "next/link";
 import AddReviewButton from "../common/AddReviewButton";
+import { FEATURE_FLAGS } from "@/config/flag";
 
-// flag to determine whether search is in prod or not.
-const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === "true";
 
 const Header = () => {
   // List of navigation links
@@ -23,7 +22,7 @@ const Header = () => {
     { name: "About", href: "/about" },
   ].filter((link) => {
     // If the link is 'Search' and search is NOT enabled, hide it
-    if (link.name === "Search" && !isSearchEnabled) {
+    if (link.name === "Search" && !FEATURE_FLAGS.isSearchEnabled) {
       return false;
     }
     return true;

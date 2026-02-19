@@ -4,11 +4,11 @@ import React from "react";
 import { Container, Box, Typography } from "@mui/material";
 import { UniversitySearch } from "@/components/common/UniversitySearch";
 import NotFound from "../not-found";
+import { FEATURE_FLAGS } from "@/config/flag";
 
 export default function SearchPage() {
-  const isSearchEnabled = process.env.NEXT_PUBLIC_SHOW_SEARCH_PAGE === "true";
   // If the flag is false, show a NotFound page instead of the search UI
-  if (!isSearchEnabled) {
+  if (!FEATURE_FLAGS.isSearchEnabled) {
     return <NotFound />;
   }
 
