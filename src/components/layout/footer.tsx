@@ -12,7 +12,6 @@ import NextLink from "next/link";
 import Section from "../common/Section";
 import { FEATURE_FLAGS } from "@/config/flag";
 
-
 const Footer = () => {
   return (
     <Section bgcolor="grayscale.dark" id="footer-section">

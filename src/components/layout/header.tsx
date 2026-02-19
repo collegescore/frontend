@@ -13,7 +13,6 @@ import NextLink from "next/link";
 import AddReviewButton from "../common/AddReviewButton";
 import { FEATURE_FLAGS } from "@/config/flag";
 
-
 const Header = () => {
   // List of navigation links
   const navLinks = [
