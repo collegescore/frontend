@@ -17,6 +17,7 @@ import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
+import { scrollToTop } from "@/lib/utils";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -109,11 +110,13 @@ function ReviewPage({ params }: ReviewPageProps) {
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
       setCurrentStep((prev) => prev + 1);
+      scrollToTop();
     }
   };
   const handlePrevious = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
+      scrollToTop();
     }
   };
 
