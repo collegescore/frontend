@@ -39,7 +39,10 @@ const HeroSection = () => {
           disclose up-to-date accessibility data. College Score is working to
           change that.
         </Subtitle>
-        <UniversitySearch onSelect={(college) => setSelectedCollege(college)} />
+        <UniversitySearch
+          onSelect={(college) => setSelectedCollege(college)}
+          width="80%"
+        />
         <AddReviewButton
           text="Add Your Review"
           color="primary"
