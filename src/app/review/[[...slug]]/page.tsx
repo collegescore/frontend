@@ -194,7 +194,12 @@ function ReviewPage({ params }: ReviewPageProps) {
         <Container
           key={question.id}
           maxWidth="lg"
-          sx={{ bgcolor: "white", borderRadius: 4, pt: 3, px: { xs: 1.5, sm: 3 } }}
+          sx={{
+            bgcolor: "white",
+            borderRadius: 4,
+            pt: 3,
+            px: { xs: 1.5, sm: 3 },
+          }}
         >
           <ReviewQuestion
             question={question}
