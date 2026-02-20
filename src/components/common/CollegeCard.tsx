@@ -43,7 +43,7 @@ const CollegeCard = (props: { college: College }) => {
           </Typography>
           <Typography
             variant="body2"
-            component="h4"
+            component="p"
             color="text.secondary"
             sx={{ fontWeight: 550 }}
           >
