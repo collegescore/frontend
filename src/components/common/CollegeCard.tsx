@@ -5,18 +5,19 @@ import {
   Typography, 
   Box, 
   Divider, 
-  Button, 
-  Link 
+  Button 
 } from "@mui/material";
+import Link from "next/link";
 
+// Aligning this interface exactly with your database return object
 interface College {
-  id: number | string;
+  slug: string;
   name: string;
   city: string;
-  state: string;
-  accessibility: number;
-  safety: number;
-  inclusivity: number;
+  state: string; // State abbreviation
+  a11y_overall: number;
+  safety_overall: number;
+  inclusivity_overall: number;
   reviewCount: number;
 }
 
@@ -25,73 +26,75 @@ const CollegeCard = ({ college }: { college: College }) => {
     <Card 
       component="article" 
       sx={{ 
-        maxWidth: 345, 
-        borderRadius: 4, // 16px
+        width: '100%', 
+        borderRadius: 4, 
         overflow: 'hidden',
-        boxShadow: 3,
-        '&:hover': { boxShadow: 6 } 
+        boxShadow: 2,
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'transform 0.2s ease-in-out',
+        '&:hover': { 
+          boxShadow: 6,
+          transform: 'translateY(-4px)' // Subtle lift effect
+        } 
       }}
     >
-      {/* Top section using Theme Primary Color */}
+      {/* Visual Accent */}
       <Box 
         role="presentation"
-        sx={{ 
-          height: 80, 
-          bgcolor: 'primary.main' 
-        }} 
+        sx={{ height: 64, bgcolor: 'primary.main' }} 
       />
 
-      <CardContent sx={{ p: 3 }}>
+      <CardContent sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
         <header>
           <Typography 
             variant="h6" 
             component="h3" 
-            sx={{ fontWeight: 'bold', lineHeight: 1.2 }}
+            sx={{ fontWeight: 800, color: 'text.primary', mb: 0.5 }}
           >
             {college.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            <span style={{ clip: 'path(0 0 0 0)', position: 'absolute', width: 1, height: 1, overflow: 'hidden' }}>
-              Location: 
-            </span>
+          <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
             {college.city}, {college.state}
           </Typography>
         </header>
 
         <Divider sx={{ my: 2 }} aria-hidden="true" />
 
-        {/* Semantic Description List for Ratings */}
+        {/* Semantic Ratings Section */}
         <Box 
           component="dl" 
           sx={{ 
             display: 'grid', 
-            gridTemplateColumns: '1fr 1fr 1fr', 
+            gridTemplateColumns: 'repeat(3, 1fr)', 
+            gap: 1,
             textAlign: 'center',
             m: 0 
           }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 700, color: 'text.disabled', textTransform: 'uppercase' }}>
               Access
             </Typography>
-            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', m: 0 }}>
-              {college.accessibility}
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 800, color: 'primary.main', m: 0 }}>
+              {college.a11y_overall}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 700, color: 'text.disabled', textTransform: 'uppercase' }}>
               Safety
             </Typography>
-            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'success.main', m: 0 }}>
-              {college.safety}
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 800, color: 'success.main', m: 0 }}>
+              {college.safety_overall}
             </Typography>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 700, color: 'text.disabled', textTransform: 'uppercase' }}>
               Incl.
             </Typography>
-            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'secondary.main', m: 0 }}>
-              {college.inclusivity}
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 800, color: 'secondary.main', m: 0 }}>
+              {college.inclusivity_overall}
             </Typography>
           </Box>
         </Box>
@@ -99,27 +102,30 @@ const CollegeCard = ({ college }: { college: College }) => {
         <Box 
           component="footer" 
           sx={{ 
-            mt: 3, 
-            pt: 2, 
-            borderTop: '1px solid', 
-            borderColor: 'divider',
+            mt: 'auto', 
+            pt: 3, 
             display: 'flex', 
             justifyContent: 'space-between', 
             alignItems: 'center' 
           }}
         >
-          <Typography variant="caption" sx={{ fontWeight: 500 }}>
+          <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
             {college.reviewCount} reviews
           </Typography>
-          <Button 
-            size="small" 
-            variant="text" 
-            component={Link} 
-            href={`/colleges/${college.id}`}
-            sx={{ fontWeight: 'bold' }}
-          >
-            Details →
-          </Button>
+          
+          <Link href={`/colleges/${college.slug}`} passHref legacyBehavior>
+            <Button 
+              size="small" 
+              variant="outlined" 
+              sx={{ 
+                fontWeight: 700, 
+                borderRadius: 2,
+                textTransform: 'none'
+              }}
+            >
+              View School
+            </Button>
+          </Link>
         </Box>
       </CardContent>
     </Card>
