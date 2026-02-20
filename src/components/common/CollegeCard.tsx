@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
+import BasicButton from "./BasicButton";
 
 interface College {
   slug: string;
@@ -196,19 +197,12 @@ const CollegeCard = ({ college }: { college: College }) => {
             {college.num_reviews} reviews
           </Typography>
 
-          <Link href={`/colleges/${college.slug}`} passHref legacyBehavior>
-            <Button
-              size="small"
-              variant="outlined"
-              sx={{
-                fontWeight: 700,
-                borderRadius: 2,
-                textTransform: "none",
-              }}
-            >
-              View School
-            </Button>
-          </Link>
+            <BasicButton
+              text="See More"
+              href={`/colleges/${college.slug}`}
+              //make it smaller
+              sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
+            />
         </Box>
       </CardContent>
     </Card>
