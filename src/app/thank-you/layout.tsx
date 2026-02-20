@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Thank You - College Score",
   description:
-    "Thank you for submitting your college review. Your insights help prospective students make informed decisions.",
+    "Your insights help current and prospective students to stay informed and make the right decisions for their unique identity",
 };
 
 export default function ThankYouLayout({
