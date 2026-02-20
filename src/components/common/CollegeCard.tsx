@@ -3,6 +3,7 @@ import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import BasicButton from "./BasicButton";
 import { College } from "@/types/college";
+import { StarRatingLabelBox } from "./StarRatingLabelBox";
 
 const CollegeCard = (props: { college: College }) => {
   const { college } = props;
@@ -67,110 +68,23 @@ const CollegeCard = (props: { college: College }) => {
               m: 0,
             }}
           >
-            {/* Accessibility Block */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                component="dd"
-                sx={{
-                  m: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center", // This centers the icon+text group
-                  color: "text.primary",
-                }}
-              >
-                <StarRateRoundedIcon sx={{ color: "primary.main" }} />
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: 800, lineHeight: 1 }}
-                >
-                  {college.a11y_overall}
-                </Typography>
-              </Box>
-              <Typography
-                component="dt"
-                variant="caption"
-                sx={{ color: "text.secondary" }}
-              >
-                Accessibility
-              </Typography>
-            </Box>
+            {/* Accessibility Rating */}
+            <StarRatingLabelBox
+              rating={college.a11y_overall || 0}
+              label="Accessibility"
+            />
 
-            {/* Safety Block */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                component="dd"
-                sx={{
-                  m: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "text.primary",
-                }}
-              >
-                <StarRateRoundedIcon sx={{ color: "primary.main" }} />
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: 800, lineHeight: 1 }}
-                >
-                  {college.safety_overall}
-                </Typography>
-              </Box>
-              <Typography
-                component="dt"
-                variant="caption"
-                sx={{ color: "text.secondary" }}
-              >
-                Safety
-              </Typography>
-            </Box>
+            {/* Safety Rating*/}
+            <StarRatingLabelBox
+              rating={college.safety_overall || 0}
+              label="Safety"
+            />
 
-            {/* Inclusivity Block */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                component="dd"
-                sx={{
-                  m: 0,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "text.primary",
-                }}
-              >
-                <StarRateRoundedIcon sx={{ color: "primary.main" }} />
-                <Typography
-                  variant="h6"
-                  sx={{ fontWeight: 800, lineHeight: 1 }}
-                >
-                  {college.inclusivity_overall}
-                </Typography>
-              </Box>
-              <Typography
-                component="dt"
-                variant="caption"
-                sx={{ color: "text.secondary" }}
-              >
-                Inclusivity
-              </Typography>
-            </Box>
+            {/* Inclusivity Rating */}
+            <StarRatingLabelBox
+              rating={college.inclusivity_overall || 0}
+              label="Inclusivity"
+            />
           </Box>
         </Box>
 
