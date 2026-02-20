@@ -1,21 +1,31 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getCollegeName } from "@/lib/api";
 
 export async function generateMetadata({
   params,
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  // Slug format: name-city-state, remove last 2 parts to get name
-  const parts = params.slug.split("-");
-  const nameParts = parts.slice(0, -2);
-  const collegeName = nameParts
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+  try {
+    const collegeName = await getCollegeName(params.slug);
 
-  return {
-    title: `${collegeName} - College Score`,
-    description: `Read authentic student reviews and experiences about ${collegeName}. Learn about accessibility, disability support, and campus inclusion.`,
-  };
+    if (!collegeName) {
+      console.error(`College not found for slug: ${params.slug}`);
+      notFound();
+    }
+
+    return {
+      title: `${collegeName} - College Score`,
+      description: `Read authentic student reviews and experiences about ${collegeName}. Learn about accessibility, disability support, and campus inclusion.`,
+    };
+  } catch (error) {
+    console.error(
+      `Error fetching college for slug ${params.slug}:`,
+      error instanceof Error ? error.message : "Unknown error",
+    );
+    notFound();
+  }
 }
 
 export default function CollegeLayout({
