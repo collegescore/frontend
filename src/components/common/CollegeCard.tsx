@@ -32,6 +32,7 @@ const CollegeCard = (props: { college: College }) => {
       <CardContent
         sx={{ p: 3, flexGrow: 1, display: "flex", flexDirection: "column" }}
       >
+        {/* header section with the college name and location (city, state abbreviation) */}
         <header>
           <Typography
             variant="h4"
