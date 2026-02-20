@@ -83,11 +83,33 @@ theme = createTheme(theme, {
           paddingBlock: "0.75rem",
           borderRadius: "8px",
           transition: "background-color 0.4s ease",
+          "&:focus-visible": {
+            outline: "2px solid",
+            outlineOffset: "4px",
+          },
         },
         outlined: {
           borderWidth: "1.5px",
         },
       },
+      variants: [
+        {
+          props: { color: "primary" },
+          style: {
+            "&:focus-visible": {
+              outlineColor: theme.palette.primary.main,
+            },
+          },
+        },
+        {
+          props: { color: "secondary" },
+          style: {
+            "&:focus-visible": {
+              outlineColor: theme.palette.secondary.main,
+            },
+          },
+        },
+      ],
     },
   },
 });
