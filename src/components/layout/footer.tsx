@@ -10,6 +10,7 @@ import {
   Stack,
 } from "@mui/material";
 import NextLink from "next/link";
+import { FEATURE_FLAGS } from "@/config/flag";
 
 const Footer = () => {
   return (
@@ -46,14 +47,17 @@ const Footer = () => {
                 >
                   Home
                 </MuiLink>
-                <MuiLink
-                  component={NextLink}
-                  href="/search"
-                  color="inherit"
-                  underline="hover"
-                >
-                  Search Schools
-                </MuiLink>
+                {/* Only show Search Schools if the flag is true */}
+                {FEATURE_FLAGS.isSearchEnabled && (
+                  <MuiLink
+                    component={NextLink}
+                    href="/search"
+                    color="inherit"
+                    underline="hover"
+                  >
+                    Search Schools
+                  </MuiLink>
+                )}
                 <MuiLink
                   component={NextLink}
                   href="/about"
