@@ -95,7 +95,12 @@ const CollegeCard = ({ college }: { college: College }) => {
               }}
             >
               <StarRateRoundedIcon
-                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2 }}
+                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2,
+                     stroke: 'currentColor',
+                     strokeWidth: 2, // Increase this number to make it even puffier
+                     strokeLinecap: 'round',
+                     strokeLinejoin: 'round',
+                     paintOrder: 'stroke'}}
               />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.a11y_overall}
@@ -129,7 +134,12 @@ const CollegeCard = ({ college }: { college: College }) => {
               }}
             >
               <StarRateRoundedIcon
-                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2 }}
+                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2,
+                     stroke: 'currentColor',
+                     strokeWidth: 2, // Increase this number to make it even puffier
+                     strokeLinecap: 'round',
+                     strokeLinejoin: 'round',
+                     paintOrder: 'stroke'}}
               />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.safety_overall}
@@ -163,7 +173,12 @@ const CollegeCard = ({ college }: { college: College }) => {
               }}
             >
               <StarRateRoundedIcon
-                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2 }}
+                sx={{ fontSize: "1.2rem", color: "primary.main", mr: 0.2,
+                     stroke: 'currentColor',
+                     strokeWidth: 2, // Increase this number to make it even puffier
+                     strokeLinecap: 'round',
+                     strokeLinejoin: 'round',
+                     paintOrder: 'stroke'}}
               />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.inclusivity_overall}
