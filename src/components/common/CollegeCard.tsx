@@ -8,19 +8,11 @@ import {
 } from "@mui/material";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import BasicButton from "./BasicButton";
+import { College } from "@/types/college";
 
-interface College {
-  slug: string;
-  name: string;
-  city: string;
-  state: string; // this is the state abbreviation (e.g., "CA" for California)
-  a11y_overall: number;
-  safety_overall: number;
-  inclusivity_overall: number;
-  num_reviews: number;
-}
+const CollegeCard = (props: { college: College }) => {
+  const { college } = props;
 
-const CollegeCard = ({ college }: { college: College }) => {
   return (
     <Card
       component="article"
