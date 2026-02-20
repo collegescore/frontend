@@ -95,9 +95,7 @@ const CollegeCard = ({ college }: { college: College }) => {
                 color: "text.primary",
               }}
             >
-              <StarRateRoundedIcon
-                sx={{ color: "primary.main"}}
-              />
+              <StarRateRoundedIcon sx={{ color: "primary.main" }} />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.a11y_overall}
               </Typography>
@@ -129,9 +127,7 @@ const CollegeCard = ({ college }: { college: College }) => {
                 color: "text.primary",
               }}
             >
-              <StarRateRoundedIcon
-                sx={{ color: "primary.main"}}
-              />
+              <StarRateRoundedIcon sx={{ color: "primary.main" }} />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.safety_overall}
               </Typography>
@@ -163,9 +159,7 @@ const CollegeCard = ({ college }: { college: College }) => {
                 color: "text.primary",
               }}
             >
-              <StarRateRoundedIcon
-                sx={{ color: "primary.main"}}
-              />
+              <StarRateRoundedIcon sx={{ color: "primary.main" }} />
               <Typography variant="h6" sx={{ fontWeight: 800, lineHeight: 1 }}>
                 {college.inclusivity_overall}
               </Typography>
@@ -197,12 +191,12 @@ const CollegeCard = ({ college }: { college: College }) => {
             {college.num_reviews} reviews
           </Typography>
 
-            <BasicButton
-              text="See More"
-              href={`/colleges/${college.slug}`}
-              //make it smaller
-              sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
-            />
+          <BasicButton
+            text="See More"
+            href={`/colleges/${college.slug}`}
+            //make it smaller
+            sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
+          />
         </Box>
       </CardContent>
     </Card>
