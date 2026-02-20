@@ -12,6 +12,7 @@ export default function SearchPage() {
       <SearchHero />
       <CollegeCard
         college={{
+          id: 1,
           slug: "example-university-example-city-ex",
           name: "Example University",
           city: "Example City",
