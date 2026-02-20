@@ -10,7 +10,8 @@ export default function SearchPage() {
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      <CollegeCard college={{
+      <CollegeCard
+        college={{
           slug: "example-university-example-city-ex",
           name: "Example University",
           city: "Example City",
@@ -19,7 +20,8 @@ export default function SearchPage() {
           safety_overall: 3.8,
           inclusivity_overall: 4.5,
           num_reviews: 128,
-      }} />
+        }}
+      />
     </Container>
   );
 }
