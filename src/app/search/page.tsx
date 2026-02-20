@@ -18,7 +18,7 @@ export default function SearchPage() {
           a11y_overall: 4.2,
           safety_overall: 3.8,
           inclusivity_overall: 4.5,
-          reviewCount: 128,
+          num_reviews: 128,
       }} />
     </Container>
   );

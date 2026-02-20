@@ -9,16 +9,15 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-// Aligning this interface exactly with your database return object
 interface College {
   slug: string;
   name: string;
   city: string;
-  state: string; // State abbreviation
+  state: string; // this is the state abbreviation (e.g., "CA" for California)
   a11y_overall: number;
   safety_overall: number;
   inclusivity_overall: number;
-  reviewCount: number;
+  num_reviews: number;
 }
 
 const CollegeCard = ({ college }: { college: College }) => {
