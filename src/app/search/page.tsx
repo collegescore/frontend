@@ -4,6 +4,7 @@ import React from "react";
 import { Container, Box, Typography } from "@mui/material";
 import { UniversitySearch } from "@/components/common/UniversitySearch";
 import SearchHero from "@/components/search/Hero";
+import CollegeCard from "@/components/common/CollegeCard";
 
 export default function SearchPage() {
   return (
