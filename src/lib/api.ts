@@ -36,7 +36,12 @@ export const submitReview = async (answers: Answer) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText || "Failed to submit review");
+    try {
+      const errorData = JSON.parse(errorText);
+      throw new Error(errorData.detail || "Failed to submit review");
+    } catch {
+      throw new Error(errorText || "Failed to submit review");
+    }
   }
 
   return response.json();
@@ -51,7 +56,12 @@ export const addEmail = async (email: string) => {
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(errorText || "Failed to add email");
+    try {
+      const errorData = JSON.parse(errorText);
+      throw new Error(errorData.detail || "Failed to add email");
+    } catch {
+      throw new Error(errorText || "Failed to add email");
+    }
   }
 
   return response.json();
