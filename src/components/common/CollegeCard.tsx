@@ -109,7 +109,7 @@ const CollegeCard = ({ college }: { college: College }) => {
           }}
         >
           <Typography variant="caption" sx={{ fontWeight: 600, color: 'text.secondary' }}>
-            {college.reviewCount} reviews
+            {college.num_reviews} reviews
           </Typography>
           
           <Link href={`/colleges/${college.slug}`} passHref legacyBehavior>
