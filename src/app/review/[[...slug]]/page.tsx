@@ -17,6 +17,7 @@ import { Answer } from "@/types/review_qa";
 import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
+import { scrollToTop } from "@/lib/utils";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -109,11 +110,13 @@ function ReviewPage({ params }: ReviewPageProps) {
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
       setCurrentStep((prev) => prev + 1);
+      scrollToTop();
     }
   };
   const handlePrevious = () => {
     if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
+      scrollToTop();
     }
   };
 
@@ -140,7 +143,7 @@ function ReviewPage({ params }: ReviewPageProps) {
       spacing={2}
       alignItems="center"
       bgcolor="primary.main"
-      sx={{ py: 6 }}
+      sx={{ py: 6, overflow: "hidden", width: "100%" }}
     >
       {/* Screen reader announcements for conditional questions */}
       <div
@@ -194,7 +197,12 @@ function ReviewPage({ params }: ReviewPageProps) {
         <Container
           key={question.id}
           maxWidth="lg"
-          sx={{ bgcolor: "white", borderRadius: 4, pt: 3 }}
+          sx={{
+            bgcolor: "white",
+            borderRadius: 4,
+            pt: 3,
+            px: { xs: 1.5, sm: 3 },
+          }}
         >
           <ReviewQuestion
             question={question}

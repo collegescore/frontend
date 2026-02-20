@@ -33,26 +33,21 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
             name={question.id}
             id={question.id}
             aria-labelledby={`${question.id}-label`}
+            aria-required={question.required}
             value={typeof value === "number" ? value : null}
             onChange={(e, newValue) => onChange?.(question.id, newValue)}
           />
         );
       case "yes-no":
-        const hasFollowUp =
-          question.type === "yes-no" &&
-          question.conditional &&
-          question.followUpQuestionId;
         return (
           <RadioGroup
             row
+            aria-required={question.required}
             aria-labelledby={`${question.id}-label`}
             name={question.id}
             id={question.id}
             value={value || ""}
             onChange={(e) => onChange?.(question.id, e.target.value)}
-            aria-controls={
-              hasFollowUp ? question.followUpQuestionId : undefined
-            }
           >
             <FormControlLabel
               value="yes"
@@ -69,7 +64,7 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
       case "date-range":
         return (
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Stack direction="row" spacing={2}>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
               <DatePicker
                 label="Start Year"
                 name={`${question.id}_start`}
@@ -96,7 +91,9 @@ function ReviewQuestion({ question, onChange, value }: ReviewQuestionProps) {
           <TextField
             name={question.id}
             id={question.id}
+            label="Type your answer here..."
             aria-labelledby={`${question.id}-label`}
+            required={question.required}
             multiline
             maxRows={4}
             fullWidth

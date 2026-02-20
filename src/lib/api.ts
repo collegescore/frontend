@@ -56,3 +56,15 @@ export const addEmail = async (email: string) => {
 
   return response.json();
 };
+
+export const getCollegeName = async (slug: string) => {
+  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || "Failed to fetch college name");
+  }
+
+  const data = await response.json();
+  return data.name;
+};

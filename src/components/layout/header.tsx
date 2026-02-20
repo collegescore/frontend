@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -7,13 +7,24 @@ import {
   Container,
   Box,
   Link as MuiLink,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  useMediaQuery,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import NextLink from "next/link";
 import AddReviewButton from "../common/AddReviewButton";
 import { FEATURE_FLAGS } from "@/config/flag";
 
 const Header = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width:768px)");
+
   // List of navigation links
   const navLinks = [
     { name: "Home", href: "/" },
@@ -26,6 +37,14 @@ const Header = () => {
     }
     return true;
   });
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <AppBar
@@ -57,11 +76,11 @@ const Header = () => {
             </Link>
           </Typography>
 
-          {/* Navigation Link Section */}
+          {/* Navigation Link Section - Desktop */}
           <Box
             component="nav"
             sx={{
-              display: "flex",
+              display: { xs: "none", md: "flex" },
               gap: 4,
               alignItems: "center",
             }}
@@ -97,8 +116,105 @@ const Header = () => {
               ariaLabel="Add Review"
             />
           </Box>
+
+          {/* Hamburger Menu - Mobile */}
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
+            <IconButton
+              onClick={handleMobileMenuToggle}
+              aria-label="Open navigation menu"
+              sx={{
+                color: "grayscale.dark",
+                "&:focus-visible": {
+                  outline: "2px solid",
+                  outlineColor: "primary.main",
+                  outlineOffset: "4px",
+                },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
       </Container>
+
+      {/* Mobile Navigation Drawer */}
+      <Drawer
+        anchor="top"
+        open={mobileMenuOpen}
+        onClose={handleMobileMenuClose}
+        sx={{
+          "& .MuiDrawer-paper": {
+            marginTop: "56px", // Below the header
+          },
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            p: 2,
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: 700 }}>
+            Menu
+          </Typography>
+          <IconButton
+            onClick={handleMobileMenuClose}
+            aria-label="Close navigation menu"
+            sx={{
+              "&:focus-visible": {
+                outline: "2px solid",
+                outlineColor: "primary.main",
+                outlineOffset: "4px",
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        <List>
+          {navLinks.map((link) => (
+            <ListItem key={link.name} disablePadding>
+              <ListItemButton
+                component={NextLink}
+                href={link.href}
+                onClick={handleMobileMenuClose}
+                sx={{
+                  color: "grayscale.main",
+                  fontWeight: 525,
+                  "&:focus-visible": {
+                    outline: "2px solid",
+                    outlineColor: "primary.main",
+                    outlineOffset: "4px",
+                  },
+                }}
+              >
+                {link.name}
+              </ListItemButton>
+            </ListItem>
+          ))}
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={handleMobileMenuClose}
+              component={NextLink}
+              href="/review"
+              sx={{
+                color: "primary.main",
+                fontWeight: 600,
+                "&:focus-visible": {
+                  outline: "2px solid",
+                  outlineColor: "primary.main",
+                  outlineOffset: "4px",
+                },
+              }}
+            >
+              Add Review
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
     </AppBar>
   );
 };
