@@ -1,7 +1,16 @@
-import React from 'react';
+import React from "react";
+import { 
+  Card, 
+  CardContent, 
+  Typography, 
+  Box, 
+  Divider, 
+  Button, 
+  Link 
+} from "@mui/material";
 
 interface College {
-  id: string;
+  id: number | string;
   name: string;
   city: string;
   state: string;
@@ -12,85 +21,108 @@ interface College {
 }
 
 const CollegeCard = ({ college }: { college: College }) => {
-  const slug = college.name.replace(/\s+/g, '-').toLowerCase();
-
   return (
-    <li>
-      <article 
-        className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
-        aria-labelledby={`name-${college.id}`}
-      >
-        {/* Top section using the theme's primary color */}
-        <div 
-          className="h-16 w-full bg-primary" 
-          role="presentation"
-          aria-hidden="true"
-        />
+    <Card 
+      component="article" 
+      sx={{ 
+        maxWidth: 345, 
+        borderRadius: 4, // 16px
+        overflow: 'hidden',
+        boxShadow: 3,
+        '&:hover': { boxShadow: 6 } 
+      }}
+    >
+      {/* Top section using Theme Primary Color */}
+      <Box 
+        role="presentation"
+        sx={{ 
+          height: 80, 
+          bgcolor: 'primary.main' 
+        }} 
+      />
 
-        <div className="flex flex-1 flex-col p-5">
-          <header>
-            <h3 
-              id={`name-${college.id}`}
-              className="text-xl font-bold tracking-tight text-gray-900"
-            >
-              {college.name}
-            </h3>
-            <p className="mt-1 text-sm text-gray-600">
-              <span className="sr-only">Location: </span>
-              {college.city}, {college.state}
-            </p>
-          </header>
+      <CardContent sx={{ p: 3 }}>
+        <header>
+          <Typography 
+            variant="h6" 
+            component="h3" 
+            sx={{ fontWeight: 'bold', lineHeight: 1.2 }}
+          >
+            {college.name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <span style={{ clip: 'path(0 0 0 0)', position: 'absolute', width: 1, height: 1, overflow: 'hidden' }}>
+              Location: 
+            </span>
+            {college.city}, {college.state}
+          </Typography>
+        </header>
 
-          <hr className="my-5 border-gray-100" aria-hidden="true" />
+        <Divider sx={{ my: 2 }} aria-hidden="true" />
 
-          {/* Semantic Description List for Ratings */}
-          <dl className="grid grid-cols-3 gap-4 text-center">
-            <div className="flex flex-col">
-              <dt className="order-2 text-xs font-medium uppercase tracking-wide text-gray-500">Access</dt>
-              <dd className="order-1 text-2xl font-bold text-primary">{college.accessibility}</dd>
-            </div>
-            <div className="flex flex-col">
-              <dt className="order-2 text-xs font-medium uppercase tracking-wide text-gray-500">Safety</dt>
-              <dd className="order-1 text-2xl font-bold text-primary">{college.safety}</dd>
-            </div>
-            <div className="flex flex-col">
-              <dt className="order-2 text-xs font-medium uppercase tracking-wide text-gray-500">Incl.</dt>
-              <dd className="order-1 text-2xl font-bold text-primary">{college.inclusivity}</dd>
-            </div>
-          </dl>
+        {/* Semantic Description List for Ratings */}
+        <Box 
+          component="dl" 
+          sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: '1fr 1fr 1fr', 
+            textAlign: 'center',
+            m: 0 
+          }}
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+              Access
+            </Typography>
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'primary.main', m: 0 }}>
+              {college.accessibility}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+              Safety
+            </Typography>
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'success.main', m: 0 }}>
+              {college.safety}
+            </Typography>
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="dt" variant="caption" sx={{ fontWeight: 'bold', color: 'text.secondary', textTransform: 'uppercase' }}>
+              Incl.
+            </Typography>
+            <Typography component="dd" variant="h6" sx={{ fontWeight: 'bold', color: 'secondary.main', m: 0 }}>
+              {college.inclusivity}
+            </Typography>
+          </Box>
+        </Box>
 
-          <footer className="mt-auto pt-6">
-            <div className="flex items-center justify-between border-t border-gray-50 pt-4">
-              <p className="text-sm font-medium text-gray-700">
-                <span className="sr-only">Total reviews: </span>
-                {college.reviewCount} {college.reviewCount === 1 ? 'review' : 'reviews'}
-              </p>
-              <a 
-                href={`/colleges/${slug}`}
-                className="inline-flex items-center text-sm font-bold text-primary hover:underline focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
-              >
-                View Details
-                <span className="sr-only"> for {college.name}</span>
-                <span className="ml-1" aria-hidden="true">→</span>
-              </a>
-            </div>
-          </footer>
-        </div>
-      </article>
-    </li>
-  );
-};
-
-// The Grid Wrapper
-export const CollegeGrid = ({ colleges }: { colleges: College[] }) => {
-  return (
-    <section aria-label="College search results">
-      <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {colleges.map((college) => (
-          <CollegeCard key={college.id} college={college} />
-        ))}
-      </ul>
-    </section>
+        <Box 
+          component="footer" 
+          sx={{ 
+            mt: 3, 
+            pt: 2, 
+            borderTop: '1px solid', 
+            borderColor: 'divider',
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center' 
+          }}
+        >
+          <Typography variant="caption" sx={{ fontWeight: 500 }}>
+            {college.reviewCount} reviews
+          </Typography>
+          <Button 
+            size="small" 
+            variant="text" 
+            component={Link} 
+            href={`/colleges/${college.id}`}
+            sx={{ fontWeight: 'bold' }}
+          >
+            Details →
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 
