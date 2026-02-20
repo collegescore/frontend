@@ -5,9 +5,7 @@ import {
   Typography,
   Box,
   Divider,
-  Button,
 } from "@mui/material";
-import Link from "next/link";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import BasicButton from "./BasicButton";
 
