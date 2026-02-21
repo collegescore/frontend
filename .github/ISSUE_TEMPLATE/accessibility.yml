@@ -1,0 +1,96 @@
+---
+name: Accessibility Issue Report
+about: Report an accessibility (a11y) problem or barrier
+title: "[A11y] "
+labels: ["accessibility", "bug"]
+assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Accessibility Issue Report
+
+        Thanks for helping us make the product more accessible! Please provide the details below. The more information you share, the faster we can fix the issue.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Briefly describe the accessibility issue.
+      placeholder: e.g., "Screen reader does not announce button label"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps to reproduce the issue.
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. Observe...
+    validations:
+      required: true
+
+  - type: input
+    id: affected
+    attributes:
+      label: Affected Page/Component
+      description: Where does the issue occur? (URL, component name, etc.)
+      placeholder: e.g., "/about page", "Header component"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: e.g., "Button should be announced as 'Submit' by screen reader"
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: e.g., "Button is not announced at all"
+    validations:
+      required: true
+
+  - type: input
+    id: assistive
+    attributes:
+      label: Assistive Technology Used
+      description: "Optional: What assistive technology and browser did you use? (e.g., NVDA + Firefox, VoiceOver + Safari)"
+      placeholder: e.g., "NVDA 2023.1 + Firefox 120"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Code
+      description: "Optional: Add screenshots or code snippets if helpful."
+      placeholder: "Drag and drop images or paste code here."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (Optional)
+      description: How severe is the issue?
+      options:
+        - Select severity...
+        - Blocker (prevents use)
+        - Major (serious barrier)
+        - Minor (annoyance)
+        - Enhancement (suggestion)
+    validations:
+      required: false
+
+---
