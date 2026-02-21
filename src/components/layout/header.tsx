@@ -19,6 +19,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import NextLink from "next/link";
 import AddReviewButton from "../common/AddReviewButton";
+import { FEATURE_FLAGS } from "@/config/flag";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -29,7 +30,13 @@ const Header = () => {
     { name: "Home", href: "/" },
     { name: "Search", href: "/search" },
     { name: "About", href: "/about" },
-  ];
+  ].filter((link) => {
+    // If the link is 'Search' and search is NOT enabled, hide it
+    if (link.name === "Search" && !FEATURE_FLAGS.isSearchEnabled) {
+      return false;
+    }
+    return true;
+  });
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!mobileMenuOpen);
