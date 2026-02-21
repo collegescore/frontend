@@ -23,17 +23,20 @@ export default function EmailSubscription({
 }: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string>("");
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Send email to backend
+    setError("");
+
     try {
       await addEmail(email);
-      console.log("Email submitted:", email);
+      setEmail("");
       setSubmitted(true);
     } catch (error) {
-      console.error("Failed to add email:", error);
-      setSubmitted(false);
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to add email.";
+      setError(errorMessage);
     }
   };
 
@@ -106,6 +109,20 @@ export default function EmailSubscription({
           role="status"
         >
           Thanks for subscribing! We&apos;ll keep you posted.
+        </Typography>
+      )}
+      {error && (
+        <Typography
+          variant="body2"
+          color="error.main"
+          sx={{
+            mt: 2,
+            fontWeight: 600,
+            textAlign: "center",
+          }}
+          role="alert"
+        >
+          {error}
         </Typography>
       )}
     </Box>

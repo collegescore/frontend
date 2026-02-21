@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
+import { Alert } from "@mui/material";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -28,6 +29,7 @@ function ReviewPage({ params }: ReviewPageProps) {
   const schoolSlug = resolvedParams.slug?.[0];
   const router = useRouter();
   const [announcement, setAnnouncement] = useState<string>("");
+  const [error, setError] = useState<string>("");
   //Store answers to questions
   const [answers, setAnswers] = useState<Answer>(() => {
     const initialAnswers: Answer = {};
@@ -122,16 +124,18 @@ function ReviewPage({ params }: ReviewPageProps) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setError(""); // Clear previous errors
 
-    // Use the answers state instead of FormData since not all questions are visible at submit time
-    console.log("Review data to submit:", answers);
-
-    //Send to backend
     try {
       await submitReview(answers);
       //Redirect to thank you page
       router.push("/thank-you");
     } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to submit review. Please try again.";
+      setError(errorMessage);
       console.error("Error submitting review:", error);
     }
   };
@@ -246,6 +250,13 @@ function ReviewPage({ params }: ReviewPageProps) {
           </Button>
         )}
       </Stack>
+
+      {/* Visible error message (announced by screen readers) */}
+      {error && (
+        <Alert severity="error" sx={{ mx: 2, mb: 2 }} aria-live="assertive">
+          <Typography variant="body2">{error}</Typography>
+        </Alert>
+      )}
     </Stack>
   );
 }
