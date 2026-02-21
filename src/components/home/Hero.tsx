@@ -11,7 +11,7 @@ const HeroSection = () => {
   const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
 
   return (
-    <Section bgcolor="grayscale.light" id="hero-section">
+    <Section id="hero-section">
       <Container
         sx={{
           color: "black",
