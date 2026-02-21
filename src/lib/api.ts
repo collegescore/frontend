@@ -54,10 +54,7 @@ export const submitReview = async (answers: Answer) => {
   });
 
   if (!response.ok) {
-    const message = await getErrorMessage(
-      response,
-      "Failed to submit review",
-    );
+    const message = await getErrorMessage(response, "Failed to submit review");
     throw new Error(message);
   }
 
