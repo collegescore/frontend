@@ -74,6 +74,14 @@ const Footer = () => {
                 >
                   Write a Review
                 </MuiLink>
+                <MuiLink
+                  component={NextLink}
+                  href="/privacy"
+                  color="inherit"
+                  underline="hover"
+                >
+                  Privacy Policy
+                </MuiLink>
               </Stack>
             </nav>
           </Grid>
