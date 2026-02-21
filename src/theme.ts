@@ -49,7 +49,7 @@ theme = createTheme(theme, {
     grayscale: theme.palette.augmentColor({
       color: {
         main: "#666666",
-        light: "#ffffff",
+        light: "#f5f5f5",
         dark: "#1a1a1a",
       },
       name: "grayscale",

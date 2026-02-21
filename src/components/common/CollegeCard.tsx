@@ -54,7 +54,7 @@ const CollegeCard = (props: { college: College }) => {
         {/* Ratings Section where we show the college's overall scores for a11y, safety, and inclusivity */}
         <Box
           sx={{
-            bgcolor: "grey.100", // Light gray background for the ratings section
+            bgcolor: "grayscale.light", // Light gray background for the ratings section
             borderRadius: 3, // Rounded corners for the gray box
             p: 2, // Padding inside the gray box
             my: 2, // Margin top/bottom to separate from header/footer
