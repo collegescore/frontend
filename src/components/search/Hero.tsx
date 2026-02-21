@@ -5,7 +5,7 @@ import { UniversitySearch } from "../common/UniversitySearch";
 
 const SearchHero = () => {
   return (
-    <Section bgcolor="grayscale.light" id="title-section">
+    <Section id="title-section">
       <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
         Search Colleges
       </Typography>
