@@ -60,21 +60,32 @@ const Header = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
           {/* Logo which also functions as Home Link */}
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              fontWeight: 700,
-              textDecoration: "none",
-              color: "grayscale.dark",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
-              College Score
-            </Link>
-          </Typography>
+          <Link href="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                color: "grayscale.dark",
+                fontWeight: 700,
+              }}
+            >
+              <Box
+                component="img"
+                src="/images/college-score-logo.svg"
+                alt=""
+                aria-hidden="true"
+                sx={{ height: 44, width: "auto" }}
+              />
+              <Typography
+                variant="h6"
+                component="span"
+                sx={{ fontWeight: 700 }}
+              >
+                College Score
+              </Typography>
+            </Box>
+          </Link>
 
           {/* Navigation Link Section - Desktop */}
           <Box
