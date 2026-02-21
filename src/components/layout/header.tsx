@@ -77,7 +77,11 @@ const Header = () => {
                 aria-hidden="true"
                 sx={{ height: 44, width: "auto" }}
               />
-              <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
+              <Typography
+                variant="h6"
+                component="span"
+                sx={{ fontWeight: 700 }}
+              >
                 College Score
               </Typography>
             </Box>
