@@ -47,6 +47,7 @@ export default function EmailSubscription({
         mt: 2,
       }}
       id="email-subscription-form"
+      aria-label="Stay up to date with College Score"
     >
       <Stack direction="row" spacing={0}>
         <TextField
@@ -58,7 +59,6 @@ export default function EmailSubscription({
           fullWidth
           disabled={submitted}
           placeholder="your.email@example.com"
-          aria-label="Email address for project updates"
           sx={{
             "& .MuiOutlinedInput-root": {
               borderTopRightRadius: 0,
