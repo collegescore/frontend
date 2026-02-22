@@ -8,6 +8,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
+import { getTopColleges } from "@/lib/api";
 
 
 export default function SearchPage() {
