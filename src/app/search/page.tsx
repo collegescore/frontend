@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Container, Box, Typography, CircularProgress, Grid } from "@mui/material";
+import {
+  Container,
+  Box,
+  Typography,
+  CircularProgress,
+  Grid,
+} from "@mui/material";
 import { UniversitySearch } from "@/components/common/UniversitySearch";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
@@ -9,7 +15,6 @@ import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
 import { getTopColleges } from "@/lib/api";
-
 
 export default function SearchPage() {
   // If the flag is false, show a NotFound page instead of the search UI
@@ -41,7 +46,10 @@ export default function SearchPage() {
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
       <Box sx={{ mt: 6 }}>
-        <Typography variant="h5" sx={{ fontWeight: 800, mb: 3, color: "text.primary" }}>
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: 800, mb: 3, color: "text.primary" }}
+        >
           Top Rated for Accessibility
         </Typography>
 
@@ -50,7 +58,9 @@ export default function SearchPage() {
             <CircularProgress color="primary" />
           </Box>
         ) : error ? (
-          <Typography color="error" textAlign="center">{error}</Typography>
+          <Typography color="error" textAlign="center">
+            {error}
+          </Typography>
         ) : (
           <Grid container spacing={3}>
             {colleges.map((college) => (
