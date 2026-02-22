@@ -46,12 +46,6 @@ export default function SearchPage() {
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
       <Box sx={{ mt: 6 }}>
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 800, mb: 3, color: "text.primary" }}
-        >
-          Top Rated for Accessibility
-        </Typography>
 
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
