@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Container, Box, Typography } from "@mui/material";
+import { Container, Box, Typography, CircularProgress, Grid } from "@mui/material";
 import { UniversitySearch } from "@/components/common/UniversitySearch";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
@@ -17,28 +17,50 @@ export default function SearchPage() {
     return <NotFound />;
   }
 
+  // othewise, default to show the top 9 colleges with highest a11y scores.
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTopColleges = async () => {
+    const loadData = async () => {
       try {
-        // Points to your FastAPI v0 endpoint
-        const response = await fetch("");
-        if (!response.ok) throw new Error("Failed to fetch");
-        const data = await response.json();
+        const data = await getTopColleges();
         setColleges(data);
-      } catch (error) {
-        console.error("Error loading colleges:", error);
+      } catch (err) {
+        setError("We're having trouble loading the colleges right now.");
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
+    loadData();
   }, []);
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
+      <Box sx={{ mt: 6 }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, mb: 3, color: "text.primary" }}>
+          Top Rated for Accessibility
+        </Typography>
+
+        {loading ? (
+          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+            <CircularProgress color="primary" />
+          </Box>
+        ) : error ? (
+          <Typography color="error" textAlign="center">{error}</Typography>
+        ) : (
+          <Grid container spacing={3}>
+            {colleges.map((college) => (
+              <Grid key={college.slug} size={{ xs: 12, sm: 6, md: 4 }}>
+                <CollegeCard college={college} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
+      </Box>
     </Container>
   );
 }
