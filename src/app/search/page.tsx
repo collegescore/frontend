@@ -13,7 +13,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { getTopColleges } from "@/lib/api";
+import { getTopA11yColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
 export default function SearchPage() {
@@ -27,7 +27,7 @@ export default function SearchPage() {
 
     const loadData = async () => {
       try {
-        const data = await getTopColleges();
+        const data = await getTopA11yColleges();
         setColleges(data);
       } catch (err) {
         setError("We're having trouble loading the colleges right now.");

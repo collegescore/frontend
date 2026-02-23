@@ -70,7 +70,7 @@ export const getCollegeName = async (slug: string) => {
 };
 
 /** Fetch top 9 colleges sorted by accessibility score */
-export const getTopColleges = async () => {
+export const getTopA11yColleges = async () => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/top`);
 
   if (!response.ok) {
