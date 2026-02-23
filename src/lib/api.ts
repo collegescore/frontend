@@ -27,6 +27,25 @@ const normalizeAnswers = (answers: Answer) =>
     }),
   );
 
+/**Extract error message from a failed response */
+const getErrorMessage = async (
+  response: Response,
+  fallbackMessage: string,
+): Promise<string> => {
+  // Prefer JSON error payloads from FastAPI (e.g., {"detail": "..."})
+  const contentType = response.headers.get("content-type") ?? "";
+
+  if (contentType.includes("application/json")) {
+    // Parse and use the detail field when available
+    const errorData = await response.json().catch(() => null);
+    return errorData?.detail || fallbackMessage;
+  }
+
+  // Fallback for plain-text error bodies
+  const errorText = await response.text();
+  return errorText || fallbackMessage;
+};
+
 export const submitReview = async (answers: Answer) => {
   const response = await fetch(`${API_BASE_URL}/v0/reviews`, {
     method: "POST",
@@ -35,8 +54,8 @@ export const submitReview = async (answers: Answer) => {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Failed to submit review");
+    const message = await getErrorMessage(response, "Failed to submit review");
+    throw new Error(message);
   }
 
   return response.json();
@@ -50,8 +69,8 @@ export const addEmail = async (email: string) => {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Failed to add email");
+    const message = await getErrorMessage(response, "Failed to add email");
+    throw new Error(message);
   }
 
   return response.json();
@@ -61,8 +80,11 @@ export const getCollegeName = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Failed to fetch college name");
+    const message = await getErrorMessage(
+      response,
+      "Failed to fetch college name",
+    );
+    throw new Error(message);
   }
 
   const data = await response.json();
