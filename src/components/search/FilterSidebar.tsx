@@ -84,7 +84,6 @@ export default function FilterSidebar() {
               />
             )}
             sx={{ mb: 3 }}
-            // A11y: ensures screen readers treat this as a combobox
             aria-label="Filter by state abbreviation"
           />
         </Box>

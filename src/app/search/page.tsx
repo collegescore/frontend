@@ -22,9 +22,10 @@ export default function SearchPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // check if search is enabled before trying to load data
+    // check if search is enabled before trying to load data (find the colleges to display)
     if (!FEATURE_FLAGS.isSearchEnabled) return;
 
+    // gets the top 9 colleges sorted by a11y scores to show on the default search page.
     const loadData = async () => {
       try {
         const data = await getTopA11yColleges();
@@ -47,7 +48,9 @@ export default function SearchPage() {
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      <Grid container spacing={4} sx={{ mt: 2 }}>
+      {/* Main content area with filters on the left and the college cards 
+      with the results on the right */}
+      <Grid container spacing={4}>
         {/* Left Side: Filter Sidebar */}
         <Grid size={{ xs: 12, md: 3 }}>
           <FilterSidebar />
