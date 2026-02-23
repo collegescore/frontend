@@ -67,9 +67,18 @@ export default function SearchPage() {
               {error}
             </Typography>
           ) : (
-            <Grid container spacing={3}>
+            <Grid
+              container
+              spacing={3}
+              component="ul"
+              aria-label="List of colleges"
+            >
               {colleges.map((college) => (
-                <Grid key={college.slug} size={{ xs: 12, sm: 6, lg: 4 }}>
+                <Grid
+                  key={college.slug}
+                  size={{ xs: 12, sm: 6, lg: 4 }}
+                  component="li"
+                >
                   <CollegeCard college={college} />
                 </Grid>
               ))}
