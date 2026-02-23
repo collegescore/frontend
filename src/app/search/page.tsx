@@ -59,7 +59,9 @@ export default function SearchPage() {
               <CircularProgress color="primary" />
             </Box>
           ) : error ? (
-            <Typography color="error" textAlign="center">{error}</Typography>
+            <Typography color="error" textAlign="center">
+              {error}
+            </Typography>
           ) : (
             <Grid container spacing={3}>
               {colleges.map((college) => (
