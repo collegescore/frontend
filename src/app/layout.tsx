@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: "College Score - Find The College That Fits You",
   description:
     "Discover and review colleges based on real student experiences. Make informed decisions about your education.",
+  icons: {
+    icon: "/images/college-score-logo.svg",
+  },
 };
 
 /**layout.tsx files are for UI that wraps different pages */
