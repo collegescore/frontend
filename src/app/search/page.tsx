@@ -27,6 +27,15 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // State for filters - we can expand this as we add more filters.
+  const [filters, setFilters] = useState({
+    sortBy: "a11y_high_low",
+    state: null as string | null,
+    hasCulturalCenter: false,
+    minSafety: 0,
+    minInclusivity: 0,
+  });
+
   useEffect(() => {
     const loadData = async () => {
       try {
