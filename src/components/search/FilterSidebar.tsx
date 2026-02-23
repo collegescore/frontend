@@ -117,6 +117,7 @@ export default function FilterSidebar() {
           </Typography>
           <Slider
             defaultValue={0}
+            step={0.5}
             marks
             min={0}
             max={5}
@@ -134,6 +135,7 @@ export default function FilterSidebar() {
           </Typography>
           <Slider
             defaultValue={0}
+            step={0.5}
             marks
             min={0}
             max={5}

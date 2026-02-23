@@ -35,7 +35,7 @@ const CollegeCard = (props: { college: College }) => {
         {/* header section with the college name and location (city, state abbreviation) */}
         <header>
           <Typography
-            variant="h4"
+            variant="h5"
             component="h3"
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >
