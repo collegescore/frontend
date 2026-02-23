@@ -15,6 +15,7 @@ import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
 import { getTopColleges } from "@/lib/api";
+import FilterSidebar from "@/components/search/FilterSidebar";
 
 export default function SearchPage() {
   // If the flag is false, show a NotFound page instead of the search UI
@@ -45,26 +46,31 @@ export default function SearchPage() {
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      <Box sx={{ mt: 6 }}>
+      <Grid container spacing={4} sx={{ mt: 2 }}>
+        {/* Left Side: Filter Sidebar */}
+        <Grid size={{ xs: 12, md: 3 }}>
+          <FilterSidebar />
+        </Grid>
 
-        {loading ? (
-          <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-            <CircularProgress color="primary" />
-          </Box>
-        ) : error ? (
-          <Typography color="error" textAlign="center">
-            {error}
-          </Typography>
-        ) : (
-          <Grid container spacing={3}>
-            {colleges.map((college) => (
-              <Grid key={college.slug} size={{ xs: 12, sm: 6, md: 4 }}>
-                <CollegeCard college={college} />
-              </Grid>
-            ))}
-          </Grid>
-        )}
-      </Box>
+        {/* Right Side: Results Grid */}
+        <Grid size={{ xs: 12, md: 9 }}>
+          {loading ? (
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+              <CircularProgress color="primary" />
+            </Box>
+          ) : error ? (
+            <Typography color="error" textAlign="center">{error}</Typography>
+          ) : (
+            <Grid container spacing={3}>
+              {colleges.map((college) => (
+                <Grid key={college.slug} size={{ xs: 12, sm: 6, lg: 4 }}>
+                  <CollegeCard college={college} />
+                </Grid>
+              ))}
+            </Grid>
+          )}
+        </Grid>
+      </Grid>
     </Container>
   );
 }
