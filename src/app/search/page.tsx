@@ -8,7 +8,6 @@ import {
   CircularProgress,
   Grid,
 } from "@mui/material";
-import { UniversitySearch } from "@/components/common/UniversitySearch";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
