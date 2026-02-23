@@ -25,7 +25,7 @@ export default function SearchPage() {
     // check if search is enabled before trying to load data (find the colleges to display)
     if (!FEATURE_FLAGS.isSearchEnabled) return;
 
-    // gets the top 9 colleges sorted by a11y scores to show on the default search page.
+    // gets the top 12 colleges sorted by a11y scores to show on the default search page.
     const loadData = async () => {
       try {
         const data = await getTopA11yColleges();
