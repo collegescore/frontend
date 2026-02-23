@@ -17,17 +17,14 @@ import { getTopColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
 export default function SearchPage() {
-  // If the flag is false, show a NotFound page instead of the search UI
-  if (!FEATURE_FLAGS.isSearchEnabled) {
-    return <NotFound />;
-  }
-
-  // othewise, default to show the top 9 colleges with highest a11y scores.
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // check if search is enabled before trying to load data
+    if (!FEATURE_FLAGS.isSearchEnabled) return;
+
     const loadData = async () => {
       try {
         const data = await getTopColleges();
@@ -41,6 +38,11 @@ export default function SearchPage() {
     };
     loadData();
   }, []);
+
+  // if the search flag is disabled, show the not found screen.
+  if (!FEATURE_FLAGS.isSearchEnabled) {
+    return <NotFound />;
+  }
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
