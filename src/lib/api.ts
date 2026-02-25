@@ -106,18 +106,29 @@ export const getTopA11yColleges = async () => {
 /** Search colleges with dynamic filters */
 export const searchColleges = async (params: Record<string, any>) => {
   const query = new URLSearchParams();
-  
+
   // Append params only if they have a value
   Object.entries(params).forEach(([key, value]) => {
-    if (value !== null && value !== undefined && value !== "" && value !== 0 && value !== false) {
+    if (
+      value !== null &&
+      value !== undefined &&
+      value !== "" &&
+      value !== 0 &&
+      value !== false
+    ) {
       query.append(key, value.toString());
     }
   });
 
-  const response = await fetch(`${API_BASE_URL}/v0/colleges/search?${query.toString()}`);
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/search?${query.toString()}`,
+  );
 
   if (!response.ok) {
-    const message = await getErrorMessage(response, "Failed to search colleges");
+    const message = await getErrorMessage(
+      response,
+      "Failed to search colleges",
+    );
     throw new Error(message);
   }
 

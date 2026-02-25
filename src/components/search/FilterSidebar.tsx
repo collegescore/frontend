@@ -2,8 +2,21 @@
 
 import React, { useState, useEffect } from "react";
 import {
-  Box, Typography, FormControl, InputLabel, Select, MenuItem,
-  FormControlLabel, Checkbox, Slider, Divider, Paper, Autocomplete, TextField, Button, Stack
+  Box,
+  Typography,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControlLabel,
+  Checkbox,
+  Slider,
+  Divider,
+  Paper,
+  Autocomplete,
+  TextField,
+  Button,
+  Stack,
 } from "@mui/material";
 import US_STATES from "@/lib/usStatesList";
 
@@ -20,8 +33,20 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
   };
 
   return (
-    <Paper component="aside" role="search" sx={{ p: 3, borderRadius: 2, border: "1px solid", borderColor: "divider" }} elevation={0}>
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>Filters</Typography>
+    <Paper
+      component="aside"
+      role="search"
+      sx={{
+        p: 3,
+        borderRadius: 2,
+        border: "1px solid",
+        borderColor: "divider",
+      }}
+      elevation={0}
+    >
+      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+        Filters
+      </Typography>
 
       <Box component="form" noValidate>
         <FormControl fullWidth sx={{ mb: 3 }}>
@@ -40,15 +65,19 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
           options={US_STATES}
           value={draft.state || null}
           onChange={(_, val) => handleChange("state", val)}
-          renderInput={(params) => <TextField {...params} label="State" placeholder="CA" />}
+          renderInput={(params) => (
+            <TextField {...params} label="State" placeholder="CA" />
+          )}
           sx={{ mb: 3 }}
         />
 
         <FormControlLabel
           control={
-            <Checkbox 
-              checked={draft.has_cultural_center} 
-              onChange={(e) => handleChange("has_cultural_center", e.target.checked)} 
+            <Checkbox
+              checked={draft.has_cultural_center}
+              onChange={(e) =>
+                handleChange("has_cultural_center", e.target.checked)
+              }
             />
           }
           label="Disability Cultural Center"
@@ -56,17 +85,29 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
 
         <Divider sx={{ my: 3 }} />
 
-        <Typography variant="subtitle2" sx={{ mb: 1 }}>Min. Safety Score</Typography>
+        <Typography variant="subtitle2" sx={{ mb: 1 }}>
+          Min. Safety Score
+        </Typography>
         <Slider
           value={draft.min_safety}
-          step={0.5} min={0} max={5} marks valueLabelDisplay="auto"
+          step={0.5}
+          min={0}
+          max={5}
+          marks
+          valueLabelDisplay="auto"
           onChange={(_, val) => handleChange("min_safety", val)}
         />
 
-        <Typography variant="subtitle2" sx={{ mt: 3, mb: 1 }}>Min. Inclusivity Score</Typography>
+        <Typography variant="subtitle2" sx={{ mt: 3, mb: 1 }}>
+          Min. Inclusivity Score
+        </Typography>
         <Slider
           value={draft.min_inclusivity}
-          step={0.5} min={0} max={5} marks valueLabelDisplay="auto"
+          step={0.5}
+          min={0}
+          max={5}
+          marks
+          valueLabelDisplay="auto"
           onChange={(_, val) => handleChange("min_inclusivity", val)}
         />
 
@@ -74,7 +115,12 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
           <Button variant="contained" onClick={() => onApply(draft)} fullWidth>
             Apply Filters
           </Button>
-          <Button variant="text" color="inherit" onClick={() => onApply({})} fullWidth>
+          <Button
+            variant="text"
+            color="inherit"
+            onClick={() => onApply({})}
+            fullWidth
+          >
             Clear All
           </Button>
         </Stack>
