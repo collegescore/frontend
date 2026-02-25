@@ -1,84 +1,83 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import {
-  Container,
-  Box,
-  Typography,
-  CircularProgress,
-  Grid,
-} from "@mui/material";
+import React, { useEffect, useState, useCallback } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Container, Box, Typography, CircularProgress, Grid2 as Grid } from "@mui/material";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { getTopA11yColleges } from "@/lib/api";
+import { searchColleges } from "@/lib/api"; // Updated import
 import FilterSidebar from "@/components/search/FilterSidebar";
 
 export default function SearchPage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    // check if search is enabled before trying to load data (find the colleges to display)
-    if (!FEATURE_FLAGS.isSearchEnabled) return;
-
-    // gets the top 12 colleges sorted by a11y scores to show on the default search page.
-    const loadData = async () => {
-      try {
-        const data = await getTopA11yColleges();
-        setColleges(data);
-      } catch (err) {
-        setError("We're having trouble loading the colleges right now.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
+  // Parse URL params into an object
+  const getFiltersFromURL = useCallback(() => {
+    return {
+      sort_by: searchParams.get("sort_by") || "a11y_high_low",
+      state: searchParams.get("state") || "",
+      has_cultural_center: searchParams.get("has_cultural_center") === "true",
+      min_safety: Number(searchParams.get("min_safety")) || 0,
+      min_inclusivity: Number(searchParams.get("min_inclusivity")) || 0,
     };
-    loadData();
-  }, []);
+  }, [searchParams]);
 
-  // if the search flag is disabled, show the not found screen.
-  if (!FEATURE_FLAGS.isSearchEnabled) {
-    return <NotFound />;
-  }
+  const loadData = useCallback(async () => {
+    if (!FEATURE_FLAGS.isSearchEnabled) return;
+    setLoading(true);
+    try {
+      const filters = getFiltersFromURL();
+      const data = await searchColleges(filters);
+      setColleges(data);
+    } catch (err) {
+      setError("We're having trouble loading the colleges right now.");
+    } finally {
+      setLoading(false);
+    }
+  }, [getFiltersFromURL]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
+  const handleApplyFilters = (newFilters: any) => {
+    const params = new URLSearchParams();
+    Object.entries(newFilters).forEach(([key, value]) => {
+      if (value) params.set(key, value.toString());
+    });
+    router.push(`/search?${params.toString()}`);
+  };
+
+  if (!FEATURE_FLAGS.isSearchEnabled) return <NotFound />;
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      {/* Main content area with filters on the left and the college cards 
-      with the results on the right */}
-      <Grid container spacing={4}>
-        {/* Left Side: Filter Sidebar */}
+      <Grid container spacing={4} sx={{ mt: 2 }}>
         <Grid size={{ xs: 12, md: 3 }}>
-          <FilterSidebar />
+          <FilterSidebar 
+            currentFilters={getFiltersFromURL()} 
+            onApply={handleApplyFilters} 
+          />
         </Grid>
 
-        {/* Right Side: Results Grid */}
         <Grid size={{ xs: 12, md: 9 }}>
           {loading ? (
-            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <CircularProgress color="primary" />
-            </Box>
+            <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}><CircularProgress /></Box>
           ) : error ? (
-            <Typography color="error" textAlign="center">
-              {error}
-            </Typography>
+            <Typography color="error" textAlign="center">{error}</Typography>
           ) : (
-            <Grid
-              container
-              spacing={3}
-              component="ul"
-              aria-label="List of colleges"
-            >
+            <Grid container spacing={3} component="ul" sx={{ listStyle: 'none', p: 0 }}>
               {colleges.map((college) => (
-                <Grid
-                  key={college.slug}
-                  size={{ xs: 12, sm: 6, lg: 4 }}
-                  component="li"
-                >
+                <Grid key={college.slug} size={{ xs: 12, sm: 6, lg: 4 }} component="li">
                   <CollegeCard college={college} />
                 </Grid>
               ))}
