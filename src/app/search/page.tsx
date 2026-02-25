@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Container, Box, Typography, CircularProgress, Grid2 as Grid } from "@mui/material";
+import { Container, Box, Typography, CircularProgress, Grid } from "@mui/material";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
@@ -21,14 +21,18 @@ export default function SearchPage() {
 
   // Parse URL params into an object
   const getFiltersFromURL = useCallback(() => {
-    return {
-      sort_by: searchParams.get("sort_by") || "a11y_high_low",
-      state: searchParams.get("state") || "",
-      has_cultural_center: searchParams.get("has_cultural_center") === "true",
-      min_safety: Number(searchParams.get("min_safety")) || 0,
-      min_inclusivity: Number(searchParams.get("min_inclusivity")) || 0,
-    };
-  }, [searchParams]);
+  // If searchParams is null, fall back to an empty string or default behavior
+  const params = searchParams;
+
+  return {
+    sort_by: params?.get("sort_by") || "a11y_high_low",
+    state: params?.get("state") || "",
+    // We check for the explicit string "true" from the URL
+    has_cultural_center: params?.get("has_cultural_center") === "true",
+    min_safety: Number(params?.get("min_safety")) || 0,
+    min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
+  };
+}, [searchParams]);
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
