@@ -14,7 +14,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { searchColleges } from "@/lib/api"; // Updated import
+import { searchColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
 export default function SearchPage() {
