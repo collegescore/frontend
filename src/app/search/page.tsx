@@ -30,10 +30,14 @@ export default function SearchPage() {
     // If searchParams is null, fall back to an empty string or default behavior
     const params = searchParams;
 
+    // return the filters, fallback to default filters if not found in URL
     return {
+      // default sorting is by accessibility score from high to low
       sort_by: params?.get("sort_by") || "a11y_high_low",
       state: params?.get("state") || "",
-      // We check for the explicit string "true" from the URL
+      // we only care about the value of the has_cultural_center if it is true. If the box
+      // is unchecked, we want to show both colleges with and without dcc, so the "false" doesn't
+      // really impact filtering. It is basically true or none.
       has_cultural_center: params?.get("has_cultural_center") === "true",
       min_safety: Number(params?.get("min_safety")) || 0,
       min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
@@ -45,7 +49,9 @@ export default function SearchPage() {
     setLoading(true);
     try {
       const filters = getFiltersFromURL();
+      // pass the filters to the searchColleges route
       const data = await searchColleges(filters);
+      // the colleges to display are the result of the query with filters
       setColleges(data);
     } catch (err) {
       setError("We're having trouble loading the colleges right now.");
@@ -66,6 +72,7 @@ export default function SearchPage() {
     router.push(`/search?${params.toString()}`);
   };
 
+  // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) return <NotFound />;
 
   return (
@@ -82,7 +89,7 @@ export default function SearchPage() {
         <Grid size={{ xs: 12, md: 9 }}>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <CircularProgress />
+              <CircularProgress color="primary"/>
             </Box>
           ) : error ? (
             <Typography color="error" textAlign="center">
@@ -93,7 +100,7 @@ export default function SearchPage() {
               container
               spacing={3}
               component="ul"
-              sx={{ listStyle: "none", p: 0 }}
+              aria-label="List of colleges"
             >
               {colleges.map((college) => (
                 <Grid
