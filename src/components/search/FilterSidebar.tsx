@@ -15,9 +15,9 @@ import {
   Paper,
   Autocomplete,
   TextField,
-  Button,
   Stack,
 } from "@mui/material";
+import BasicButton from "../common/BasicButton";
 import US_STATES from "@/lib/usStatesList";
 
 export default function FilterSidebar({ currentFilters, onApply }: any) {
@@ -112,17 +112,8 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
         />
 
         <Stack spacing={2} sx={{ mt: 4 }}>
-          <Button variant="contained" onClick={() => onApply(draft)} fullWidth>
-            Apply Filters
-          </Button>
-          <Button
-            variant="text"
-            color="inherit"
-            onClick={() => onApply({})}
-            fullWidth
-          >
-            Clear All
-          </Button>
+          <BasicButton text="Apply Filters" onClick={() => onApply(draft)} />
+          <BasicButton text="Clear All" color="secondary" onClick={() => onApply({})} />
         </Stack>
       </Box>
     </Paper>
