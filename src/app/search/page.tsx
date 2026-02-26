@@ -38,7 +38,8 @@ export default function SearchPage() {
       // we only care about the value of the has_disability_cultural_center if it is true. If the box
       // is unchecked, we want to show both colleges with and without dcc, so the "false" doesn't
       // really impact filtering. It is basically true or none.
-      has_disability_cultural_center: params?.get("has_disability_cultural_center") === "true",
+      has_disability_cultural_center:
+        params?.get("has_disability_cultural_center") === "true",
       min_safety: Number(params?.get("min_safety")) || 0,
       min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
     };
@@ -88,12 +89,12 @@ export default function SearchPage() {
             onApply={handleApplyFilters}
           />
         </Grid>
-        
+
         {/* Right Side: Results Grid */}
         <Grid size={{ xs: 12, md: 9 }}>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
-              <CircularProgress color="primary"/>
+              <CircularProgress color="primary" />
             </Box>
           ) : error ? (
             <Typography color="error" textAlign="center">
