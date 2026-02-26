@@ -94,17 +94,21 @@ export default function FilterSidebar({
           value={draft.state || null}
           onChange={(_, val) => handleChange("state", val)}
           renderInput={(params) => (
-            <TextField {...params} label="State" placeholder="Search state (e.g. CA)" />
+            <TextField
+              {...params}
+              label="State"
+              placeholder="Search state (e.g. CA)"
+            />
           )}
           sx={{ mb: 3 }}
           aria-label="Filter by state abbreviation"
         />
         <Typography
-            component="legend"
-            variant="subtitle2"
-            sx={{ mb: 1, fontWeight: 600 }}
-          >
-            Campus Features
+          component="legend"
+          variant="subtitle2"
+          sx={{ mb: 1, fontWeight: 600 }}
+        >
+          Campus Features
         </Typography>
         <FormControlLabel
           control={
@@ -121,12 +125,12 @@ export default function FilterSidebar({
         <Divider sx={{ my: 3 }} />
 
         <Typography
-            component="legend"
-            variant="subtitle2"
-            sx={{ mb: 1, fontWeight: 600 }}
-          >
-            Minimum Scores
-          </Typography>
+          component="legend"
+          variant="subtitle2"
+          sx={{ mb: 1, fontWeight: 600 }}
+        >
+          Minimum Scores
+        </Typography>
 
         <Typography variant="subtitle2" sx={{ mb: 1 }}>
           Min. Safety Score
