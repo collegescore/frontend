@@ -63,6 +63,8 @@ function SearchContent() {
   }, [getFiltersFromURL]);
 
   useEffect(() => {
+    // check if search is enabled before trying to load data (find the colleges to display)
+    if (!FEATURE_FLAGS.isSearchEnabled) return;
     loadData();
   }, [loadData]);
 
