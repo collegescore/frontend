@@ -35,10 +35,10 @@ export default function SearchPage() {
       // default sorting is by accessibility score from high to low
       sort_by: params?.get("sort_by") || "a11y_high_low",
       state: params?.get("state") || "",
-      // we only care about the value of the has_cultural_center if it is true. If the box
+      // we only care about the value of the has_disability_cultural_center if it is true. If the box
       // is unchecked, we want to show both colleges with and without dcc, so the "false" doesn't
       // really impact filtering. It is basically true or none.
-      has_cultural_center: params?.get("has_cultural_center") === "true",
+      has_disability_cultural_center: params?.get("has_disability_cultural_center") === "true",
       min_safety: Number(params?.get("min_safety")) || 0,
       min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
     };

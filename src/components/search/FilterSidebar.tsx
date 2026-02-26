@@ -74,9 +74,9 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
         <FormControlLabel
           control={
             <Checkbox
-              checked={draft.has_cultural_center}
+              checked={draft.has_disability_cultural_center}
               onChange={(e) =>
-                handleChange("has_cultural_center", e.target.checked)
+                handleChange("has_disability_cultural_center", e.target.checked)
               }
             />
           }
