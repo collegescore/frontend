@@ -113,7 +113,11 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
 
         <Stack spacing={2} sx={{ mt: 4 }}>
           <BasicButton text="Apply Filters" onClick={() => onApply(draft)} />
-          <BasicButton text="Clear All" color="secondary" onClick={() => onApply({})} />
+          <BasicButton
+            text="Clear All"
+            color="secondary"
+            onClick={() => onApply({})}
+          />
         </Stack>
       </Box>
     </Paper>
