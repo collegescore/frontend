@@ -12,5 +12,4 @@ export interface College {
   // below are optional fields that may not be present in all contexts
   ratings?: Ratings;
   num_reviews?: number;
-  
 }

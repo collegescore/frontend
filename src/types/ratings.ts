@@ -3,7 +3,7 @@ Ratings type definition, can be expanded as needed to include more specific rati
 Used for college overall ratings as well as individual review ratings.
 */
 export interface Ratings {
-    a11y_overall?: number;
-    safety_overall?: number;
-    inclusivity_overall?: number;
+  a11y_overall?: number;
+  safety_overall?: number;
+  inclusivity_overall?: number;
 }
