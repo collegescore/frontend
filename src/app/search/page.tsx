@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Container,
@@ -17,7 +17,7 @@ import { College } from "@/types/college";
 import { searchColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
-export default function SearchPage() {
+function SearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -121,5 +121,20 @@ export default function SearchPage() {
         </Grid>
       </Grid>
     </Container>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense 
+      fallback={
+        <Container sx={{ mt: 10, textAlign: 'center' }}>
+          <CircularProgress />
+          <Typography sx={{ mt: 2 }}>Loading Search...</Typography>
+        </Container>
+      }
+    >
+      <SearchContent />
+    </Suspense>
   );
 }
