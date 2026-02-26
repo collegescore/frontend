@@ -126,9 +126,9 @@ function SearchContent() {
 
 export default function SearchPage() {
   return (
-    <Suspense 
+    <Suspense
       fallback={
-        <Container sx={{ mt: 10, textAlign: 'center' }}>
+        <Container sx={{ mt: 10, textAlign: "center" }}>
           <CircularProgress />
           <Typography sx={{ mt: 2 }}>Loading Search...</Typography>
         </Container>
