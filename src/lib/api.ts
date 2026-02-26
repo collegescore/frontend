@@ -104,7 +104,9 @@ export const getTopA11yColleges = async () => {
 };
 
 /** Search colleges with dynamic filters */
-export const searchColleges = async (params: Record<string, string | number | boolean | null>) => {
+export const searchColleges = async (
+  params: Record<string, string | number | boolean | null>,
+) => {
   const query = new URLSearchParams();
 
   // Append params only if they have a value

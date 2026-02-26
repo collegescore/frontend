@@ -34,7 +34,10 @@ interface FilterSidebarProps {
   onApply: (filters: SearchFilters) => void;
 }
 
-export default function FilterSidebar({ currentFilters, onApply }: FilterSidebarProps) {
+export default function FilterSidebar({
+  currentFilters,
+  onApply,
+}: FilterSidebarProps) {
   const [draft, setDraft] = useState(currentFilters);
 
   // Sync internal draft if URL changes (e.g. browser back button)
@@ -42,7 +45,10 @@ export default function FilterSidebar({ currentFilters, onApply }: FilterSidebar
     setDraft(currentFilters);
   }, [currentFilters]);
 
-  const handleChange = (field: keyof SearchFilters, value: string | number | boolean | null) => {
+  const handleChange = (
+    field: keyof SearchFilters,
+    value: string | number | boolean | null,
+  ) => {
     setDraft((prev) => ({ ...prev, [field]: value }));
   };
 
