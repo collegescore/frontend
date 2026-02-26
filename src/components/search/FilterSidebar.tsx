@@ -36,6 +36,7 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
     <Paper
       component="aside"
       role="search"
+      aria-labelledby="filter-title"
       sx={{
         p: 3,
         borderRadius: 2,
@@ -44,7 +45,11 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
       }}
       elevation={0}
     >
-      <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+      <Typography
+        id="filter-title"
+        variant="h6"
+        sx={{ mb: 2, fontWeight: 700 }}
+      >
         Filters
       </Typography>
 
