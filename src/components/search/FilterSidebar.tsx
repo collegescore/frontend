@@ -75,8 +75,10 @@ export default function FilterSidebar({
 
       <Box component="form" noValidate>
         <FormControl fullWidth sx={{ mb: 3 }}>
-          <InputLabel>Sort By</InputLabel>
+          <InputLabel id="sort-by-label">Sort By</InputLabel>
           <Select
+            labelId="sort-by-label"
+            id="sort-by-select"
             label="Sort By"
             value={draft.sort_by}
             onChange={(e) => handleChange("sort_by", e.target.value)}
@@ -87,15 +89,23 @@ export default function FilterSidebar({
         </FormControl>
 
         <Autocomplete
+          id="state-search-select"
           options={US_STATES}
           value={draft.state || null}
           onChange={(_, val) => handleChange("state", val)}
           renderInput={(params) => (
-            <TextField {...params} label="State" placeholder="CA" />
+            <TextField {...params} label="State" placeholder="Search state (e.g. CA)" />
           )}
           sx={{ mb: 3 }}
+          aria-label="Filter by state abbreviation"
         />
-
+        <Typography
+            component="legend"
+            variant="subtitle2"
+            sx={{ mb: 1, fontWeight: 600 }}
+          >
+            Campus Features
+        </Typography>
         <FormControlLabel
           control={
             <Checkbox
@@ -110,6 +120,14 @@ export default function FilterSidebar({
 
         <Divider sx={{ my: 3 }} />
 
+        <Typography
+            component="legend"
+            variant="subtitle2"
+            sx={{ mb: 1, fontWeight: 600 }}
+          >
+            Minimum Scores
+          </Typography>
+
         <Typography variant="subtitle2" sx={{ mb: 1 }}>
           Min. Safety Score
         </Typography>
@@ -120,6 +138,7 @@ export default function FilterSidebar({
           max={5}
           marks
           valueLabelDisplay="auto"
+          aria-label="Minimum safety score"
           onChange={(_, val) => handleChange("min_safety", val)}
         />
 
@@ -133,6 +152,7 @@ export default function FilterSidebar({
           max={5}
           marks
           valueLabelDisplay="auto"
+          aria-label="Minimum inclusivity score"
           onChange={(_, val) => handleChange("min_inclusivity", val)}
         />
 
