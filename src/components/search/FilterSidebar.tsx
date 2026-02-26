@@ -19,8 +19,22 @@ import {
 } from "@mui/material";
 import BasicButton from "../common/BasicButton";
 import US_STATES from "@/lib/usStatesList";
+import { SearchFilters } from "@/types/search_filters";
 
-export default function FilterSidebar({ currentFilters, onApply }: any) {
+const DEFAULT_FILTERS: SearchFilters = {
+  sort_by: "a11y_high_low",
+  state: "",
+  has_disability_cultural_center: false,
+  min_safety: 0,
+  min_inclusivity: 0,
+};
+
+interface FilterSidebarProps {
+  currentFilters: SearchFilters;
+  onApply: (filters: SearchFilters) => void;
+}
+
+export default function FilterSidebar({ currentFilters, onApply }: FilterSidebarProps) {
   const [draft, setDraft] = useState(currentFilters);
 
   // Sync internal draft if URL changes (e.g. browser back button)
@@ -28,8 +42,8 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
     setDraft(currentFilters);
   }, [currentFilters]);
 
-  const handleChange = (field: string, value: any) => {
-    setDraft((prev: any) => ({ ...prev, [field]: value }));
+  const handleChange = (field: keyof SearchFilters, value: string | number | boolean | null) => {
+    setDraft((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -121,7 +135,7 @@ export default function FilterSidebar({ currentFilters, onApply }: any) {
           <BasicButton
             text="Clear All"
             color="secondary"
-            onClick={() => onApply({})}
+            onClick={() => onApply(DEFAULT_FILTERS)}
           />
         </Stack>
       </Box>

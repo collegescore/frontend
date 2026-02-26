@@ -14,6 +14,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
+import { SearchFilters } from "@/types/search_filters";
 import { searchColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
@@ -65,7 +66,7 @@ function SearchContent() {
     loadData();
   }, [loadData]);
 
-  const handleApplyFilters = (newFilters: any) => {
+  const handleApplyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams();
     Object.entries(newFilters).forEach(([key, value]) => {
       if (value) params.set(key, value.toString());
