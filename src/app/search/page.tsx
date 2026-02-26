@@ -15,7 +15,7 @@ import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
 import { SearchFilters } from "@/types/search_filters";
-import { searchColleges } from "@/lib/api";
+import { filterColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
 function SearchContent() {
@@ -51,8 +51,8 @@ function SearchContent() {
     setLoading(true);
     try {
       const filters = getFiltersFromURL();
-      // pass the filters to the searchColleges route
-      const data = await searchColleges(filters);
+      // pass the filters to the filterColleges route
+      const data = await filterColleges(filters);
       // the colleges to display are the result of the query with filters
       setColleges(data);
     } catch (err) {

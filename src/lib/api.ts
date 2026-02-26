@@ -92,7 +92,7 @@ export const getCollegeName = async (slug: string) => {
 };
 
 /** Search colleges with dynamic filters */
-export const searchColleges = async (
+export const filterColleges = async (
   params: Record<string, string | number | boolean | null>,
 ) => {
   const query = new URLSearchParams();
