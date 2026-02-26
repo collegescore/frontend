@@ -78,14 +78,18 @@ export default function SearchPage() {
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
       <SearchHero />
-      <Grid container spacing={4} sx={{ mt: 2 }}>
+      {/* Main content area with filters on the left and the college cards 
+      with the results on the right */}
+      <Grid container spacing={4}>
+        {/* Left Side: Filter Sidebar */}
         <Grid size={{ xs: 12, md: 3 }}>
           <FilterSidebar
             currentFilters={getFiltersFromURL()}
             onApply={handleApplyFilters}
           />
         </Grid>
-
+        
+        {/* Right Side: Results Grid */}
         <Grid size={{ xs: 12, md: 9 }}>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
