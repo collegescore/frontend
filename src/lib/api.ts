@@ -122,5 +122,5 @@ export const searchColleges = async (
     throw new Error(message);
   }
 
-  return response.json();
+  return response.json(); // Returns the array of College objects
 };
