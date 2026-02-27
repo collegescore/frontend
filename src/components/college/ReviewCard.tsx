@@ -33,7 +33,7 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
           >Review Name Filler
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Chip label="Identity" color="primary" />
+            <Chip label="International Student" color="primary" />
             <Typography
                 variant="body2"
                 component="p"

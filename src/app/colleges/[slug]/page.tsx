@@ -1,8 +1,9 @@
 import React from "react";
 import ReviewCard from "@/components/college/ReviewCard";
-import { Container, Grid, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography, Select, FormControl, InputLabel, MenuItem, Button } from "@mui/material";
 import { Ratings } from "@/types/ratings";
 import { ReviewEntry } from "@/types/review_entry";
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import { College } from "@/types/college";
 import CollegeCard from "@/components/common/CollegeCard";
 import FilterSidebar from "@/components/search/FilterSidebar";
@@ -58,9 +59,16 @@ export default function CollegeSlugPage({
 
         {/* Right Side: Reviews Grid */}
         <Grid size={{ xs: 12, md: 9 }}>
-          <Typography variant="h4" component="h2" sx={{ fontWeight: 800, mb: 3 }}>
-            Student Reviews
-          </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 4 }}>
+            <Typography variant="h4" component="h2" sx={{ fontWeight: 800}}>
+              Student Reviews
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <FilterAltOutlinedIcon />
+              <Button variant="outlined" disabled={true} size="medium">Filter & Sort</Button> {/* Replace with functional select in the future */}
+            </Box>
+            {/* Sorting Dropdown - functionality to be implemented in the future */}
+          </Box>
           <ReviewCard review={{
             review_date: "2024-06-26",
             identity_chips: ["wheelchair user", "LGBTQ+"],
