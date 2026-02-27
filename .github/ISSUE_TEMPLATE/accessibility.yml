@@ -1,5 +1,6 @@
 ---
 name: Accessibility Issue Report
+description: Report an accessibility (a11y) problem or barrier
 title: "[A11y] "
 labels: ["accessibility", "bug"]
 

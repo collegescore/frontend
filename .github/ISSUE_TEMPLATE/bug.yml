@@ -1,5 +1,6 @@
 ---
 name: Frontend Bug Report
+description: Report a bug or issue with the frontend
 title: "[Bug] "
 labels: ["bug"]
 
