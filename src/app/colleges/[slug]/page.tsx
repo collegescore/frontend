@@ -77,7 +77,12 @@ export default function CollegeSlugPage({
                 mb: 4,
               }}
             >
-              <Typography variant="h4" component="h2" sx={{ fontWeight: 800 }}>
+              <Typography
+                id="reviews-header"
+                variant="h4"
+                component="h2"
+                sx={{ fontWeight: 800 }}
+              >
                 Student Reviews
               </Typography>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -89,25 +94,39 @@ export default function CollegeSlugPage({
               </Box>
               {/* Sorting Dropdown - functionality to be implemented in the future */}
             </Box>
-            <ReviewCard
-              review={{
-                review_date: "2024-06-26",
-                identity_chips: ["wheelchair user", "LGBTQ+"],
-                share_accommodations_text:
-                  "The college provides excellent accommodations for students with disabilities.",
-                share_positive_text:
-                  "The campus is very inclusive and welcoming.",
-                share_challenges_text:
-                  "Navigating some older buildings can be challenging.",
-                share_community_groups_text:
-                  "There are several active student organizations focused on accessibility and LGBTQ+ issues.",
-                ratings: {
-                  a11y_overall: 4,
-                  safety_overall: 5,
-                  inclusivity_overall: 5,
-                },
+            <Box
+              aria-labelledby="reviews-header"
+              component="ul"
+              sx={{
+                listStyle: "none",
+                padding: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
               }}
-            />
+            >
+              <Box component="li">
+                <ReviewCard
+                  review={{
+                    review_date: "2024-06-26",
+                    identity_chips: ["wheelchair user", "LGBTQ+"],
+                    share_accommodations_text:
+                      "The college provides excellent accommodations for students with disabilities.",
+                    share_positive_text:
+                      "The campus is very inclusive and welcoming.",
+                    share_challenges_text:
+                      "Navigating some older buildings can be challenging.",
+                    share_community_groups_text:
+                      "There are several active student organizations focused on accessibility and LGBTQ+ issues.",
+                    ratings: {
+                      a11y_overall: 4,
+                      safety_overall: 5,
+                      inclusivity_overall: 5,
+                    },
+                  }}
+                />
+              </Box>
+            </Box>
           </Grid>
         </Grid>
       </Container>
