@@ -1,9 +1,8 @@
 ---
 name: Accessibility Issue Report
-about: Report an accessibility (a11y) problem or barrier
+description: Report an accessibility (a11y) problem or barrier
 title: "[A11y] "
 labels: ["accessibility", "bug"]
-assignees: ''
 
 body:
   - type: markdown
@@ -92,5 +91,3 @@ body:
         - Enhancement (suggestion)
     validations:
       required: false
-
----
