@@ -1,6 +1,6 @@
 "use client"; // Required for MUI themes in Next.js
 
-import { createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
+import { alpha, createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
 import { CSSProperties } from "react";
 
 // Augment the palette
@@ -107,6 +107,18 @@ theme = createTheme(theme, {
             "&:focus-visible": {
               outlineColor: theme.palette.secondary.main,
             },
+          },
+        },
+      ],
+    },
+    MuiChip:{
+      variants: [
+        {
+          props: { color: "primary" },
+          style: {
+            fontWeight: 500,
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.primary.main, 0.1),
           },
         },
       ],

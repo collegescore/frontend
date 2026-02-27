@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
+import { Card, CardContent, Typography, Box, Divider, Chip } from "@mui/material";
 import { ReviewEntry } from "@/types/review_entry";
 import RatingsSection from "../common/RatingsSection";
 import ShareText from "./ShareText";
@@ -32,14 +32,18 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >Review Name Filler
           </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            color="text.secondary"
-            sx={{ fontWeight: 550 }}
-          >
-            {review.review_date}
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Chip label="Identity" color="primary" />
+            <Typography
+                variant="body2"
+                component="p"
+                color="text.secondary"
+                sx={{ fontWeight: 550 }}
+            >
+                {review.review_date}
+            </Typography>
+          </Box>
+          
         </header>
 
         {/* Ratings Section where we show the college's overall scores for a11y, safety, and inclusivity */}
