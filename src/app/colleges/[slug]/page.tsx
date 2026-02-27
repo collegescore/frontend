@@ -6,12 +6,19 @@ import { ReviewEntry } from "@/types/review_entry";
 import { College } from "@/types/college";
 import CollegeCard from "@/components/common/CollegeCard";
 import FilterSidebar from "@/components/search/FilterSidebar";
+import { FEATURE_FLAGS } from "@/config/flag";
+import NotFound from "@/app/not-found";
 
 export default function CollegeSlugPage({
   params,
 }: {
   params: { slug: string };
 }) {
+  // if the search flag is disabled, show the not found screen.
+  if (!FEATURE_FLAGS.isSearchEnabled) {
+      return <NotFound />;
+  }
+  
   return (
     <div>
       <h1>College: {params.slug}</h1>
