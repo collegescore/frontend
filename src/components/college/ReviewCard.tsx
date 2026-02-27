@@ -2,6 +2,7 @@ import React from "react";
 import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
 import { ReviewEntry } from "@/types/review_entry";
 import RatingsSection from "../common/RatingsSection";
+import ShareText from "./ShareText";
 
 
 const ReviewCard = (props: { review: ReviewEntry }) => {
@@ -16,16 +17,9 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
         boxShadow: 2,
         height: "100%",
         display: "flex",
-        flexDirection: "column",
-        transition: "transform 0.2s ease-in-out",
-        "&:hover": {
-          boxShadow: 6,
-          transform: "translateY(-4px)", // Subtle lift effect
-        },
+        flexDirection: "column"
       }}
     >
-        {/* Visual Accent */}
-      <Box role="presentation" sx={{ height: 64, bgcolor: "primary.main" }} />
 
       <CardContent
         sx={{ p: 3, flexGrow: 1, display: "flex", flexDirection: "column" }}
@@ -50,6 +44,19 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
 
         {/* Ratings Section where we show the college's overall scores for a11y, safety, and inclusivity */}
         <RatingsSection ratings={review.ratings || {}} />
+
+        <Divider sx={{ my: 2 }} />
+
+        {/* Review Text Sections: Only show up if there is text to display */}
+        {review.share_accommodations_text && (
+        <ShareText sectionName="Accommodations" text={review.share_accommodations_text} />
+        )}
+        {review.share_positive_text && (
+        <ShareText sectionName="Positive Experiences" text={review.share_positive_text} />
+        )}
+        {review.share_challenges_text && (
+        <ShareText sectionName="Challenges" text={review.share_challenges_text} />
+        )}
 
       </CardContent>
 
