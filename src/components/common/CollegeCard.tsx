@@ -4,9 +4,19 @@ import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import BasicButton from "./BasicButton";
 import { College } from "@/types/college";
 import RatingsSection from "./RatingsSection";
+import AddReviewButton from "./AddReviewButton";
+import { Add } from "@mui/icons-material";
 
-const CollegeCard = (props: { college: College }) => {
-  const { college } = props;
+type CollegeCardProps = {
+  college: College;
+  variant?: "card" | "hero";
+  showHover?: boolean;
+};
+
+/**College Card component can have varients for cards or make the card into a hero for the college page */
+const CollegeCard = (props: CollegeCardProps) => {
+  const { college, variant = "card", showHover = variant === "card" } = props;
+  //make component card varient by default and only show hover effect if it's a card.
 
   return (
     <Card
@@ -16,14 +26,16 @@ const CollegeCard = (props: { college: College }) => {
         borderRadius: 4,
         overflow: "hidden",
         boxShadow: 2,
-        height: "100%",
+        height: variant === "card" ? "100%" : "auto",
         display: "flex",
         flexDirection: "column",
-        transition: "transform 0.2s ease-in-out",
-        "&:hover": {
-          boxShadow: 6,
-          transform: "translateY(-4px)", // Subtle lift effect
-        },
+        ...(showHover && { //only apply hover effect if showHover is true
+          transition: "transform 0.2s ease-in-out",
+          "&:hover": {
+            boxShadow: 6,
+            transform: "translateY(-4px)", // Subtle lift effect
+          },
+        }),
       }}
     >
       {/* Visual Accent */}
@@ -36,7 +48,7 @@ const CollegeCard = (props: { college: College }) => {
         <header>
           <Typography
             variant="h5"
-            component="h3"
+            component={variant === "hero" ? "h1" : "h3"}
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >
             {college.name}
@@ -55,27 +67,40 @@ const CollegeCard = (props: { college: College }) => {
         <RatingsSection ratings={college.ratings || {}} />
 
         {/* footer which contains the total number of reviews for this college 
-        and a button to go to the specific college page. */}
+        and a button to go to the specific college page.*/}
         <Box
           component="footer"
           sx={{
-            mt: "auto",
+            mt: variant === "card" ? "auto" : 0,
             pt: 3,
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: variant === "hero" ? "flex-end" : "space-between",
             alignItems: "center",
+            gap: 2,
           }}
         >
-          <Typography variant="caption" sx={{ color: "text.secondary" }}>
-            {college.num_reviews} reviews
-          </Typography>
+          {variant === "card" && (
+            <Typography variant="caption" sx={{ color: "text.secondary" }}>
+              {college.num_reviews} reviews
+            </Typography>
+          )}
 
-          <BasicButton
-            text="See More"
-            href={`/colleges/${college.slug}`}
-            // make BasicButton smaller than usual for the card.
-            sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
-          />
+          {variant === "card" ? (
+            <BasicButton
+              text="See More"
+              href={`/colleges/${college.slug}`}
+              sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
+            />
+          ) : ( //For the hero varianent 
+            <>
+              <AddReviewButton schoolSlug={college.slug} />
+              <BasicButton
+                text="CeDaR"
+                href="/colleges/${college.slug}"
+                disabled={true} // Disable the button for now since the college page isn't built out yet
+              />
+            </>
+          )}
         </Box>
       </CardContent>
     </Card>
