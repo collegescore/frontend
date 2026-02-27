@@ -117,6 +117,9 @@ theme = createTheme(theme, {
           props: { color: "primary" },
           style: {
             fontWeight: 500,
+            fontSize: "0.75rem",
+            paddingInline: "0.25rem",
+            paddingBlock: "0.75rem",
             color: theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.primary.main, 0.1),
           },
