@@ -29,7 +29,8 @@ const CollegeCard = (props: CollegeCardProps) => {
         height: variant === "card" ? "100%" : "auto",
         display: "flex",
         flexDirection: "column",
-        ...(showHover && { //only apply hover effect if showHover is true
+        ...(showHover && {
+          //only apply hover effect if showHover is true
           transition: "transform 0.2s ease-in-out",
           "&:hover": {
             boxShadow: 6,
@@ -91,7 +92,8 @@ const CollegeCard = (props: CollegeCardProps) => {
               href={`/colleges/${college.slug}`}
               sx={{ fontSize: "0.875rem", px: 2, py: 0.5 }}
             />
-          ) : ( //For the hero varianent 
+          ) : (
+            //For the hero varianent
             <>
               <AddReviewButton schoolSlug={college.slug} />
               <BasicButton

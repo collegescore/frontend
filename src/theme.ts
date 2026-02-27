@@ -1,6 +1,11 @@
 "use client"; // Required for MUI themes in Next.js
 
-import { alpha, createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
+import {
+  alpha,
+  createTheme,
+  responsiveFontSizes,
+  Theme,
+} from "@mui/material/styles";
 import { CSSProperties } from "react";
 
 // Augment the palette
@@ -118,7 +123,7 @@ theme = createTheme(theme, {
         },
       ],
     },
-    MuiChip:{
+    MuiChip: {
       variants: [
         {
           props: { color: "primary" },
@@ -126,7 +131,7 @@ theme = createTheme(theme, {
             fontWeight: 500,
             color: theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.primary.main, 0.1),
-            '& .MuiChip-label':{
+            "& .MuiChip-label": {
               fontSize: "0.75rem",
               paddingInline: "0.75rem",
               paddingBlock: "0.25rem",
