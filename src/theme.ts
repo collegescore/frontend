@@ -20,6 +20,13 @@ declare module "@mui/material/Button" {
   }
 }
 
+// Augment the Chip's variant prop to include "square"
+declare module "@mui/material/Chip" {
+  interface ChipPropsVariantOverrides {
+    square: true;
+  }
+}
+
 // 1. Initial theme creation
 let theme: Theme = createTheme({
   palette: {
@@ -124,6 +131,12 @@ theme = createTheme(theme, {
               paddingInline: "0.75rem",
               paddingBlock: "0.25rem",
             },
+          },
+        },
+        {
+          props: { variant: "square" },
+          style: {
+            borderRadius: "4px",
           },
         },
       ],
