@@ -47,7 +47,7 @@ export default function CollegeSlugPage({
       }} />
 
       <Grid container spacing={3} py={4}>
-        {/* Left Side: Filter Sidebar */}
+        {/* Left Side: Summary Cards */}
         <Grid size={{ xs: 12, md: 3 }}>
           <aside id="response-summaries">
             <SummaryCard title="Accommodations" content="filler content"/>
