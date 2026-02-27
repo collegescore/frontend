@@ -111,7 +111,7 @@ export const filterColleges = async (
   });
 
   const response = await fetch(
-    `${API_BASE_URL}/v0/colleges/search?${query.toString()}`,
+    `${API_BASE_URL}/v0/colleges/filter?${query.toString()}`,
   );
 
   if (!response.ok) {
