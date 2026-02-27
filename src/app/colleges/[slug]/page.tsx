@@ -64,8 +64,8 @@ export default function CollegeSlugPage({
               Student Reviews
             </Typography>
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <FilterAltOutlinedIcon />
-              <Button variant="outlined" disabled={true} size="medium">Filter & Sort</Button> {/* Replace with functional select in the future */}
+              <FilterAltOutlinedIcon fontSize="small"/>
+              <Button variant="outlined" disabled={true} size="small">Filter & Sort</Button> {/* Replace with functional select in the future */}
             </Box>
             {/* Sorting Dropdown - functionality to be implemented in the future */}
           </Box>

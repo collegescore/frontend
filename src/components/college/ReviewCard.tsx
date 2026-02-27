@@ -27,7 +27,7 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
         {/* header section with the college name and location (city, state abbreviation) */}
         <header>
           <Typography
-            variant="h5"
+            variant="h6"
             component="h3"
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >Review Name Filler
@@ -35,10 +35,10 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
           <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
             <Chip label="International Student" color="primary" />
             <Typography
-                variant="body2"
+                variant="caption"
                 component="p"
                 color="text.secondary"
-                sx={{ fontWeight: 550 }}
+                sx={{ fontWeight: 500 }}
             >
                 {review.review_date}
             </Typography>

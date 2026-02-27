@@ -19,7 +19,7 @@ const SummaryCard = ({ title, content }: SummaryCardProps) => {
         {title}
       </Typography>
       <Typography variant="body2">{content}</Typography>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 2 }}>
         <Chip label="Thing 1" color="primary" variant="square"/>
         <Chip label="Thing 2" color="primary" variant="square"/>
         <Chip label="Thing 3" color="primary" variant="square"/> {/* This will use the default MUI Chip styling */}
