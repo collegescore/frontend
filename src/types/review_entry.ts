@@ -5,7 +5,7 @@ export interface ReviewEntry {
     identity_chips: string[]; // e.g. ["wheelchair user", "LGBTQ+"]
     share_accommodations_text: string;
     share_positive_text: string;
-    share_challenges_test: string;
+    share_challenges_text: string;
     share_community_groups_text: string;
     ratings: Ratings;
 }
