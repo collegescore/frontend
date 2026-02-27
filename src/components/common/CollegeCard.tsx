@@ -20,7 +20,7 @@ const CollegeCard = (props: CollegeCardProps) => {
 
   return (
     <Card
-      component="article"
+      component={variant === "hero" ? "section" : "article"}
       sx={{
         width: "100%",
         borderRadius: 4,
@@ -69,12 +69,12 @@ const CollegeCard = (props: CollegeCardProps) => {
         {/* footer which contains the total number of reviews for this college 
         and a button to go to the specific college page.*/}
         <Box
-          component="footer"
+          component={variant === "hero" ? "div" : "footer"}
           sx={{
             mt: variant === "card" ? "auto" : 0,
             pt: 3,
             display: "flex",
-            justifyContent: variant === "hero" ? "flex-end" : "space-between",
+            justifyContent: variant === "hero" ? "flex-start" : "space-between",
             alignItems: "center",
             gap: 2,
           }}
