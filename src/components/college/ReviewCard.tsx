@@ -10,11 +10,11 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
   return (
     <Card
       component="article"
+      variant="outlined"
       sx={{
         width: "100%",
-        borderRadius: 4,
+        borderRadius: 2,
         overflow: "hidden",
-        boxShadow: 2,
         height: "100%",
         display: "flex",
         flexDirection: "column"

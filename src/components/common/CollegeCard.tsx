@@ -23,7 +23,7 @@ const CollegeCard = (props: CollegeCardProps) => {
       component={variant === "hero" ? "section" : "article"}
       sx={{
         width: "100%",
-        borderRadius: 4,
+        borderRadius: variant === "hero" ? 2 : 4,
         overflow: "hidden",
         boxShadow: 2,
         height: variant === "card" ? "100%" : "auto",

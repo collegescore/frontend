@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Card } from "@mui/material";
 
 type SummaryCardProps = {
   title: string;
@@ -7,10 +7,10 @@ type SummaryCardProps = {
 
 const SummaryCard = ({ title, content }: SummaryCardProps) => {
   return (
-    <Box
+    <Card
+        variant="outlined"
       sx={{
-        border: "1px solid #ccc",
-        borderRadius: "8px",
+        borderRadius: 2,
         padding: "16px",
         marginBottom: "16px",
       }}
@@ -19,7 +19,7 @@ const SummaryCard = ({ title, content }: SummaryCardProps) => {
         {title}
       </Typography>
       <Typography variant="body1">{content}</Typography>
-    </Box>
+    </Card>
   );
 };
 
