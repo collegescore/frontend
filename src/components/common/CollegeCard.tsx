@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Box, Divider } from "@mui/material";
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import BasicButton from "./BasicButton";
 import { College } from "@/types/college";
-import { StarRatingLabelBox } from "./StarRatingLabelBox";
+import RatingsSection from "./RatingsSection";
 
 const CollegeCard = (props: { college: College }) => {
   const { college } = props;
@@ -52,42 +52,7 @@ const CollegeCard = (props: { college: College }) => {
         </header>
 
         {/* Ratings Section where we show the college's overall scores for a11y, safety, and inclusivity */}
-        <Box
-          sx={{
-            bgcolor: "grayscale.light", // Light gray background for the ratings section
-            borderRadius: 3, // Rounded corners for the gray box
-            p: 2, // Padding inside the gray box
-            my: 2, // Margin top/bottom to separate from header/footer
-          }}
-        >
-          <Box
-            component="dl"
-            sx={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 1,
-              m: 0,
-            }}
-          >
-            {/* Accessibility Rating */}
-            <StarRatingLabelBox
-              rating={college.a11y_overall || 0}
-              label="Accessibility"
-            />
-
-            {/* Safety Rating*/}
-            <StarRatingLabelBox
-              rating={college.safety_overall || 0}
-              label="Safety"
-            />
-
-            {/* Inclusivity Rating */}
-            <StarRatingLabelBox
-              rating={college.inclusivity_overall || 0}
-              label="Inclusivity"
-            />
-          </Box>
-        </Box>
+        <RatingsSection ratings={college.ratings || {}} />
 
         {/* footer which contains the total number of reviews for this college 
         and a button to go to the specific college page. */}
