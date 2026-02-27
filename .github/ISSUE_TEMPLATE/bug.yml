@@ -1,9 +1,7 @@
 ---
 name: Frontend Bug Report
-about: Report a bug or issue with the frontend
 title: "[Bug] "
 labels: ["bug"]
-assignees: ''
 
 body:
   - type: markdown
