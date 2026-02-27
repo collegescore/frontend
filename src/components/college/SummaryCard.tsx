@@ -1,4 +1,4 @@
-import { Box, Typography, Card } from "@mui/material";
+import { Box, Typography, Card, Chip } from "@mui/material";
 
 type SummaryCardProps = {
   title: string;
@@ -15,10 +15,14 @@ const SummaryCard = ({ title, content }: SummaryCardProps) => {
             marginBottom: "16px",
         }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="subtitle1" component="h3" gutterBottom sx={{ fontWeight: 600 }}>
         {title}
       </Typography>
-      <Typography variant="body1">{content}</Typography>
+      <Typography variant="body2">{content}</Typography>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Chip label="Thing 1" color="primary" />
+        <Chip label="Thing 2" color="primary"/>
+      </Box>
     </Card>
   );
 };
