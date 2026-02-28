@@ -109,24 +109,29 @@ export default function FilterSidebar({
           sx={{ mb: 3 }}
           aria-label="Filter by state abbreviation"
         />
-        <Typography
-          component="legend"
-          variant="subtitle2"
-          sx={{ mb: 1, fontWeight: 600 }}
+        <Box 
+          component="fieldset" 
+          sx={{ border: "none", p: 0, m: 0, mb: 3 }}
         >
-          Campus Features
-        </Typography>
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={pendingFilters.has_disability_cultural_center}
-              onChange={(e) =>
-                handleChange("has_disability_cultural_center", e.target.checked)
-              }
-            />
-          }
-          label="Disability Cultural Center"
-        />
+          <Typography
+            component="legend"
+            variant="subtitle2"
+            sx={{ mb: 1, fontWeight: 600 }}
+          >
+            Campus Features
+          </Typography>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={pendingFilters.has_disability_cultural_center}
+                onChange={(e) =>
+                  handleChange("has_disability_cultural_center", e.target.checked)
+                }
+              />
+            }
+            label="Disability Cultural Center"
+          />
+        </Box>
 
         <Divider sx={{ my: 3 }} />
 
