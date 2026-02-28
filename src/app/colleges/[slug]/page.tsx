@@ -1,4 +1,4 @@
-import { useState, use } from "react";
+import { useState, useEffect } from "react";
 import ReviewCard from "@/components/college/ReviewCard";
 import {
   Box,
@@ -20,7 +20,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
 import { getCollegeReviews } from "@/lib/api";
-import { getData } from "@/lib/utils";
+import { loadData } from "@/lib/utils";
 
 export default function CollegeSlugPage({
   params,
@@ -33,19 +33,22 @@ export default function CollegeSlugPage({
     return <NotFound />;
   }
 
-  
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState(true);
-  const [reviews, setReviews] = useState<ReviewEntry[]>([]);
+  if (FEATURE_FLAGS.isCollegePageBackendEnabled) {
+    const [error, setError] = useState<string>("");
+    const [loading, setLoading] = useState(true);
+    const [reviews, setReviews] = useState<ReviewEntry[]>([]);
 
-  //load the reviews from the backend
-  const loadData = getData(
-    () => getCollegeReviews(params.slug),
-    setReviews,
-    setError,
-    setLoading,
-    "Failed to load college reviews."
-  )
+    //load the reviews from the backend
+    useEffect(() => {
+      loadData(
+        () => getCollegeReviews(params.slug),
+        setReviews,
+        setError,
+        setLoading,
+        "Failed to load college reviews."
+      );
+    }, []);
+  }
 
   return (
     <div>

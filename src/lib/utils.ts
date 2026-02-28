@@ -18,7 +18,7 @@ const scrollToTop = () => {
  * @param setLoading - The state setter function to update the loading state.
  * @param errorMessage - The error message to set if the API call fails.
  */
-const getData = (
+const loadData = (
   apiCall: () => Promise<any>,
   setSetter: (data: any) => void,
   setError: (error: string) => void,
@@ -26,6 +26,7 @@ const getData = (
   errorMessage: string
  ) => {
   return async () => {
+    setLoading(true);
     try {
       const data = await apiCall();
       setSetter(data);
@@ -37,4 +38,4 @@ const getData = (
   };
 };
 
-export { scrollToTop, getData};
+export { scrollToTop, loadData};
