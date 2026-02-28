@@ -76,6 +76,7 @@ export const addEmail = async (email: string) => {
   return response.json();
 };
 
+/**Fetch college name by slug for dynamic metadata generation */
 export const getCollegeName = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
@@ -89,6 +90,21 @@ export const getCollegeName = async (slug: string) => {
 
   const data = await response.json();
   return data.name;
+};
+
+/**Fetch reviews for a specific college by slug */
+export const getCollegeReviews = async (slug: string) => {
+  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews`);
+  
+  if (!response.ok) {
+    const message = await getErrorMessage(
+      response,
+      "Failed to fetch college reviews",
+    );
+    throw new Error(message);
+  }
+
+  return response.json();
 };
 
 /** Fetch top 9 colleges sorted by accessibility score */
