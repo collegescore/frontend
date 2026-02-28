@@ -38,18 +38,24 @@ export default function FilterSidebar({
   currentFilters,
   onApply,
 }: FilterSidebarProps) {
-  const [draft, setDraft] = useState(currentFilters);
+  /**
+   * We use 'pendingFilters' as a local staging state.
+   * This allows the user to make multiple changes (e.g., sliding two sliders
+   * and picking a state) without triggering a backend API call on every click.
+   * The changes are only "committed" to the parent component when they click 'Apply'.
+   */
+  const [pendingFilters, setPendingFilters] = useState(currentFilters);
 
-  // Sync internal draft if URL changes (e.g. browser back button)
+  // Sync internal pendingFilters if URL changes (e.g. browser back button)
   useEffect(() => {
-    setDraft(currentFilters);
+    setPendingFilters(currentFilters);
   }, [currentFilters]);
 
   const handleChange = (
     field: keyof SearchFilters,
     value: string | number | boolean | null,
   ) => {
-    setDraft((prev) => ({ ...prev, [field]: value }));
+    setPendingFilters((prev) => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -80,7 +86,7 @@ export default function FilterSidebar({
             labelId="sort-by-label"
             id="sort-by-select"
             label="Sort By"
-            value={draft.sort_by}
+            value={pendingFilters.sort_by}
             onChange={(e) => handleChange("sort_by", e.target.value)}
           >
             <MenuItem value="a11y_high_low">Accessibility High to Low</MenuItem>
@@ -91,7 +97,7 @@ export default function FilterSidebar({
         <Autocomplete
           id="state-search-select"
           options={US_STATES}
-          value={draft.state || null}
+          value={pendingFilters.state || null}
           onChange={(_, val) => handleChange("state", val)}
           renderInput={(params) => (
             <TextField
@@ -113,7 +119,7 @@ export default function FilterSidebar({
         <FormControlLabel
           control={
             <Checkbox
-              checked={draft.has_disability_cultural_center}
+              checked={pendingFilters.has_disability_cultural_center}
               onChange={(e) =>
                 handleChange("has_disability_cultural_center", e.target.checked)
               }
@@ -136,7 +142,7 @@ export default function FilterSidebar({
           Min. Safety Score
         </Typography>
         <Slider
-          value={draft.min_safety}
+          value={pendingFilters.min_safety}
           step={0.5}
           min={0}
           max={5}
@@ -150,7 +156,7 @@ export default function FilterSidebar({
           Min. Inclusivity Score
         </Typography>
         <Slider
-          value={draft.min_inclusivity}
+          value={pendingFilters.min_inclusivity}
           step={0.5}
           min={0}
           max={5}
@@ -161,7 +167,10 @@ export default function FilterSidebar({
         />
 
         <Stack spacing={2} sx={{ mt: 4 }}>
-          <BasicButton text="Apply Filters" onClick={() => onApply(draft)} />
+          <BasicButton
+            text="Apply Filters"
+            onClick={() => onApply(pendingFilters)}
+          />
           <BasicButton
             text="Clear All"
             color="secondary"
