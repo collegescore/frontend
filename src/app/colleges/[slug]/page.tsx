@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, use } from "react";
 import ReviewCard from "@/components/college/ReviewCard";
 import {
   Box,
@@ -16,20 +16,35 @@ import { ReviewEntry } from "@/types/review_entry";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { College } from "@/types/college";
 import CollegeCard from "@/components/common/CollegeCard";
-import FilterSidebar from "@/components/search/FilterSidebar";
 import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
+import { getCollegeReviews } from "@/lib/api";
+import { getData } from "@/lib/utils";
 
 export default function CollegeSlugPage({
   params,
 }: {
   params: { slug: string };
 }) {
+
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
     return <NotFound />;
   }
+
+  
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState<ReviewEntry[]>([]);
+
+  const loadData = getData(
+    () => getCollegeReviews(params.slug),
+    setReviews,
+    setError,
+    setLoading,
+    "Failed to load college reviews."
+  )
 
   return (
     <div>
