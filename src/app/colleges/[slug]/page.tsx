@@ -38,6 +38,7 @@ export default function CollegeSlugPage({
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<ReviewEntry[]>([]);
 
+  //load the reviews from the backend
   const loadData = getData(
     () => getCollegeReviews(params.slug),
     setReviews,
