@@ -57,9 +57,11 @@ export default function CollegeSlugPage({
           }}
         />
 
-        <Grid container spacing={3} py={4}>
+
+        <Grid container spacing={3} py={4} alignItems="start">
           {/* Left Side: Summary Cards */}
-          <Grid size={{ xs: 12, md: 3 }}>
+          {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
+          <Grid size={{ xs: 12, md: 3 }} sx={{ position: "sticky", top: 80 }}>
             <aside id="response-summaries">
               <SummaryCard title="Accommodations" content="filler content" />
               <SummaryCard title="Inclusivity" content="filler content" />
@@ -126,7 +128,29 @@ export default function CollegeSlugPage({
                   }}
                 />
               </Box>
+              <Box component="li">
+                <ReviewCard
+                  review={{
+                    review_date: "2024-06-26",
+                    identity_chips: ["wheelchair user", "LGBTQ+"],
+                    share_accommodations_text:
+                      "The college provides excellent accommodations for students with disabilities.",
+                    share_positive_text:
+                      "The campus is very inclusive and welcoming.",
+                    share_challenges_text:
+                      "Navigating some older buildings can be challenging.",
+                    share_community_groups_text:
+                      "There are several active student organizations focused on accessibility and LGBTQ+ issues.",
+                    ratings: {
+                      a11y_overall: 4,
+                      safety_overall: 5,
+                      inclusivity_overall: 5,
+                    },
+                  }}
+                />
+              </Box>
             </Box>
+            
           </Grid>
         </Grid>
       </Container>
