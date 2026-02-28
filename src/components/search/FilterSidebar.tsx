@@ -109,10 +109,7 @@ export default function FilterSidebar({
           sx={{ mb: 3 }}
           aria-label="Filter by state abbreviation"
         />
-        <Box 
-          component="fieldset" 
-          sx={{ border: "none", p: 0, m: 0, mb: 3 }}
-        >
+        <Box component="fieldset" sx={{ border: "none", p: 0, m: 0, mb: 3 }}>
           <Typography
             component="legend"
             variant="subtitle2"
@@ -125,7 +122,10 @@ export default function FilterSidebar({
               <Checkbox
                 checked={pendingFilters.has_disability_cultural_center}
                 onChange={(e) =>
-                  handleChange("has_disability_cultural_center", e.target.checked)
+                  handleChange(
+                    "has_disability_cultural_center",
+                    e.target.checked,
+                  )
                 }
               />
             }
@@ -143,33 +143,49 @@ export default function FilterSidebar({
           Minimum Scores
         </Typography>
 
-        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-          Min. Safety Score
-        </Typography>
-        <Slider
-          value={pendingFilters.min_safety}
-          step={0.5}
-          min={0}
-          max={5}
-          marks
-          valueLabelDisplay="auto"
-          aria-label="Minimum safety score"
-          onChange={(_, val) => handleChange("min_safety", val)}
-        />
+        <Box component="fieldset" sx={{ border: "none", p: 0, m: 0 }}>
+          <Typography
+            component="legend"
+            variant="subtitle2"
+            sx={{ mb: 1, fontWeight: 600 }}
+          >
+            Minimum Scores
+          </Typography>
 
-        <Typography variant="subtitle2" sx={{ mt: 3, mb: 1 }}>
-          Min. Inclusivity Score
-        </Typography>
-        <Slider
-          value={pendingFilters.min_inclusivity}
-          step={0.5}
-          min={0}
-          max={5}
-          marks
-          valueLabelDisplay="auto"
-          aria-label="Minimum inclusivity score"
-          onChange={(_, val) => handleChange("min_inclusivity", val)}
-        />
+          {/* Minimum Safety Slider - Structurally Linked */}
+          <Typography id="min-safety-label" variant="subtitle2" sx={{ mb: 1 }}>
+            Min. Safety Score
+          </Typography>
+          <Slider
+            value={pendingFilters.min_safety}
+            step={0.5}
+            min={0}
+            max={5}
+            marks
+            valueLabelDisplay="auto"
+            aria-labelledby="min-safety-label" // Links to the ID above
+            onChange={(_, val) => handleChange("min_safety", val)}
+          />
+
+          {/* Minimum Inclusivity Slider*/}
+          <Typography
+            id="min-inclusivity-label"
+            variant="subtitle2"
+            sx={{ mt: 3, mb: 1 }}
+          >
+            Min. Inclusivity Score
+          </Typography>
+          <Slider
+            value={pendingFilters.min_inclusivity}
+            step={0.5}
+            min={0}
+            max={5}
+            marks
+            valueLabelDisplay="auto"
+            aria-labelledby="min-inclusivity-label" // Links to the ID above
+            onChange={(_, val) => handleChange("min_inclusivity", val)}
+          />
+        </Box>
 
         <Stack spacing={2} sx={{ mt: 4 }}>
           <BasicButton
