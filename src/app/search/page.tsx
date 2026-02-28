@@ -55,8 +55,12 @@ function SearchContent() {
       const data = await filterColleges(filters);
       // the colleges to display are the result of the query with filters
       setColleges(data);
-    } catch (err) {
-      setError("We're having trouble loading the colleges right now.");
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "We're having trouble loading the colleges right now.";
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
