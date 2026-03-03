@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from "react";
+import { useEffect, useState, use } from "react";
 import {
   Stack,
   Box,
@@ -19,6 +19,7 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
+import { supabase } from "@/lib/supabaseClient";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
