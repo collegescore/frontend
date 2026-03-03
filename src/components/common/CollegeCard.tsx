@@ -20,6 +20,7 @@ const CollegeCard = (props: CollegeCardProps) => {
 
   return (
     <Card
+    /*If the variant is hero, use a section element for semantic purposes, otherwise use an article element */
       component={variant === "hero" ? "section" : "article"}
       sx={{
         width: "100%",
