@@ -21,6 +21,7 @@ import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
 import { supabase } from "@/lib/supabaseClient";
+import AuthEmailForm from "@/components/common/AuthEmailForm";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -197,50 +198,67 @@ function ReviewPage({ params }: ReviewPageProps) {
   // 2. If NO session, show the Login Gate
   if (!session) {
     return (
-      <Container
-        maxWidth="sm"
-        sx={{ py: 10, textAlign: "center", color: "white" }}
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{ minHeight: "100vh", color: "grayscale.dark", p: 4 }}
       >
-        <Typography variant="h4" gutterBottom>
-          Sign in to Review
-        </Typography>
-        <Typography sx={{ mb: 4 }}>
-          Please enter your email. we'll send you a "Magic Link" to sign in
-          instantly.
-        </Typography>
+        <Container maxWidth="sm" sx={{ textAlign: "center" }}>
+          <Typography variant="h3" fontWeight="bold" gutterBottom>
+            Ready to share?
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
+            Sign in to share your accessibility experiences.
+          </Typography>
 
-        {!emailSent ? (
-          <form onSubmit={handleLogin}>
-            <Stack spacing={2}>
-              <TextField
-                label="Email"
-                variant="filled"
-                fullWidth
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                sx={{ bgcolor: "white", borderRadius: 1 }}
+          {!emailSent ? (
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <AuthEmailForm
+                email={email}
+                setEmail={setEmail}
+                onSubmit={handleLogin}
+                loading={false} // You can set this to true if you add a 'sending' state
               />
-              <Button
-                variant="contained"
-                color="secondary"
-                type="submit"
-                size="large"
-              >
-                Send Magic Link
-              </Button>
-            </Stack>
-          </form>
-        ) : (
-          <Alert severity="success">Check your email for the login link!</Alert>
-        )}
+            </Box>
+          ) : (
+            <Box
+              sx={{
+                mt: 4,
+                p: 3,
+                bgcolor: "rgba(255,255,255,0.1)",
+                borderRadius: 2,
+                border: "1px solid rgba(255,255,255,0.2)",
+              }}
+            >
+              <Typography variant="h6" gutterBottom>
+                📧 Check your email!
+              </Typography>
+              <Typography>
+                We sent a login link to <strong>{email}</strong>. Click the link
+                in your inbox to start your review.
+              </Typography>
+            </Box>
+          )}
 
-        {authError && (
-          <Alert severity="error" sx={{ mt: 2 }}>
-            {authError}
-          </Alert>
-        )}
-      </Container>
+          {authError && (
+            <Alert severity="error" sx={{ mt: 3, textAlign: "left" }}>
+              {authError}
+            </Alert>
+          )}
+
+          <Button
+            onClick={() => router.back()}
+            sx={{
+              mt: 4,
+              color: "grayscale.main",
+              textDecoration: "underline",
+              opacity: 0.7,
+            }}
+          >
+            Nevermind, take me back
+          </Button>
+        </Container>
+      </Stack>
     );
   }
 
