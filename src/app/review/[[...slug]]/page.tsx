@@ -8,6 +8,7 @@ import {
   Container,
   Button,
   IconButton,
+  TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -26,6 +27,14 @@ interface ReviewPageProps {
 }
 
 function ReviewPage({ params }: ReviewPageProps) {
+  // consts for authentication/user session
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [authError, setAuthError] = useState("");
+  /////////////////////////////////////////////////
+
   const resolvedParams = use(params);
   const schoolSlug = resolvedParams.slug?.[0];
   const router = useRouter();
@@ -71,6 +80,43 @@ function ReviewPage({ params }: ReviewPageProps) {
 
     return true; //Question is not conditional, show it
   });
+
+  useEffect(() => {
+    // 1. Check if the user is already logged in when the page loads
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    // 2. Listen for "Sign In" events (like when they click the magic link)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email,
+      options: {
+        // This tells Supabase where to send the user back to after they click the link
+        emailRedirectTo: `${window.location.origin}/review`,
+      },
+    });
+
+    if (error) {
+      setAuthError(error.message);
+    } else {
+      setEmailSent(true);
+    }
+  };
 
   // Handle cancel action
   const handleCancel = () => {
@@ -140,6 +186,63 @@ function ReviewPage({ params }: ReviewPageProps) {
       console.error("Error submitting review:", error);
     }
   };
+
+  // 1. Show a loader while checking the session
+  if (loading) {
+    return (
+      <Box sx={{ p: 5, color: "white", textAlign: "center" }}>Loading...</Box>
+    );
+  }
+
+  // 2. If NO session, show the Login Gate
+  if (!session) {
+    return (
+      <Container
+        maxWidth="sm"
+        sx={{ py: 10, textAlign: "center", color: "white" }}
+      >
+        <Typography variant="h4" gutterBottom>
+          Sign in to Review
+        </Typography>
+        <Typography sx={{ mb: 4 }}>
+          Please enter your email. we'll send you a "Magic Link" to sign in
+          instantly.
+        </Typography>
+
+        {!emailSent ? (
+          <form onSubmit={handleLogin}>
+            <Stack spacing={2}>
+              <TextField
+                label="Email"
+                variant="filled"
+                fullWidth
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                sx={{ bgcolor: "white", borderRadius: 1 }}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                type="submit"
+                size="large"
+              >
+                Send Magic Link
+              </Button>
+            </Stack>
+          </form>
+        ) : (
+          <Alert severity="success">Check your email for the login link!</Alert>
+        )}
+
+        {authError && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {authError}
+          </Alert>
+        )}
+      </Container>
+    );
+  }
 
   return (
     <Stack
