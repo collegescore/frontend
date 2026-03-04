@@ -8,7 +8,6 @@ import {
   Container,
   Button,
   IconButton,
-  TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -22,6 +21,7 @@ import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
 import { supabase } from "@/lib/supabaseClient";
 import AuthEmailForm from "@/components/common/AuthEmailForm";
+import { Session } from "@supabase/supabase-js";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -29,7 +29,7 @@ interface ReviewPageProps {
 
 function ReviewPage({ params }: ReviewPageProps) {
   // consts for authentication/user session
-  const [session, setSession] = useState<any>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [emailSent, setEmailSent] = useState(false);
