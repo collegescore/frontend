@@ -208,7 +208,8 @@ function ReviewPage({ params }: ReviewPageProps) {
             Ready to share?
           </Typography>
           <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-            Sign in to share your accessibility experiences. Your review will stay anonymous!
+            Sign in to share your accessibility experiences. Your review will
+            stay anonymous!
           </Typography>
 
           {!emailSent ? (
