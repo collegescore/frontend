@@ -5,7 +5,6 @@ import { Typography } from "@mui/material";
 import { addEmail } from "@/lib/api";
 import EmailInputBar from "./EmailInputBar";
 
-
 interface EmailSubscriptionProps {
   buttonColor?:
     | "primary"
@@ -27,7 +26,7 @@ export default function EmailSubscription({
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    
+
     try {
       await addEmail(email);
       setEmail("");
