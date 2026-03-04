@@ -28,8 +28,10 @@ export default function EmailSubscription({
       await addEmail(email);
       setEmail("");
       setSubmitted(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to add email.");
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to add email.";
+      setError(errorMessage);
     }
   };
 
@@ -45,12 +47,30 @@ export default function EmailSubscription({
         captionText="By providing your email, you consent to receive periodic updates from College Score about the project and opportunities to contribute."
       />
       {submitted && (
-        <Typography color="success.main" sx={{ mt: 2 }}>
-          Thanks for subscribing!
+        <Typography
+          variant="body2"
+          color="success.main"
+          sx={{
+            mt: 2,
+            fontWeight: 600,
+            textAlign: "center",
+          }}
+          role="status"
+        >
+          Thanks for subscribing! We&apos;ll keep you posted.
         </Typography>
       )}
       {error && (
-        <Typography color="error.main" sx={{ mt: 2 }}>
+        <Typography
+          variant="body2"
+          color="error.main"
+          sx={{
+            mt: 2,
+            fontWeight: 600,
+            textAlign: "center",
+          }}
+          role="alert"
+        >
           {error}
         </Typography>
       )}
