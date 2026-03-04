@@ -20,7 +20,7 @@ import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
 import { supabase } from "@/lib/supabaseClient";
-import AuthEmailForm from "@/components/common/AuthEmailForm";
+import AuthForm from "@/components/common/AuthForm";
 import { Session } from "@supabase/supabase-js";
 
 interface ReviewPageProps {
@@ -32,8 +32,9 @@ function ReviewPage({ params }: ReviewPageProps) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [email, setEmail] = useState("");
-  const [emailSent, setEmailSent] = useState(false);
-  const [authError, setAuthError] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+    const [authError, setAuthError] = useState("");
   /////////////////////////////////////////////////
 
   const resolvedParams = use(params);
@@ -103,20 +104,28 @@ function ReviewPage({ params }: ReviewPageProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError("");
+    setIsLoggingIn(true);
 
-    const { error } = await supabase.auth.signInWithOtp({
-      email: email,
-      options: {
-        // This tells Supabase where to send the user back to after they click the link
-        emailRedirectTo: `${window.location.origin}/review`,
-      },
+    // 1. Try to Sign In
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
     });
 
-    if (error) {
-      setAuthError(error.message);
-    } else {
-      setEmailSent(true);
+    // 2. If user not found, try to Sign Up
+    if (signInError) {
+      if (signInError.message === "Invalid login credentials") {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        if (signUpError) setAuthError(signUpError.message);
+      } else {
+        setAuthError(signInError.message);
+      }
     }
+
+    setIsLoggingIn(false);
   };
 
   // Handle cancel action
@@ -201,62 +210,34 @@ function ReviewPage({ params }: ReviewPageProps) {
       <Stack
         alignItems="center"
         justifyContent="center"
-        sx={{ minHeight: "100vh", color: "grayscale.dark", p: 4 }}
+        bgcolor="primary.main"
+        sx={{ minHeight: "100vh", color: "white", p: 4 }}
       >
         <Container maxWidth="sm" sx={{ textAlign: "center" }}>
           <Typography variant="h3" fontWeight="bold" gutterBottom>
-            Ready to share?
+            Review College Accessibility
           </Typography>
           <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-            Sign in to share your accessibility experiences. Your review will
-            stay anonymous!
+            Sign in to share your experience. Your review will be kept anonymous! 
+            We only ask for your email to prevent spam and ensure authentic reviews.
           </Typography>
 
-          {!emailSent ? (
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <AuthEmailForm
-                email={email}
-                setEmail={setEmail}
-                onSubmit={handleLogin}
-                loading={false} // You can set this to true if you add a 'sending' state
-              />
-            </Box>
-          ) : (
-            <Box
-              sx={{
-                mt: 4,
-                p: 3,
-                bgcolor: "rgba(255,255,255,0.1)",
-                borderRadius: 2,
-                border: "1px solid rgba(255,255,255,0.2)",
-              }}
-            >
-              <Typography variant="h6" gutterBottom>
-                📧 Check your email!
-              </Typography>
-              <Typography>
-                We sent a login link to <strong>{email}</strong>. Click the link
-                in your inbox to start your review.
-              </Typography>
-            </Box>
-          )}
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <AuthForm
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              onSubmit={handleLogin}
+              loading={isLoggingIn}
+              buttonText={isLoggingIn ? "Authenticating..." : "Enter the Survey"}
+            />
+          </Box>
 
-          {authError && (
-            <Alert severity="error" sx={{ mt: 3, textAlign: "left" }}>
-              {authError}
-            </Alert>
-          )}
+          {authError && <Alert severity="error" sx={{ mt: 3 }}>{authError}</Alert>}
 
-          <Button
-            onClick={() => router.back()}
-            sx={{
-              mt: 4,
-              color: "grayscale.main",
-              textDecoration: "underline",
-              opacity: 0.7,
-            }}
-          >
-            Nevermind, take me back
+          <Button onClick={() => router.back()} sx={{ mt: 4, color: "white", opacity: 0.7 }}>
+            ← Back to School List
           </Button>
         </Container>
       </Stack>
