@@ -1,0 +1,66 @@
+import { Box, Stack, TextField, Typography } from "@mui/material";
+import EmailInputBar from "./EmailInputBar";
+import BasicButton from "./BasicButton";
+
+interface AuthEmailFormProps {
+  email: string;
+  setEmail: (email: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  loading: boolean;
+}
+
+interface AuthFormProps {
+  email: string;
+  setEmail: (val: string) => void;
+  password: string;
+  setPassword: (val: string) => void;
+  onSubmit: (e: React.FormEvent) => void;
+  loading: boolean;
+  buttonText: string;
+}
+
+export default function AuthForm({
+  email,
+  setEmail,
+  password,
+  setPassword,
+  onSubmit,
+  loading,
+  buttonText,
+}: AuthFormProps) {
+  return (
+    <Box component="form" onSubmit={onSubmit} sx={{ width: "100%", maxWidth: 400 }}>
+      <Stack spacing={2.5}>
+        <TextField
+          type="email"
+          label="Email Address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          fullWidth
+          sx={{ bgcolor: "white", borderRadius: 1 }}
+        />
+        <TextField
+          type="password"
+          label="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          fullWidth
+          sx={{ bgcolor: "white", borderRadius: 1 }}
+        />
+        <BasicButton
+          text={buttonText}
+          type="submit"
+          variant="contained"
+          color="secondary"
+          disabled={loading}
+          sx={{ py: 1.5, fontWeight: "bold", fontSize: "1rem" }}
+        />
+        <Typography variant="caption" sx={{ color: "white", opacity: 0.8, textAlign: "center" }}>
+          Don't have an account? Enter a password and we'll create one for you instantly.
+        </Typography>
+      </Stack>
+    </Box>
+  );
+}

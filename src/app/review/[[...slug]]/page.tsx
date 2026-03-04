@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from "react";
+import { useEffect, useState, use } from "react";
 import {
   Stack,
   Box,
@@ -19,12 +19,24 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
+import { supabase } from "@/lib/supabaseClient";
+import AuthForm from "@/components/common/AuthForm";
+import { Session } from "@supabase/supabase-js";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
 }
 
 function ReviewPage({ params }: ReviewPageProps) {
+  // consts for authentication/user session
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [authError, setAuthError] = useState("");
+  /////////////////////////////////////////////////
+
   const resolvedParams = use(params);
   const schoolSlug = resolvedParams.slug?.[0];
   const router = useRouter();
@@ -70,6 +82,51 @@ function ReviewPage({ params }: ReviewPageProps) {
 
     return true; //Question is not conditional, show it
   });
+
+  useEffect(() => {
+    // 1. Check if the user is already logged in when the page loads
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    // 2. Listen for "Sign In" events (like when they click the magic link)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAuthError("");
+    setIsLoggingIn(true);
+
+    // 1. Try to Sign In
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    // 2. If user not found, try to Sign Up
+    if (signInError) {
+      if (signInError.message === "Invalid login credentials") {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        if (signUpError) setAuthError(signUpError.message);
+      } else {
+        setAuthError(signInError.message);
+      }
+    }
+
+    setIsLoggingIn(false);
+  };
 
   // Handle cancel action
   const handleCancel = () => {
@@ -139,6 +196,53 @@ function ReviewPage({ params }: ReviewPageProps) {
       console.error("Error submitting review:", error);
     }
   };
+
+  // 1. Show a loader while checking the session
+  if (loading) {
+    return (
+      <Box sx={{ p: 5, color: "white", textAlign: "center" }}>Loading...</Box>
+    );
+  }
+
+  // 2. If NO session, show the Login Gate
+  if (!session) {
+    return (
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        bgcolor="primary.main"
+        sx={{ minHeight: "100vh", color: "white", p: 4 }}
+      >
+        <Container maxWidth="sm" sx={{ textAlign: "center" }}>
+          <Typography variant="h3" fontWeight="bold" gutterBottom>
+            Review College Accessibility
+          </Typography>
+          <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
+            Sign in to share your experience. Your review will be kept anonymous! 
+            We only ask for your email to prevent spam and ensure authentic reviews.
+          </Typography>
+
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <AuthForm
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              onSubmit={handleLogin}
+              loading={isLoggingIn}
+              buttonText={isLoggingIn ? "Authenticating..." : "Enter the Survey"}
+            />
+          </Box>
+
+          {authError && <Alert severity="error" sx={{ mt: 3 }}>{authError}</Alert>}
+
+          <Button onClick={() => router.back()} sx={{ mt: 4, color: "white", opacity: 0.7 }}>
+            ← Back to School List
+          </Button>
+        </Container>
+      </Stack>
+    );
+  }
 
   return (
     <Stack

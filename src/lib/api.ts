@@ -1,5 +1,6 @@
 /*All functions that call FastAPI backend */
 import type { Answer } from "@/types/review_qa";
+import { supabase } from "./supabaseClient";
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
 
@@ -47,9 +48,24 @@ const getErrorMessage = async (
 };
 
 export const submitReview = async (answers: Answer) => {
+  //check for user session and get access token for authenticated request before submitting review
+  const {
+    data: { session },
+    error: sessionError,
+  } = await supabase.auth.getSession();
+
+  if (sessionError || !session) {
+    throw new Error("User session not found. Please sign in again.");
+  }
+
+  const token = session.access_token;
+
   const response = await fetch(`${API_BASE_URL}/v0/reviews`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify({ answers: normalizeAnswers(answers) }),
   });
 
