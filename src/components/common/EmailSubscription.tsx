@@ -14,7 +14,9 @@ interface EmailSubscriptionProps {
     | "warning";
 }
 
-export default function EmailSubscription({ buttonColor = "primary" }: EmailSubscriptionProps) {
+export default function EmailSubscription({
+  buttonColor = "primary",
+}: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
@@ -42,8 +44,16 @@ export default function EmailSubscription({ buttonColor = "primary" }: EmailSubs
         loading={submitted}
         captionText="By providing your email, you consent to receive periodic updates from College Score about the project and opportunities to contribute."
       />
-      {submitted && <Typography color="success.main" sx={{ mt: 2 }}>Thanks for subscribing!</Typography>}
-      {error && <Typography color="error.main" sx={{ mt: 2 }}>{error}</Typography>}
+      {submitted && (
+        <Typography color="success.main" sx={{ mt: 2 }}>
+          Thanks for subscribing!
+        </Typography>
+      )}
+      {error && (
+        <Typography color="error.main" sx={{ mt: 2 }}>
+          {error}
+        </Typography>
+      )}
     </>
   );
 }

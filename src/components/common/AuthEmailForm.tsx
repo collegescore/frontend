@@ -7,7 +7,12 @@ interface AuthEmailFormProps {
   loading: boolean;
 }
 
-export default function AuthEmailForm({ email, setEmail, onSubmit, loading }: AuthEmailFormProps) {
+export default function AuthEmailForm({
+  email,
+  setEmail,
+  onSubmit,
+  loading,
+}: AuthEmailFormProps) {
   return (
     <EmailInputBar
       email={email}
@@ -15,7 +20,7 @@ export default function AuthEmailForm({ email, setEmail, onSubmit, loading }: Au
       onSubmit={onSubmit}
       loading={loading}
       buttonText={loading ? "Sending..." : "Sign In"}
-      buttonColor="secondary"
+      buttonColor="primary"
       textFieldBg="white"
       maxWidth={500}
       captionText="We'll send a magic link to your inbox. No password required!"

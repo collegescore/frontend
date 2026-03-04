@@ -10,7 +10,14 @@ interface EmailInputBarProps {
   buttonText: string;
   captionText: string;
   loading?: boolean;
-  buttonColor?: "primary" | "secondary" | "grayscale" | "error" | "info" | "success" | "warning";
+  buttonColor?:
+    | "primary"
+    | "secondary"
+    | "grayscale"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
   maxWidth?: number;
   textFieldBg?: string;
 }
