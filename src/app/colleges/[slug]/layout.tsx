@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCollegeName } from "@/lib/api";
+import { getCollege } from "@/lib/api";
 import { FEATURE_FLAGS } from "@/config/flag";
 
 export async function generateMetadata({
@@ -17,12 +17,13 @@ export async function generateMetadata({
   }
 
   try {
-    const collegeName = await getCollegeName(params.slug);
+    const college = await getCollege(params.slug);
 
-    if (!collegeName) {
+    if (!college) {
       console.error(`College not found for slug: ${params.slug}`);
       notFound();
     }
+    const collegeName = college.name;
 
     return {
       title: `${collegeName} - College Score`,
