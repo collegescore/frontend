@@ -1,7 +1,10 @@
-import { addEmail } from "@/lib/api";
+"use client";
+
 import { useState } from "react";
-import EmailInputBar from "./EmailInputBar";
 import { Typography } from "@mui/material";
+import { addEmail } from "@/lib/api";
+import EmailInputBar from "./EmailInputBar";
+
 
 interface EmailSubscriptionProps {
   buttonColor?:
@@ -19,11 +22,12 @@ export default function EmailSubscription({
 }: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string>("");
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+    
     try {
       await addEmail(email);
       setEmail("");
