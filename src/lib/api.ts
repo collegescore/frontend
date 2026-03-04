@@ -89,7 +89,7 @@ export const getCollege = async (slug: string) => {
   }
 
   const data = await response.json();
-  return data.name;
+  return data;
 };
 
 /**Fetch reviews for a specific college by slug */
