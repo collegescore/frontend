@@ -1,12 +1,8 @@
-"use client";
-
-import { useState } from "react";
-import { Stack, TextField, Box, Typography } from "@mui/material";
-import BasicButton from "./BasicButton";
 import { addEmail } from "@/lib/api";
+import { useState } from "react";
+import EmailInputBar from "./EmailInputBar";
+import { Typography } from "@mui/material";
 
-// Keep me updated email button allows different color options chosen by parent component,
-// defaults to primary unless specified.
 interface EmailSubscriptionProps {
   buttonColor?:
     | "primary"
@@ -18,113 +14,36 @@ interface EmailSubscriptionProps {
     | "warning";
 }
 
-export default function EmailSubscription({
-  buttonColor = "primary",
-}: EmailSubscriptionProps) {
+export default function EmailSubscription({ buttonColor = "primary" }: EmailSubscriptionProps) {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState("");
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-
     try {
       await addEmail(email);
       setEmail("");
       setSubmitted(true);
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Failed to add email.";
-      setError(errorMessage);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to add email.");
     }
   };
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleEmailSubmit}
-      sx={{
-        width: "100%",
-        maxWidth: 600,
-        mt: 2,
-      }}
-      id="email-subscription-form"
-      aria-label="Stay up to date with College Score"
-    >
-      <Stack direction="row" spacing={0}>
-        <TextField
-          type="email"
-          label="Email Address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          fullWidth
-          disabled={submitted}
-          placeholder="your.email@example.com"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderTopRightRadius: 0,
-              borderBottomRightRadius: 0,
-            },
-          }}
-        />
-        <BasicButton
-          text="Keep Me Updated"
-          type="submit"
-          variant="contained"
-          color={buttonColor} // Use the color prop passed from parent, defaulting to primary
-          disabled={submitted}
-          sx={{
-            borderTopLeftRadius: 0,
-            borderBottomLeftRadius: 0,
-            whiteSpace: "nowrap",
-            minWidth: "fit-content",
-          }}
-        />
-      </Stack>
-      <Typography
-        variant="caption"
-        sx={{
-          color: "grayscale.main",
-          display: "block",
-          textAlign: "left",
-          fontSize: "0.75rem",
-          mt: 1,
-          px: 1,
-        }}
-      >
-        By providing your email, you consent to receive periodic updates from
-        College Score about the project and opportunities to contribute.
-      </Typography>
-      {submitted && (
-        <Typography
-          variant="body2"
-          color="success.main"
-          sx={{
-            mt: 2,
-            fontWeight: 600,
-            textAlign: "center",
-          }}
-          role="status"
-        >
-          Thanks for subscribing! We&apos;ll keep you posted.
-        </Typography>
-      )}
-      {error && (
-        <Typography
-          variant="body2"
-          color="error.main"
-          sx={{
-            mt: 2,
-            fontWeight: 600,
-            textAlign: "center",
-          }}
-          role="alert"
-        >
-          {error}
-        </Typography>
-      )}
-    </Box>
+    <>
+      <EmailInputBar
+        email={email}
+        setEmail={setEmail}
+        onSubmit={handleEmailSubmit}
+        buttonText="Keep Me Updated"
+        buttonColor={buttonColor}
+        loading={submitted}
+        captionText="By providing your email, you consent to receive periodic updates from College Score about the project and opportunities to contribute."
+      />
+      {submitted && <Typography color="success.main" sx={{ mt: 2 }}>Thanks for subscribing!</Typography>}
+      {error && <Typography color="error.main" sx={{ mt: 2 }}>{error}</Typography>}
+    </>
   );
 }
