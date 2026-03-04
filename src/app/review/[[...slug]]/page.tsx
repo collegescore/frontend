@@ -34,7 +34,7 @@ function ReviewPage({ params }: ReviewPageProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [authError, setAuthError] = useState("");
+  const [authError, setAuthError] = useState("");
   /////////////////////////////////////////////////
 
   const resolvedParams = use(params);
