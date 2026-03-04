@@ -76,14 +76,14 @@ export const addEmail = async (email: string) => {
   return response.json();
 };
 
-/**Fetch college name by slug for dynamic metadata generation */
-export const getCollegeName = async (slug: string) => {
+/**Fetch college details by slug for dynamic metadata generation */
+export const getCollege = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
-      "Failed to fetch college name",
+      "Failed to fetch college details",
     );
     throw new Error(message);
   }
