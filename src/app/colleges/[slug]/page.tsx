@@ -22,14 +22,14 @@ import CollegeCard from "@/components/common/CollegeCard";
 import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
-import { getCollegeReviews , getCollege} from "@/lib/api";
+import { getCollegeReviews, getCollege } from "@/lib/api";
 import { loadData } from "@/lib/utils";
 
 export default function CollegeSlugPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
-})  {
+}) {
   const { slug } = use(params);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(true);
@@ -40,64 +40,66 @@ export default function CollegeSlugPage({
   if (!FEATURE_FLAGS.isSearchEnabled) {
     return <NotFound />;
   }
-    
-    //load colleges info from the backend
-    useEffect(() => {
-      if (!FEATURE_FLAGS.isCollegePageBackendEnabled ) return;
-      loadData(
-        () => getCollege(slug),
-        setCollege,
-        setError,
-        setLoading,
-        "Failed to load college information."
-      )();
-    }, [slug]);
-    
-    //load the reviews from the backend
-    useEffect(() => {
-      if (!FEATURE_FLAGS.isCollegePageBackendEnabled ) return;
-      loadData(
-        () => getCollegeReviews(slug),
-        setReviews,
-        setError,
-        setLoading,
-        "Failed to load college reviews."
-      )();
-    }, [slug]);
 
-    console.log(college);
-    console.log(reviews);
-    console.log(reviews[0]);
-  
- 
+  //load colleges info from the backend
+  useEffect(() => {
+    if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
+    loadData(
+      () => getCollege(slug),
+      setCollege,
+      setError,
+      setLoading,
+      "Failed to load college information.",
+    )();
+  }, [slug]);
+
+  //load the reviews from the backend
+  useEffect(() => {
+    if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
+    loadData(
+      () => getCollegeReviews(slug),
+      setReviews,
+      setError,
+      setLoading,
+      "Failed to load college reviews.",
+    )();
+  }, [slug]);
+
+  console.log(college);
+  console.log(reviews);
+  console.log(reviews[0]);
+
   return (
     <div>
       <h1>College: {college?.name ?? slug}</h1>
       <p>This page is under construction.</p>
-      
-    {loading ? (
+
+      {loading ? (
+        //While data is loading show loading symbol
         <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
           <CircularProgress color="primary" />
         </Box>
       ) : error || !college ? (
+        //Error or college not found
         <Typography color="error" textAlign="center">
           {error || "College not found."}
         </Typography>
       ) : (
-      
+        //Data loaded successfully
         <Container id="{slug}-page" sx={{ mt: 4, mb: 9 }}>
-          {/*School landing*/}
-
-          <CollegeCard
-            variant="hero"
-            college={college}
-          />
-
+          {/**Hero version of the college card from the search page */}
+          <CollegeCard variant="hero" college={college} />
 
           <Grid container spacing={3} py={4} alignItems="start">
             {/* Left Side: Summary Cards */}
             {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
-            <Grid size={{ xs: 12, md: 3 }} sx={{ position: "sticky", top: 80 }}>
+            <Grid
+              size={{ xs: 12, md: 3 }}
+              sx={{
+                position: { xs: "static", md: "sticky" },
+                top: { md: 80 },
+              }}
+            >
               <aside id="response-summaries">
                 <SummaryCard title="Accommodations" content="filler content" />
                 <SummaryCard title="Inclusivity" content="filler content" />
@@ -145,12 +147,11 @@ export default function CollegeSlugPage({
               >
                 {/*Get reviews from backend as list items */}
                 {reviews.map((review) => (
-                <Box component="li" key={review.id}>
-                  <ReviewCard review={review} />
-                </Box>
-              ))}
+                  <Box component="li" key={review.id}>
+                    <ReviewCard review={review} />
+                  </Box>
+                ))}
               </Box>
-              
             </Grid>
           </Grid>
         </Container>

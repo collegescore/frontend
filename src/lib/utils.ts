@@ -23,8 +23,8 @@ const loadData = (
   setSetter: (data: any) => void,
   setError: (error: string) => void,
   setLoading: (loading: boolean) => void,
-  errorMessage: string
- ) => {
+  errorMessage: string,
+) => {
   return async () => {
     setLoading(true);
     try {
@@ -38,4 +38,4 @@ const loadData = (
   };
 };
 
-export { scrollToTop, loadData};
+export { scrollToTop, loadData };

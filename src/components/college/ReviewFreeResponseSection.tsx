@@ -5,7 +5,10 @@ type ReviewFreeResponseSectionProps = {
   text: string;
 };
 
-const ReviewFreeResponseSection = ({ sectionName, text }: ReviewFreeResponseSectionProps) => {
+const ReviewFreeResponseSection = ({
+  sectionName,
+  text,
+}: ReviewFreeResponseSectionProps) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>

@@ -94,7 +94,7 @@ export const getCollege = async (slug: string) => {
 /**Fetch reviews for a specific college by slug */
 export const getCollegeReviews = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews`);
-  
+
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
