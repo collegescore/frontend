@@ -42,7 +42,14 @@ const ReviewCard = ({ review, reviewNumber }: ReviewCardProps) => {
           >
             {`Review ${reviewNumber ?? 1}`}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexWrap: "wrap",
+            }}
+          >
             {review.identities?.map((identity) => (
               <Chip key={identity} label={identity} color="primary" />
             ))}
