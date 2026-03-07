@@ -143,6 +143,7 @@ export default function CollegeSlugPage({
                   gap: 2,
                 }}
               >
+                {/*Get reviews from backend as list items */}
                 {reviews.map((review) => (
                 <Box component="li" key={review.id}>
                   <ReviewCard review={review} />
