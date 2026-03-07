@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { use, useState, useEffect } from "react";
 import ReviewCard from "@/components/college/ReviewCard";
 import {
   Box,
@@ -19,40 +21,53 @@ import CollegeCard from "@/components/common/CollegeCard";
 import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
-import { getCollegeReviews } from "@/lib/api";
+import { getCollegeReviews , getCollege} from "@/lib/api";
 import { loadData } from "@/lib/utils";
 
 export default function CollegeSlugPage({
   params,
 }: {
-  params: { slug: string };
-}) {
+  params: Promise<{ slug: string }>;
+})  {
+  const { slug } = use(params);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState<ReviewEntry[]>([]);
+  const [college, setCollege] = useState<College | null>(null);
 
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
     return <NotFound />;
   }
-
-  if (FEATURE_FLAGS.isCollegePageBackendEnabled) {
-    const [error, setError] = useState<string>("");
-    const [loading, setLoading] = useState(true);
-    const [reviews, setReviews] = useState<ReviewEntry[]>([]);
-
+    
+    //load colleges info from the backend
+    useEffect(() => {
+      if (!FEATURE_FLAGS.isCollegePageBackendEnabled ) return;
+      loadData(
+        () => getCollege(slug),
+        setCollege,
+        setError,
+        setLoading,
+        "Failed to load college information."
+      )();
+    }, [slug]);
+    
     //load the reviews from the backend
     useEffect(() => {
+      if (!FEATURE_FLAGS.isCollegePageBackendEnabled ) return;
       loadData(
-        () => getCollegeReviews(params.slug),
+        () => getCollegeReviews(slug),
         setReviews,
         setError,
         setLoading,
         "Failed to load college reviews."
-      );
-    }, []);
-  }
+      )();
+    }, [slug]);
+  
 
   return (
     <div>
-      <h1>College: {params.slug}</h1>
+      <h1>College: {college?.name ?? slug}</h1>
       <p>This page is under construction.</p>
 
       {/*Individual Review Cards */}

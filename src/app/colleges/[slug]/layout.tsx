@@ -6,8 +6,11 @@ import { FEATURE_FLAGS } from "@/config/flag";
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
+
   // Skip backend call if flag is disabled (for development)
   if (!FEATURE_FLAGS.isCollegePageBackendEnabled) {
     return {
@@ -17,10 +20,10 @@ export async function generateMetadata({
   }
 
   try {
-    const college = await getCollege(params.slug);
+    const college = await getCollege(slug);
 
     if (!college) {
-      console.error(`College not found for slug: ${params.slug}`);
+      console.error(`College not found for slug: ${slug}`);
       notFound();
     }
     const collegeName = college.name;
@@ -31,7 +34,7 @@ export async function generateMetadata({
     };
   } catch (error) {
     console.error(
-      `Error fetching college for slug ${params.slug}:`,
+      `Error fetching college for slug ${slug}:`,
       error instanceof Error ? error.message : "Unknown error",
     );
     notFound();
