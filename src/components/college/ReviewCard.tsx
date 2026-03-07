@@ -38,8 +38,10 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
           >
             Review Name Filler
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Chip label="International Student" color="primary" />
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
+            {review.identities?.map((identity) => (
+              <Chip key={identity} label={identity} color="primary" />
+            ))}
             <Typography
               variant="caption"
               component="p"
@@ -73,6 +75,12 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
           <ReviewFreeResponseSection
             sectionName="Challenges"
             text={review.share_challenges_text}
+          />
+        )}
+        {review.share_groups_text && (
+          <ReviewFreeResponseSection
+            sectionName="Communities and Groups"
+            text={review.share_groups_text}
           />
         )}
       </CardContent>
