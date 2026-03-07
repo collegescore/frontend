@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useRef } from "react";
 import {
   Stack,
   Box,
@@ -30,6 +30,10 @@ function ReviewPage({ params }: ReviewPageProps) {
   const router = useRouter();
   const [announcement, setAnnouncement] = useState<string>("");
   const [error, setError] = useState<string>("");
+  // UI state used to disable submit button while request is in flight
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Synchronous lock to block duplicate submit events before React re-renders
+  const submitLockRef = useRef(false);
   //Store answers to questions
   const [answers, setAnswers] = useState<Answer>(() => {
     const initialAnswers: Answer = {};
@@ -124,6 +128,15 @@ function ReviewPage({ params }: ReviewPageProps) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Guard against rapid double-clicks / repeated Enter presses
+    if (submitLockRef.current) {
+      return;
+    }
+
+    submitLockRef.current = true;
+    setIsSubmitting(true);
+    setAnnouncement("Submitting review, please wait.");
     setError(""); // Clear previous errors
 
     try {
@@ -137,6 +150,9 @@ function ReviewPage({ params }: ReviewPageProps) {
           : "Failed to submit review. Please try again.";
       setError(errorMessage);
       console.error("Error submitting review:", error);
+      // Allow a new attempt after a failed request
+      submitLockRef.current = false;
+      setIsSubmitting(false);
     }
   };
 
@@ -245,8 +261,13 @@ function ReviewPage({ params }: ReviewPageProps) {
             <ArrowForwardIcon />
           </IconButton>
         ) : (
-          <Button variant="contained" color="secondary" type="submit">
-            Submit Review
+          <Button
+            variant="contained"
+            color="secondary"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Review"}
           </Button>
         )}
       </Stack>

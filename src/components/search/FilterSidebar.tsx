@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -13,10 +15,49 @@ import {
   Paper,
   Autocomplete,
   TextField,
+  Stack,
 } from "@mui/material";
+import BasicButton from "../common/BasicButton";
 import US_STATES from "@/lib/usStatesList";
+import { SearchFilters } from "@/types/search_filters";
 
-export default function FilterSidebar() {
+const DEFAULT_FILTERS: SearchFilters = {
+  sort_by: "a11y_high_low",
+  state: "",
+  has_disability_cultural_center: false,
+  min_safety: 0,
+  min_inclusivity: 0,
+};
+
+interface FilterSidebarProps {
+  currentFilters: SearchFilters;
+  onApply: (filters: SearchFilters) => void;
+}
+
+export default function FilterSidebar({
+  currentFilters,
+  onApply,
+}: FilterSidebarProps) {
+  /**
+   * We use 'pendingFilters' as a local staging state.
+   * This allows the user to make multiple changes (e.g., sliding two sliders
+   * and picking a state) without triggering a backend API call on every click.
+   * The changes are only "committed" to the parent component when they click 'Apply'.
+   */
+  const [pendingFilters, setPendingFilters] = useState(currentFilters);
+
+  // Sync internal pendingFilters if URL changes (e.g. browser back button)
+  useEffect(() => {
+    setPendingFilters(currentFilters);
+  }, [currentFilters]);
+
+  const handleChange = (
+    field: keyof SearchFilters,
+    value: string | number | boolean | null,
+  ) => {
+    setPendingFilters((prev) => ({ ...prev, [field]: value }));
+  };
+
   return (
     <Paper
       component="aside"
@@ -39,56 +80,35 @@ export default function FilterSidebar() {
       </Typography>
 
       <Box component="form" noValidate>
-        {/* Sort By Filter */}
-        <Box>
-          <Typography
-            component="legend"
-            variant="subtitle2"
-            sx={{ mb: 1, fontWeight: 600 }}
+        <FormControl fullWidth sx={{ mb: 3 }}>
+          <InputLabel id="sort-by-label">Sort By</InputLabel>
+          <Select
+            labelId="sort-by-label"
+            id="sort-by-select"
+            label="Sort By"
+            value={pendingFilters.sort_by}
+            onChange={(e) => handleChange("sort_by", e.target.value)}
           >
-            Sort By
-          </Typography>
-          <FormControl fullWidth sx={{ mb: 3 }}>
-            <InputLabel id="sort-by-label">Sort By</InputLabel>
-            <Select
-              labelId="sort-by-label"
-              id="sort-by-select"
-              label="Sort By"
-              defaultValue="a11y_high_low"
-            >
-              <MenuItem value="a11y_high_low">
-                Accessibility High to Low
-              </MenuItem>
-              <MenuItem value="alphabetical">Name: A to Z</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+            <MenuItem value="a11y_high_low">Accessibility High to Low</MenuItem>
+            <MenuItem value="alphabetical">Name: A to Z</MenuItem>
+          </Select>
+        </FormControl>
 
-        {/* State Filter with Search/Type functionality */}
-        <Box>
-          <Typography
-            component="legend"
-            variant="subtitle2"
-            sx={{ mb: 1, fontWeight: 600 }}
-          >
-            State
-          </Typography>
-          <Autocomplete
-            id="state-search-select"
-            options={US_STATES}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="State"
-                placeholder="Search state (e.g. CA)"
-              />
-            )}
-            sx={{ mb: 3 }}
-            aria-label="Filter by state abbreviation"
-          />
-        </Box>
-
-        {/* Binary / Feature Filters */}
+        <Autocomplete
+          id="state-search-select"
+          options={US_STATES}
+          value={pendingFilters.state || null}
+          onChange={(_, val) => handleChange("state", val)}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="State"
+              placeholder="Search state (e.g. CA)"
+            />
+          )}
+          sx={{ mb: 3 }}
+          aria-label="Filter by state abbreviation"
+        />
         <Box component="fieldset" sx={{ border: "none", p: 0, m: 0, mb: 3 }}>
           <Typography
             component="legend"
@@ -98,50 +118,86 @@ export default function FilterSidebar() {
             Campus Features
           </Typography>
           <FormControlLabel
-            control={<Checkbox color="primary" />}
+            control={
+              <Checkbox
+                checked={pendingFilters.has_disability_cultural_center}
+                onChange={(e) =>
+                  handleChange(
+                    "has_disability_cultural_center",
+                    e.target.checked,
+                  )
+                }
+              />
+            }
             label="Disability Cultural Center"
           />
         </Box>
 
         <Divider sx={{ my: 3 }} />
 
-        {/* Score Filter */}
+        <Typography
+          component="legend"
+          variant="subtitle2"
+          sx={{ mb: 1, fontWeight: 600 }}
+        >
+          Minimum Scores
+        </Typography>
+
         <Box component="fieldset" sx={{ border: "none", p: 0, m: 0 }}>
           <Typography
             component="legend"
             variant="subtitle2"
             sx={{ mb: 1, fontWeight: 600 }}
           >
+            Minimum Scores
+          </Typography>
+
+          {/* Minimum Safety Slider - Structurally Linked */}
+          <Typography id="min-safety-label" variant="subtitle2" sx={{ mb: 1 }}>
             Min. Safety Score
           </Typography>
           <Slider
-            defaultValue={0}
+            value={pendingFilters.min_safety}
             step={0.5}
-            marks
             min={0}
             max={5}
+            marks
             valueLabelDisplay="auto"
-            aria-label="Minimum safety score"
+            aria-labelledby="min-safety-label" // Links to the ID above
+            onChange={(_, val) => handleChange("min_safety", val)}
           />
-        </Box>
-        <Box component="fieldset" sx={{ border: "none", p: 0, m: 0 }}>
+
+          {/* Minimum Inclusivity Slider*/}
           <Typography
-            component="legend"
+            id="min-inclusivity-label"
             variant="subtitle2"
-            sx={{ mb: 1, fontWeight: 600 }}
+            sx={{ mt: 3, mb: 1 }}
           >
             Min. Inclusivity Score
           </Typography>
           <Slider
-            defaultValue={0}
+            value={pendingFilters.min_inclusivity}
             step={0.5}
-            marks
             min={0}
             max={5}
+            marks
             valueLabelDisplay="auto"
-            aria-label="Minimum inclusivity score"
+            aria-labelledby="min-inclusivity-label" // Links to the ID above
+            onChange={(_, val) => handleChange("min_inclusivity", val)}
           />
         </Box>
+
+        <Stack spacing={2} sx={{ mt: 4 }}>
+          <BasicButton
+            text="Apply Filters"
+            onClick={() => onApply(pendingFilters)}
+          />
+          <BasicButton
+            text="Clear All"
+            color="secondary"
+            onClick={() => onApply(DEFAULT_FILTERS)}
+          />
+        </Stack>
       </Box>
     </Paper>
   );

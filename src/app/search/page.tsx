@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Container,
   Box,
@@ -13,37 +14,74 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
-import { getTopA11yColleges } from "@/lib/api";
+import { SearchFilters } from "@/types/search_filters";
+import { filterColleges } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
 
-export default function SearchPage() {
+function SearchContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Parse URL params into an object
+  const getFiltersFromURL = useCallback(() => {
+    // If searchParams is null, fall back to an empty string or default behavior
+    const params = searchParams;
+
+    // return the filters, fallback to default filters if not found in URL
+    return {
+      // default sorting is by accessibility score from high to low
+      sort_by: params?.get("sort_by") || "a11y_high_low",
+      state: params?.get("state") || "",
+      // we only care about the value of the has_disability_cultural_center if it is true. If the box
+      // is unchecked, we want to show both colleges with and without dcc, so the "false" doesn't
+      // really impact filtering. It is basically true or none.
+      has_disability_cultural_center:
+        params?.get("has_disability_cultural_center") === "true",
+      min_safety: Number(params?.get("min_safety")) || 0,
+      min_inclusivity: Number(params?.get("min_inclusivity")) || 0,
+    };
+  }, [searchParams]);
+
+  const loadData = useCallback(async () => {
+    if (!FEATURE_FLAGS.isSearchEnabled) return;
+    setLoading(true);
+    try {
+      const filters = getFiltersFromURL();
+      // pass the filters to the filterColleges route
+      const data = await filterColleges(filters);
+      // the colleges to display are the result of the query with filters
+      setColleges(data);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "We're having trouble loading the colleges right now.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  }, [getFiltersFromURL]);
+
   useEffect(() => {
     // check if search is enabled before trying to load data (find the colleges to display)
     if (!FEATURE_FLAGS.isSearchEnabled) return;
-
-    // gets the top 9 colleges sorted by a11y scores to show on the default search page.
-    const loadData = async () => {
-      try {
-        const data = await getTopA11yColleges();
-        setColleges(data);
-      } catch (err) {
-        setError("We're having trouble loading the colleges right now.");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
     loadData();
-  }, []);
+  }, [loadData]);
+
+  const handleApplyFilters = (newFilters: SearchFilters) => {
+    const params = new URLSearchParams();
+    Object.entries(newFilters).forEach(([key, value]) => {
+      if (value) params.set(key, value.toString());
+    });
+    router.push(`/search?${params.toString()}`);
+  };
 
   // if the search flag is disabled, show the not found screen.
-  if (!FEATURE_FLAGS.isSearchEnabled) {
-    return <NotFound />;
-  }
+  if (!FEATURE_FLAGS.isSearchEnabled) return <NotFound />;
 
   return (
     <Container id="search-page" sx={{ mt: 4, mb: 8 }}>
@@ -53,7 +91,10 @@ export default function SearchPage() {
       <Grid container spacing={4}>
         {/* Left Side: Filter Sidebar */}
         <Grid size={{ xs: 12, md: 3 }}>
-          <FilterSidebar />
+          <FilterSidebar
+            currentFilters={getFiltersFromURL()}
+            onApply={handleApplyFilters}
+          />
         </Grid>
 
         {/* Right Side: Results Grid */}
@@ -87,5 +128,20 @@ export default function SearchPage() {
         </Grid>
       </Grid>
     </Container>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <Container sx={{ mt: 10, textAlign: "center" }}>
+          <CircularProgress />
+          <Typography sx={{ mt: 2 }}>Loading Search...</Typography>
+        </Container>
+      }
+    >
+      <SearchContent />
+    </Suspense>
   );
 }
