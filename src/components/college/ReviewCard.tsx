@@ -11,8 +11,12 @@ import { ReviewEntry } from "@/types/review_entry";
 import RatingsSection from "../common/RatingsSection";
 import ReviewFreeResponseSection from "./ReviewFreeResponseSection";
 
-const ReviewCard = (props: { review: ReviewEntry }) => {
-  const { review } = props;
+interface ReviewCardProps {
+  review: ReviewEntry;
+  reviewNumber?: number;
+}
+
+const ReviewCard = ({ review, reviewNumber }: ReviewCardProps) => {
   return (
     <Card
       component="article"
@@ -36,7 +40,7 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
             component="h3"
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >
-            Review Name Filler
+            {`Review ${reviewNumber ?? 1}`}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, flexWrap: "wrap" }}>
             {review.identities?.map((identity) => (

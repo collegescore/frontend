@@ -146,9 +146,9 @@ export default function CollegeSlugPage({
                 }}
               >
                 {/*Get reviews from backend as list items */}
-                {reviews.map((review) => (
+                {reviews.map((review, index) => (
                   <Box component="li" key={review.id}>
-                    <ReviewCard review={review} />
+                  <ReviewCard review={review} reviewNumber={index + 1} />
                   </Box>
                 ))}
               </Box>
