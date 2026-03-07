@@ -1,6 +1,11 @@
 "use client"; // Required for MUI themes in Next.js
 
-import { createTheme, responsiveFontSizes, Theme } from "@mui/material/styles";
+import {
+  alpha,
+  createTheme,
+  responsiveFontSizes,
+  Theme,
+} from "@mui/material/styles";
 import { CSSProperties } from "react";
 
 // Augment the palette
@@ -17,6 +22,13 @@ declare module "@mui/material/styles" {
 declare module "@mui/material/Button" {
   interface ButtonPropsColorOverrides {
     grayscale: true;
+  }
+}
+
+// Augment the Chip's variant prop to include "square"
+declare module "@mui/material/Chip" {
+  interface ChipPropsVariantOverrides {
+    square: true;
   }
 }
 
@@ -107,6 +119,29 @@ theme = createTheme(theme, {
             "&:focus-visible": {
               outlineColor: theme.palette.secondary.main,
             },
+          },
+        },
+      ],
+    },
+    MuiChip: {
+      variants: [
+        {
+          props: { color: "primary" },
+          style: {
+            fontWeight: 500,
+            color: theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.primary.main, 0.1),
+            "& .MuiChip-label": {
+              fontSize: "0.75rem",
+              paddingInline: "0.75rem",
+              paddingBlock: "0.25rem",
+            },
+          },
+        },
+        {
+          props: { variant: "square" },
+          style: {
+            borderRadius: "4px",
           },
         },
       ],
