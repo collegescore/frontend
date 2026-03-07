@@ -7,6 +7,7 @@ import {
   Container,
   Grid,
   Typography,
+  CircularProgress,
   Select,
   FormControl,
   InputLabel,
@@ -63,131 +64,96 @@ export default function CollegeSlugPage({
         "Failed to load college reviews."
       )();
     }, [slug]);
-  
 
+    console.log(college);
+    console.log(reviews);
+    console.log(reviews[0]);
+  
+ 
   return (
     <div>
       <h1>College: {college?.name ?? slug}</h1>
       <p>This page is under construction.</p>
+      
+    {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+          <CircularProgress color="primary" />
+        </Box>
+      ) : error || !college ? (
+        <Typography color="error" textAlign="center">
+          {error || "College not found."}
+        </Typography>
+      ) : (
+      
+        <Container id="{slug}-page" sx={{ mt: 4, mb: 9 }}>
+          {/*School landing*/}
 
-      {/*Individual Review Cards */}
-      <Container id="{slug}-page" sx={{ mt: 4, mb: 9 }}>
-        {/*School landing*/}
-
-        <CollegeCard
-          variant="hero"
-          college={{
-            id: 1,
-            slug: "example-university",
-            name: "Example University",
-            city: "Example City",
-            state: "EX",
-            ratings: {
-              a11y_overall: 4,
-              safety_overall: 5,
-              inclusivity_overall: 4,
-            },
-            num_reviews: 123,
-          }}
-        />
+          <CollegeCard
+            variant="hero"
+            college={college}
+          />
 
 
-        <Grid container spacing={3} py={4} alignItems="start">
-          {/* Left Side: Summary Cards */}
-          {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
-          <Grid size={{ xs: 12, md: 3 }} sx={{ position: "sticky", top: 80 }}>
-            <aside id="response-summaries">
-              <SummaryCard title="Accommodations" content="filler content" />
-              <SummaryCard title="Inclusivity" content="filler content" />
-              <SummaryCard title="Safety" content="filler content" />
-            </aside>
-          </Grid>
+          <Grid container spacing={3} py={4} alignItems="start">
+            {/* Left Side: Summary Cards */}
+            {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
+            <Grid size={{ xs: 12, md: 3 }} sx={{ position: "sticky", top: 80 }}>
+              <aside id="response-summaries">
+                <SummaryCard title="Accommodations" content="filler content" />
+                <SummaryCard title="Inclusivity" content="filler content" />
+                <SummaryCard title="Safety" content="filler content" />
+              </aside>
+            </Grid>
 
-          {/* Right Side: Reviews Grid */}
-          <Grid size={{ xs: 12, md: 9 }}>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                mb: 4,
-              }}
-            >
-              <Typography
-                id="reviews-header"
-                variant="h4"
-                component="h2"
-                sx={{ fontWeight: 800 }}
+            {/* Right Side: Reviews Grid */}
+            <Grid size={{ xs: 12, md: 9 }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  mb: 4,
+                }}
               >
-                Student Reviews
-              </Typography>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <FilterAltOutlinedIcon fontSize="small" />
-                <Button variant="outlined" disabled={true} size="small">
-                  Filter & Sort
-                </Button>{" "}
-                {/* Replace with functional select in the future */}
+                <Typography
+                  id="reviews-header"
+                  variant="h4"
+                  component="h2"
+                  sx={{ fontWeight: 800 }}
+                >
+                  Student Reviews
+                </Typography>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <FilterAltOutlinedIcon fontSize="small" />
+                  <Button variant="outlined" disabled={true} size="small">
+                    Filter & Sort
+                  </Button>{" "}
+                  {/* Replace with functional select in the future */}
+                </Box>
+                {/* Sorting Dropdown - functionality to be implemented in the future */}
               </Box>
-              {/* Sorting Dropdown - functionality to be implemented in the future */}
-            </Box>
-            <Box
-              aria-labelledby="reviews-header"
-              component="ul"
-              sx={{
-                listStyle: "none",
-                padding: 0,
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-              }}
-            >
-              <Box component="li">
-                <ReviewCard
-                  review={{
-                    review_date: "2024-06-26",
-                    identity_chips: ["wheelchair user", "LGBTQ+"],
-                    share_accommodations_text:
-                      "The college provides excellent accommodations for students with disabilities.",
-                    share_positive_text:
-                      "The campus is very inclusive and welcoming.",
-                    share_challenges_text:
-                      "Navigating some older buildings can be challenging.",
-                    share_community_groups_text:
-                      "There are several active student organizations focused on accessibility and LGBTQ+ issues.",
-                    ratings: {
-                      a11y_overall: 4,
-                      safety_overall: 5,
-                      inclusivity_overall: 5,
-                    },
-                  }}
-                />
+              <Box
+                aria-labelledby="reviews-header"
+                component="ul"
+                sx={{
+                  listStyle: "none",
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 2,
+                }}
+              >
+                {reviews.map((review) => (
+                <Box component="li" key={review.id}>
+                  <ReviewCard review={review} />
+                </Box>
+              ))}
               </Box>
-              <Box component="li">
-                <ReviewCard
-                  review={{
-                    review_date: "2024-06-26",
-                    identity_chips: ["wheelchair user", "LGBTQ+"],
-                    share_accommodations_text:
-                      "The college provides excellent accommodations for students with disabilities.",
-                    share_positive_text:
-                      "The campus is very inclusive and welcoming.",
-                    share_challenges_text:
-                      "Navigating some older buildings can be challenging.",
-                    share_community_groups_text:
-                      "There are several active student organizations focused on accessibility and LGBTQ+ issues.",
-                    ratings: {
-                      a11y_overall: 4,
-                      safety_overall: 5,
-                      inclusivity_overall: 5,
-                    },
-                  }}
-                />
-              </Box>
-            </Box>
-            
+              
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      )}
     </div>
   );
 }
