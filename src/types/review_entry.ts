@@ -1,8 +1,7 @@
 /*Review entry type definition, can be expanded as needed to include more fields such as review text, date, etc.*/
-import { UUID } from "crypto";
 import { Ratings } from "./ratings";
 export interface ReviewEntry {
-  id: UUID;
+  id: string;
   review_date: string;
   identities?: string[]; // e.g. ["wheelchair user", "LGBTQ+"]
   share_accommodations_text?: string;
