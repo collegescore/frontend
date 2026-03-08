@@ -35,11 +35,11 @@ export default function AuthForm({
       sx={{ width: "100%", maxWidth: 400 }}
     >
       <Stack spacing={2.5}>
-        <EmailInputBar 
-          variant="field" 
-          email={email} 
-          setEmail={setEmail} 
-          textFieldBg="white" 
+        <EmailInputBar
+          variant="field"
+          email={email}
+          setEmail={setEmail}
+          textFieldBg="white"
         />
         <TextField
           type="password"
