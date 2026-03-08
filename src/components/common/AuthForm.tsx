@@ -29,7 +29,11 @@ export default function AuthForm({
   buttonText,
 }: AuthFormProps) {
   return (
-    <Box component="form" onSubmit={onSubmit} sx={{ width: "100%", maxWidth: 400 }}>
+    <Box
+      component="form"
+      onSubmit={onSubmit}
+      sx={{ width: "100%", maxWidth: 400 }}
+    >
       <Stack spacing={2.5}>
         <TextField
           type="email"
@@ -57,8 +61,12 @@ export default function AuthForm({
           disabled={loading}
           sx={{ py: 1.5, fontWeight: "bold", fontSize: "1rem" }}
         />
-        <Typography variant="caption" sx={{ color: "white", opacity: 0.8, textAlign: "center" }}>
-          Don't have an account? Enter a password and we'll create one for you instantly.
+        <Typography
+          variant="caption"
+          sx={{ color: "white", opacity: 0.8, textAlign: "center" }}
+        >
+          Don't have an account? Enter a password and we'll create one for you
+          instantly.
         </Typography>
       </Stack>
     </Box>

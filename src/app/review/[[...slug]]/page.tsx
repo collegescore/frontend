@@ -107,10 +107,12 @@ function ReviewPage({ params }: ReviewPageProps) {
     setIsLoggingIn(true);
 
     // 1. Try to Sign In
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { data, error: signInError } = await supabase.auth.signInWithPassword(
+      {
+        email,
+        password,
+      },
+    );
 
     // 2. If user not found, try to Sign Up
     if (signInError) {
@@ -218,8 +220,9 @@ function ReviewPage({ params }: ReviewPageProps) {
             Review College Accessibility
           </Typography>
           <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-            Sign in to share your experience. Your review will be kept anonymous! 
-            We only ask for your email to prevent spam and ensure authentic reviews.
+            Sign in to share your experience. Your review will be kept
+            anonymous! We only ask for your email to prevent spam and ensure
+            authentic reviews.
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -230,13 +233,22 @@ function ReviewPage({ params }: ReviewPageProps) {
               setPassword={setPassword}
               onSubmit={handleLogin}
               loading={isLoggingIn}
-              buttonText={isLoggingIn ? "Authenticating..." : "Enter the Survey"}
+              buttonText={
+                isLoggingIn ? "Authenticating..." : "Enter the Survey"
+              }
             />
           </Box>
 
-          {authError && <Alert severity="error" sx={{ mt: 3 }}>{authError}</Alert>}
+          {authError && (
+            <Alert severity="error" sx={{ mt: 3 }}>
+              {authError}
+            </Alert>
+          )}
 
-          <Button onClick={() => router.back()} sx={{ mt: 4, color: "white", opacity: 0.7 }}>
+          <Button
+            onClick={() => router.back()}
+            sx={{ mt: 4, color: "white", opacity: 0.7 }}
+          >
             ← Back to School List
           </Button>
         </Container>
