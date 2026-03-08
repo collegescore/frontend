@@ -5,6 +5,7 @@ import BasicButton from "./BasicButton";
 import { College } from "@/types/college";
 import RatingsSection from "./RatingsSection";
 import AddReviewButton from "./AddReviewButton";
+import { FEATURE_FLAGS } from "@/config/flag";
 import { Add } from "@mui/icons-material";
 
 type CollegeCardProps = {
@@ -97,11 +98,16 @@ const CollegeCard = (props: CollegeCardProps) => {
             //For the hero varianent
             <>
               <AddReviewButton schoolSlug={college.slug} />
+              {FEATURE_FLAGS.isCedarLinked && (
               <BasicButton
+                color="secondary"
                 text="CeDaR"
-                href="/colleges/${college.slug}"
-                disabled={true} // Disable the button for now since the college page isn't built out yet
+                href={`https://www.cedardatabase.org/institution/${college.name
+                  .toLowerCase()
+                  .trim()
+                  .replace(/\s+/g, "-")}`}
               />
+              )}
             </>
           )}
         </Box>
