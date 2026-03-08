@@ -107,13 +107,35 @@ export const getCollegeName = async (slug: string) => {
   return data.name;
 };
 
-/** Fetch top 9 colleges sorted by accessibility score */
-export const getTopA11yColleges = async () => {
-  const response = await fetch(`${API_BASE_URL}/v0/colleges/top`);
+/** Search colleges with dynamic filters */
+export const filterColleges = async (
+  params: Record<string, string | number | boolean | null>,
+) => {
+  const query = new URLSearchParams();
+
+  // Append params only if they have a value
+  Object.entries(params).forEach(([key, value]) => {
+    if (
+      value !== null &&
+      value !== undefined &&
+      value !== "" &&
+      value !== 0 &&
+      value !== false
+    ) {
+      query.append(key, value.toString());
+    }
+  });
+
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/filter?${query.toString()}`,
+  );
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText || "Failed to fetch top colleges");
+    const message = await getErrorMessage(
+      response,
+      "Failed to search colleges",
+    );
+    throw new Error(message);
   }
 
   return response.json(); // Returns the array of College objects
