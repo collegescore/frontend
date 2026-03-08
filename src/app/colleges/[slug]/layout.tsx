@@ -11,14 +11,6 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const slug = resolvedParams.slug;
 
-  // Skip backend call if flag is disabled (for development)
-  if (!FEATURE_FLAGS.isCollegePageBackendEnabled) {
-    return {
-      title: `College - College Score`,
-      description: `Read authentic student reviews and experiences.`,
-    };
-  }
-
   try {
     const college = await getCollege(slug);
 
