@@ -29,9 +29,9 @@ export default function EmailInputBar({
   onSubmit,
   variant = "subscription", // Default to subscription
   buttonText = "Submit",
+  buttonColor = "primary",
   captionText,
   loading = false,
-  buttonColor = "primary",
   maxWidth = 600,
   textFieldBg = "transparent",
 }: EmailInputBarProps) {
@@ -40,13 +40,17 @@ export default function EmailInputBar({
 
   return (
     <Box
-      component={onSubmit ? "form" : "div"}
+      component="form"
       onSubmit={onSubmit}
       sx={{
         width: "100%",
         maxWidth: isField ? "100%" : maxWidth,
         mt: isField ? 0 : 2,
       }}
+      id={isField ? "email-field-form" : "email-subscription-form"}
+      aria-label={
+        isField ? "Email field" : "Stay up to date with College Score"
+      }
     >
       <Stack direction="row" spacing={0}>
         <TextField
@@ -68,19 +72,19 @@ export default function EmailInputBar({
           }}
         />
 
+        {/* Only show button if in subscription mode, otherwise this component is just a styled email field without a button */}
         {variant === "subscription" && (
           <BasicButton
             text={buttonText}
             type="submit"
             variant="contained"
-            color={buttonColor}
+            color={buttonColor} // Use the color prop passed from parent, defaulting to primary
             disabled={loading}
             sx={{
               borderTopLeftRadius: 0,
               borderBottomLeftRadius: 0,
               whiteSpace: "nowrap",
               minWidth: "fit-content",
-              px: 4,
             }}
           />
         )}

@@ -48,8 +48,8 @@ export default function EmailSubscription({
         onSubmit={handleEmailSubmit}
         buttonText="Keep Me Updated"
         buttonColor={buttonColor}
-        loading={submitted}
         captionText="By providing your email, you consent to receive periodic updates from College Score about the project and opportunities to contribute."
+        loading={submitted}
       />
       {submitted && (
         <Typography
