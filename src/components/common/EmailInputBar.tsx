@@ -96,7 +96,6 @@ export default function EmailInputBar({
             fontSize: "0.75rem",
             mt: 1,
             px: 1,
-            opacity: isField ? 0.8 : 1,
           }}
         >
           {captionText}
