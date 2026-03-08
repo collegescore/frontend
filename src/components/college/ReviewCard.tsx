@@ -50,9 +50,24 @@ const ReviewCard = ({ review, reviewNumber }: ReviewCardProps) => {
               flexWrap: "wrap",
             }}
           >
-            {review.identities?.map((identity) => (
-              <Chip key={identity} label={identity} color="primary" />
-            ))}
+            <Box
+              component="ul"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: "wrap",
+                p: 0,
+                m: 0,
+                listStyle: "none",
+              }}
+            >
+              {review.identities?.map((identity) => (
+                <Box component="li" key={identity}>
+                  <Chip label={identity} color="primary" />
+                </Box>
+              ))}
+            </Box>
             <Typography
               variant="caption"
               component="p"
