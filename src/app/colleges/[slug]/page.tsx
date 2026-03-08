@@ -129,7 +129,7 @@ export default function CollegeSlugPage({
                   component="h2"
                   sx={{ fontWeight: 800 }}
                 >
-                  Student Reviews
+                  Student Reviews ({reviews.length})
                 </Typography>
                 {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
