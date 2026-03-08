@@ -22,6 +22,7 @@ import { Alert } from "@mui/material";
 import { supabase } from "@/lib/supabaseClient";
 import AuthForm from "@/components/common/AuthForm";
 import { Session } from "@supabase/supabase-js";
+import { isValidEmail } from "@/lib/emailValidation";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -104,6 +105,14 @@ function ReviewPage({ params }: ReviewPageProps) {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setAuthError("");
+
+    // --- email validation block ---
+    if (!isValidEmail(email)) {
+      setAuthError("Please enter a valid email address (e.g., name@address.com)");
+      return; // Stop the function here so we don't call Supabase
+    }
+    // ---------------------------------
+
     setIsLoggingIn(true);
 
     // 1. Try to Sign In
