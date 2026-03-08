@@ -8,13 +8,7 @@ import {
   Grid,
   Typography,
   CircularProgress,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Button,
 } from "@mui/material";
-import { Ratings } from "@/types/ratings";
 import { ReviewEntry } from "@/types/review_entry";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
 import { College } from "@/types/college";
@@ -35,11 +29,6 @@ export default function CollegeSlugPage({
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<ReviewEntry[]>([]);
   const [college, setCollege] = useState<College | null>(null);
-
-  // if the search flag is disabled, show the not found screen.
-  if (!FEATURE_FLAGS.isSearchEnabled) {
-    return <NotFound />;
-  }
 
   //load colleges info from the backend
   useEffect(() => {
@@ -65,9 +54,10 @@ export default function CollegeSlugPage({
     )();
   }, [slug]);
 
-  console.log(college);
-  console.log(reviews);
-  console.log(reviews[0]);
+  // if the search flag is disabled, show the not found screen.
+  if (!FEATURE_FLAGS.isSearchEnabled) {
+    return <NotFound />;
+  }
 
   return (
     <>
