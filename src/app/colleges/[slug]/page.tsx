@@ -70,9 +70,7 @@ export default function CollegeSlugPage({
   console.log(reviews[0]);
 
   return (
-    <div>
-      <h1>College: {college?.name ?? slug}</h1>
-      <p>This page is under construction.</p>
+    <>
 
       {loading ? (
         //While data is loading show loading symbol
@@ -97,7 +95,7 @@ export default function CollegeSlugPage({
               <Grid
                 size={{ xs: 12, md: 3 }}
                 sx={{
-                  position: { xs: "static", md: "sticky" },
+                  position: { xs: "static", md: "sticky" },//stickly only for desktop
                   top: { md: 80 },
                 }}
               >
@@ -131,14 +129,12 @@ export default function CollegeSlugPage({
                 >
                   Student Reviews
                 </Typography>
+                {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <FilterAltOutlinedIcon fontSize="small" />
-                  <Button variant="outlined" disabled={true} size="small">
-                    Filter & Sort
-                  </Button>{" "}
-                  {/* Replace with functional select in the future */}
+                  {/* TODO: Add functionality for filter and sort via dropdown */}
                 </Box>
-                {/* Sorting Dropdown - functionality to be implemented in the future */}
+                )}
               </Box>
               <Box
                 aria-labelledby="reviews-header"
@@ -162,6 +158,6 @@ export default function CollegeSlugPage({
           </Grid>
         </Container>
       )}
-    </div>
+    </>
   );
 }
