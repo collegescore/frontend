@@ -215,13 +215,21 @@ function ReviewPage({ params }: ReviewPageProps) {
         sx={{ minHeight: "100vh", color: "white", p: 4 }}
       >
         <Container maxWidth="sm" sx={{ textAlign: "center" }}>
-          <Typography variant="h3" fontWeight="bold" color="primary.main" sx={{ mb: 2 }}>
+          <Typography
+            variant="h3"
+            fontWeight="bold"
+            color="primary.main"
+            sx={{ mb: 2 }}
+          >
             Sign in to share your experience.
           </Typography>
-          <Typography variant="h6" color="grayscale.main" sx={{ mb: 4, opacity: 0.9 }}>
-            Your review will be kept
-            anonymous! We only ask for your email to prevent spam and ensure
-            authentic reviews.
+          <Typography
+            variant="h6"
+            color="grayscale.main"
+            sx={{ mb: 4, opacity: 0.9 }}
+          >
+            Your review will be kept anonymous! We only ask for your email to
+            prevent spam and ensure authentic reviews.
           </Typography>
 
           <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -248,7 +256,7 @@ function ReviewPage({ params }: ReviewPageProps) {
             onClick={() => router.back()}
             variant="contained"
             color="secondary"
-            sx={{ mt: 4}}
+            sx={{ mt: 4 }}
           >
             ← Back
           </Button>

@@ -62,7 +62,8 @@ export default function AuthForm({
           variant="caption"
           sx={{ color: "grayscale.main", opacity: 0.8, textAlign: "center" }}
         >
-          Don't have an account? One will instantly be created when you submit this form!
+          Don't have an account? One will instantly be created when you submit
+          this form!
         </Typography>
       </Stack>
     </Box>
