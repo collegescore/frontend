@@ -108,7 +108,9 @@ function ReviewPage({ params }: ReviewPageProps) {
 
     // --- email validation block ---
     if (!isValidEmail(email)) {
-      setAuthError("Please enter a valid email address (e.g., name@address.com)");
+      setAuthError(
+        "Please enter a valid email address (e.g., name@address.com)",
+      );
       return; // Stop the function here so we don't call Supabase
     }
     // ---------------------------------
