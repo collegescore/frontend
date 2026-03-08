@@ -1,4 +1,4 @@
-// Copied exactly from Python EmailService pattern. if changing logic here
+// Copied exactly from Python EmailService pattern. if changing logic here, also change there.
 export const EMAIL_REGEX =
   /^(?!\.)(?!.*\.\.)[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,7}$/;
 
