@@ -1,7 +1,5 @@
 /* Utility functions for the frontend */
 
-import { error } from "console";
-
 /** Scrolls the window to the top smoothly */
 const scrollToTop = () => {
   window.scrollTo({
@@ -18,9 +16,9 @@ const scrollToTop = () => {
  * @param setLoading - The state setter function to update the loading state.
  * @param errorMessage - The error message to set if the API call fails.
  */
-const loadData = (
-  apiCall: () => Promise<any>,
-  setSetter: (data: any) => void,
+const loadData = <T>(
+  apiCall: () => Promise<T>,
+  setSetter: (data: T) => void,
   setError: (error: string) => void,
   setLoading: (loading: boolean) => void,
   errorMessage: string,
@@ -30,7 +28,7 @@ const loadData = (
     try {
       const data = await apiCall();
       setSetter(data);
-    } catch (error) {
+    } catch {
       setError(errorMessage);
     } finally {
       setLoading(false);
