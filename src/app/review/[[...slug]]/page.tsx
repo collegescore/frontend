@@ -95,7 +95,7 @@ function ReviewPage({ params }: ReviewPageProps) {
       setLoading(false);
     });
 
-    // 2. Listen for "Sign In" events (like when they click the magic link)
+    // 2. Listen for "Sign In" events
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

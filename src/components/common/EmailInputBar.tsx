@@ -90,7 +90,7 @@ export default function EmailInputBar({
         <Typography
           variant="caption"
           sx={{
-            color: isField ? "white" : "grayscale.main",
+            color: "grayscale.main",
             display: "block",
             textAlign: "left",
             fontSize: "0.75rem",
