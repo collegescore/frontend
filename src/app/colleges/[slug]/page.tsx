@@ -71,7 +71,6 @@ export default function CollegeSlugPage({
 
   return (
     <>
-
       {loading ? (
         //While data is loading show loading symbol
         <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
@@ -89,18 +88,21 @@ export default function CollegeSlugPage({
           <CollegeCard variant="hero" college={college} />
 
           <Grid container spacing={3} py={4} alignItems="start">
-          {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
+            {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
             {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
             {FEATURE_FLAGS.isReviewSummariesEnabled && ( //hide until feature flag is enabled
               <Grid
                 size={{ xs: 12, md: 3 }}
                 sx={{
-                  position: { xs: "static", md: "sticky" },//stickly only for desktop
+                  position: { xs: "static", md: "sticky" }, //stickly only for desktop
                   top: { md: 80 },
                 }}
               >
                 <aside id="response-summaries">
-                  <SummaryCard title="Accommodations" content="filler content" />
+                  <SummaryCard
+                    title="Accommodations"
+                    content="filler content"
+                  />
                   <SummaryCard title="Inclusivity" content="filler content" />
                   <SummaryCard title="Safety" content="filler content" />
                 </aside>
@@ -130,10 +132,10 @@ export default function CollegeSlugPage({
                   Student Reviews
                 </Typography>
                 {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <FilterAltOutlinedIcon fontSize="small" />
-                  {/* TODO: Add functionality for filter and sort via dropdown */}
-                </Box>
+                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                    <FilterAltOutlinedIcon fontSize="small" />
+                    {/* TODO: Add functionality for filter and sort via dropdown */}
+                  </Box>
                 )}
               </Box>
               <Box

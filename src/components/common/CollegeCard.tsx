@@ -99,14 +99,14 @@ const CollegeCard = (props: CollegeCardProps) => {
             <>
               <AddReviewButton schoolSlug={college.slug} />
               {FEATURE_FLAGS.isCedarLinked && (
-              <BasicButton
-                color="secondary"
-                text="CeDaR"
-                href={`https://www.cedardatabase.org/institution/${college.name
-                  .toLowerCase()
-                  .trim()
-                  .replace(/\s+/g, "-")}`}
-              />
+                <BasicButton
+                  color="secondary"
+                  text="CeDaR"
+                  href={`https://www.cedardatabase.org/institution/${college.name
+                    .toLowerCase()
+                    .trim()
+                    .replace(/\s+/g, "-")}`}
+                />
               )}
             </>
           )}
