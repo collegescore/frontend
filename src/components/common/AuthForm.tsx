@@ -54,16 +54,15 @@ export default function AuthForm({
           text={buttonText}
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={loading}
           sx={{ py: 1.5, fontWeight: "bold", fontSize: "1rem" }}
         />
         <Typography
           variant="caption"
-          sx={{ color: "white", opacity: 0.8, textAlign: "center" }}
+          sx={{ color: "grayscale.main", opacity: 0.8, textAlign: "center" }}
         >
-          Don't have an account? Enter a password and we'll create one for you
-          instantly.
+          Don't have an account? One will instantly be created when you submit this form!
         </Typography>
       </Stack>
     </Box>
