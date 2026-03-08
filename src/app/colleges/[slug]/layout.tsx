@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCollege } from "@/lib/api";
-import { FEATURE_FLAGS } from "@/config/flag";
 
 export async function generateMetadata({
   params,
