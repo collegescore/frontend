@@ -5,6 +5,8 @@ import { Typography } from "@mui/material";
 import { addEmail } from "@/lib/api";
 import EmailInputBar from "./EmailInputBar";
 
+// Keep me updated email button allows different color options chosen by parent component,
+// defaults to primary unless specified.
 interface EmailSubscriptionProps {
   buttonColor?:
     | "primary"
