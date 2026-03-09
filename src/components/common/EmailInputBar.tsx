@@ -40,17 +40,16 @@ export default function EmailInputBar({
 
   return (
     <Box
-      component="form"
-      onSubmit={onSubmit}
+      component={isField ? "div" : "form"}
+      onSubmit={isField ? undefined : onSubmit}
+      role={isField ? "presentation" : undefined}
       sx={{
         width: "100%",
         maxWidth: isField ? "100%" : maxWidth,
         mt: isField ? 0 : 2,
       }}
-      id={isField ? "email-field-form" : "email-subscription-form"}
-      aria-label={
-        isField ? "Email field" : "Stay up to date with College Score"
-      }
+      id={isField ? undefined : "email-subscription-form"}
+      aria-label={isField ? undefined : "Stay up to date with College Score"}
     >
       <Stack direction="row" spacing={0}>
         <TextField

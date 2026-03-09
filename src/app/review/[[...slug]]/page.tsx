@@ -243,6 +243,7 @@ function ReviewPage({ params }: ReviewPageProps) {
       >
         <Container maxWidth="sm" sx={{ textAlign: "center" }}>
           <Typography
+            component="h1"
             variant="h3"
             fontWeight="bold"
             color="primary.main"
@@ -251,6 +252,7 @@ function ReviewPage({ params }: ReviewPageProps) {
             Sign in to share your experience.
           </Typography>
           <Typography
+            component="p"
             variant="h6"
             color="grayscale.main"
             sx={{ mb: 4, opacity: 0.9 }}
