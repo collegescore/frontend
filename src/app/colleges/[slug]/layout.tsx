@@ -1,28 +1,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCollegeName } from "@/lib/api";
-import { FEATURE_FLAGS } from "@/config/flag";
+import { getCollege } from "@/lib/api";
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  // Skip backend call if flag is disabled (for development)
-  if (!FEATURE_FLAGS.isCollegePageBackendEnabled) {
-    return {
-      title: `College - College Score`,
-      description: `Read authentic student reviews and experiences.`,
-    };
-  }
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug;
 
   try {
-    const collegeName = await getCollegeName(params.slug);
+    const college = await getCollege(slug);
 
-    if (!collegeName) {
-      console.error(`College not found for slug: ${params.slug}`);
+    if (!college) {
+      console.error(`College not found for slug: ${slug}`);
       notFound();
     }
+    const collegeName = college.name;
 
     return {
       title: `${collegeName} - College Score`,
@@ -30,7 +25,7 @@ export async function generateMetadata({
     };
   } catch (error) {
     console.error(
-      `Error fetching college for slug ${params.slug}:`,
+      `Error fetching college for slug ${slug}:`,
       error instanceof Error ? error.message : "Unknown error",
     );
     notFound();

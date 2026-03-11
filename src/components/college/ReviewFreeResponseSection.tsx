@@ -1,11 +1,14 @@
 import { Box, Typography } from "@mui/material";
 
-type ShareTextProps = {
+type ReviewFreeResponseSectionProps = {
   sectionName: string;
   text: string;
 };
 
-const ShareText = ({ sectionName, text }: ShareTextProps) => {
+const ReviewFreeResponseSection = ({
+  sectionName,
+  text,
+}: ReviewFreeResponseSectionProps) => {
   return (
     <Box sx={{ mt: 2 }}>
       <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
@@ -18,4 +21,4 @@ const ShareText = ({ sectionName, text }: ShareTextProps) => {
   );
 };
 
-export default ShareText;
+export default ReviewFreeResponseSection;

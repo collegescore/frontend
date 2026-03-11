@@ -76,19 +76,34 @@ export const addEmail = async (email: string) => {
   return response.json();
 };
 
-export const getCollegeName = async (slug: string) => {
+/**Fetch college details by slug for dynamic metadata generation */
+export const getCollege = async (slug: string) => {
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
-      "Failed to fetch college name",
+      `Failed to fetch college details for slug: ${slug}`,
     );
     throw new Error(message);
   }
 
-  const data = await response.json();
-  return data.name;
+  return response.json();
+};
+
+/**Fetch reviews for a specific college by slug */
+export const getCollegeReviews = async (slug: string) => {
+  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews`);
+
+  if (!response.ok) {
+    const message = await getErrorMessage(
+      response,
+      `Failed to fetch college reviews for slug: ${slug}`,
+    );
+    throw new Error(message);
+  }
+
+  return response.json();
 };
 
 /** Search colleges with dynamic filters */

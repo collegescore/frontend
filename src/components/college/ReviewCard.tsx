@@ -9,10 +9,14 @@ import {
 } from "@mui/material";
 import { ReviewEntry } from "@/types/review_entry";
 import RatingsSection from "../common/RatingsSection";
-import ShareText from "./ShareText";
+import ReviewFreeResponseSection from "./ReviewFreeResponseSection";
 
-const ReviewCard = (props: { review: ReviewEntry }) => {
-  const { review } = props;
+interface ReviewCardProps {
+  review: ReviewEntry;
+  reviewNumber?: number;
+}
+
+const ReviewCard = ({ review, reviewNumber }: ReviewCardProps) => {
   return (
     <Card
       component="article"
@@ -36,10 +40,34 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
             component="h3"
             sx={{ fontWeight: 800, color: "text.primary", mb: 0.5 }}
           >
-            Review Name Filler
+            {`Review ${reviewNumber ?? 1}`}
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-            <Chip label="International Student" color="primary" />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1,
+              flexWrap: "wrap",
+            }}
+          >
+            <Box
+              component="ul"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: "wrap",
+                p: 0,
+                m: 0,
+                listStyle: "none",
+              }}
+            >
+              {review.identities?.map((identity) => (
+                <Box component="li" key={identity}>
+                  <Chip label={identity} color="primary" />
+                </Box>
+              ))}
+            </Box>
             <Typography
               variant="caption"
               component="p"
@@ -58,21 +86,27 @@ const ReviewCard = (props: { review: ReviewEntry }) => {
 
         {/* Review Text Sections: Only show up if there is text to display */}
         {review.share_accommodations_text && (
-          <ShareText
+          <ReviewFreeResponseSection
             sectionName="Accommodations"
             text={review.share_accommodations_text}
           />
         )}
         {review.share_positive_text && (
-          <ShareText
+          <ReviewFreeResponseSection
             sectionName="Positive Experiences"
             text={review.share_positive_text}
           />
         )}
         {review.share_challenges_text && (
-          <ShareText
+          <ReviewFreeResponseSection
             sectionName="Challenges"
             text={review.share_challenges_text}
+          />
+        )}
+        {review.share_groups_text && (
+          <ReviewFreeResponseSection
+            sectionName="Communities and Groups"
+            text={review.share_groups_text}
           />
         )}
       </CardContent>

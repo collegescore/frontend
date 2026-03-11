@@ -175,7 +175,7 @@ export const reviewQuestions: Question[] = [
   },
   //Write-in Questions
   {
-    id: "share_accomodations",
+    id: "share_accommodations",
     category: "Written",
     type: "text",
     question:
