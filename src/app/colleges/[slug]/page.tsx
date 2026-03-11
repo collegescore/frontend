@@ -20,6 +20,7 @@ import SummaryCard from "@/components/college/SummaryCard";
 import { getCollegeReviews, getCollege } from "@/lib/api";
 import { loadData, scrollToElement} from "@/lib/utils";
 import Section from "@/components/common/Section";
+import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
 export default function CollegeSlugPage({
   params,
@@ -34,6 +35,7 @@ export default function CollegeSlugPage({
   const [college, setCollege] = useState<College | null>(null);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
+  const [liveAnnouncement, setLiveAnnouncement] = useState("");
   const hasMountedRef = useRef(false);
   const PAGE_SIZE = 4; //Number of reviews shown per page
 
@@ -62,6 +64,7 @@ export default function CollegeSlugPage({
   //load the reviews from the backend
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
+    setError("");
     loadData(
       () => getCollegeReviews(slug, { page, limit: PAGE_SIZE }),
       setReviews,
@@ -82,7 +85,22 @@ export default function CollegeSlugPage({
     requestAnimationFrame(() => {
       scrollToElement("reviews-header");
     });
+
+    // Announces that a new reviews page is loading
+    setLiveAnnouncement(`Loading reviews page ${page}`);
   }, [page]);
+
+  useEffect(() => {
+    if (!hasMountedRef.current) return;
+    if (reviewsLoading) return;
+
+    if (error) return;
+
+    // Announces when the new reviews page has finished loading
+    setLiveAnnouncement(
+      `Page ${page} loaded. Showing ${reviews.length} reviews.`,
+    );
+  }, [reviewsLoading, error, reviews.length, page]);
 
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
@@ -115,7 +133,7 @@ export default function CollegeSlugPage({
           ) : error ? (
             // Only reach here if college exists AND has reviews BUT the reviews fetch failed
             <Section>
-              <Typography color="error" textAlign="center">{error}</Typography>
+              <Typography color="error" textAlign="center" role="alert">{error}</Typography>
             </Section>
           ) : (
           <Grid container spacing={3} py={4} alignItems="start">
@@ -172,6 +190,7 @@ export default function CollegeSlugPage({
               <Box
                 aria-labelledby="reviews-header"
                 component="ul"
+                aria-busy={reviewsLoading}
                 sx={{
                   listStyle: "none",
                   padding: 0,
@@ -199,12 +218,24 @@ export default function CollegeSlugPage({
                 )}
               </Box>
               <Pagination
+                aria-label="Reviews pagination"
                 count={totalPages}
                 page={page}
                 color="primary"
                 sx={{ py: 2, justifySelf: "center" }}
+                getItemAriaLabel={(type, selected, itemPage) => {
+                  if (type === "previous") return "Go to previous reviews page";
+                  if (type === "next") return "Go to next reviews page";
+                  if (type === "first") return "Go to first reviews page";
+                  if (type === "last") return "Go to last reviews page";
+                  return selected
+                    ? `Current page, page ${itemPage}`
+                    : `Go to page ${itemPage}`;
+                }}
                 onChange={(_, value) => setPage(value)}
               />
+              {/* Announces pagination status updates (loading and loaded page summaries) */}
+              <ScreenReaderAnnouncement message={liveAnnouncement} />
             </Grid>
           </Grid>
           
