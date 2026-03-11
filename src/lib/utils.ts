@@ -9,6 +9,21 @@ const scrollToTop = () => {
   });
 };
 
+/** Scrolls the window to a specific element smoothly */
+const scrollToElement = (elementId: string) => {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const stickyOffset = 80;
+  const elementTop = element.getBoundingClientRect().top + window.scrollY;
+
+  window.scrollTo({
+    top: Math.max(elementTop - stickyOffset, 0),
+    left: 0,
+    behavior: "smooth", // Use 'auto' for an instant jump
+  });
+};
+
 /** Generic function to fetch data from an API and handle loading and error states.
  * @param apiCall - The API call function that returns a promise.
  * @param setSetter - The state setter function to update the data.
@@ -36,4 +51,4 @@ const loadData = <T>(
   };
 };
 
-export { scrollToTop, loadData };
+export { scrollToTop, scrollToElement, loadData };

@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState, useEffect } from "react";
+import { use, useState, useEffect, useRef } from "react";
 import ReviewCard from "@/components/college/ReviewCard";
 import {
   Box,
@@ -8,6 +8,7 @@ import {
   Grid,
   Typography,
   CircularProgress,
+  Pagination,
 } from "@mui/material";
 import { ReviewEntry } from "@/types/review_entry";
 import FilterAltOutlinedIcon from "@mui/icons-material/FilterAltOutlined";
@@ -17,7 +18,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
 import { getCollegeReviews, getCollege } from "@/lib/api";
-import { loadData } from "@/lib/utils";
+import { loadData, scrollToElement} from "@/lib/utils";
 import Section from "@/components/common/Section";
 
 export default function CollegeSlugPage({
@@ -27,12 +28,14 @@ export default function CollegeSlugPage({
 }) {
   const { slug } = use(params);
   const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState(true);
+  const [collegeLoading, setCollegeLoading] = useState(true);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
   const [reviews, setReviews] = useState<ReviewEntry[]>([]);
   const [college, setCollege] = useState<College | null>(null);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
-  const PAGE_SIZE = 6; //Number of reviews shown per page
+  const hasMountedRef = useRef(false);
+  const PAGE_SIZE = 4; //Number of reviews shown per page
 
   //load colleges info from the backend
   useEffect(() => {
@@ -41,9 +44,13 @@ export default function CollegeSlugPage({
       () => getCollege(slug),
       setCollege,
       setError,
-      setLoading,
+      setCollegeLoading,
       "Failed to load college information.",
   )();
+  }, [slug]);
+
+  useEffect(() => {
+    setPage(1);
   }, [slug]);
   
   // once college loads, compute total pages
@@ -59,10 +66,23 @@ export default function CollegeSlugPage({
       () => getCollegeReviews(slug, { page, limit: PAGE_SIZE }),
       setReviews,
       setError,
-      setLoading,
+      setReviewsLoading,
       "Failed to load college reviews.",
     )();
   }, [slug, page]);
+
+
+  /** Scroll to top when page changes */
+  useEffect(() => {
+    if (!hasMountedRef.current) {
+      hasMountedRef.current = true;
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      scrollToElement("reviews-header");
+    });
+  }, [page]);
 
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
@@ -71,7 +91,7 @@ export default function CollegeSlugPage({
 
   return (
     <>
-      {loading ? (
+      {collegeLoading ? (
         //While data is loading show loading symbol
         <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
           <CircularProgress color="primary" />
@@ -140,7 +160,7 @@ export default function CollegeSlugPage({
                   component="h2"
                   sx={{ fontWeight: 800 }}
                 >
-                  Student Reviews ({reviews.length})
+                  Student Reviews ({college.num_reviews})
                 </Typography>
                 {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
                   <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
@@ -161,14 +181,31 @@ export default function CollegeSlugPage({
                 }}
               >
                 {/*Get reviews from backend as list items */}
-                {reviews.map((review, index) => (
-                  <Box component="li" key={review.id}>
-                    <ReviewCard review={review} reviewNumber={index + 1} />
+                {reviewsLoading ? (
+                  <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
+                    <CircularProgress color="primary" />
                   </Box>
-                ))}
+                ) : (
+                  reviews.map((review, index) => (
+                    <Box component="li" key={review.id}>
+                      <ReviewCard
+                        review={review}
+                        reviewNumber={(page - 1) * PAGE_SIZE + index + 1}
+                      />
+                      {/* Ensures the review number is correctly calculated based on the current page and index
+                          page 1: reviews 1-4, page 2: reviews 5-8, etc. */}
+                    </Box>
+                  ))
+                )}
               </Box>
+              <Pagination
+                count={totalPages}
+                page={page}
+                onChange={(_, value) => setPage(value)}
+              />
             </Grid>
           </Grid>
+          
           )}
         </Container>
       )}
