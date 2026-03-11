@@ -94,9 +94,16 @@ function SearchContent() {
       <SearchHero />
       {/* Main content area with filters on the left and the college cards 
       with the results on the right */}
-      <Grid container spacing={4}>
+      <Grid container spacing={4}  alignItems="start"> 
         {/* Left Side: Filter Sidebar */}
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid
+          size={{ xs: 12, md: 3 }}
+          sx={{
+            position: { xs: "static", md: "sticky" }, //sticky only for desktop
+            top: { md: 80 },
+            alignSelf: "start",
+          }}
+        >
           <FilterSidebar
             currentFilters={getFiltersFromURL()}
             onApply={handleApplyFilters}
