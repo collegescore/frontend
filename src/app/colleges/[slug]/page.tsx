@@ -201,6 +201,8 @@ export default function CollegeSlugPage({
               <Pagination
                 count={totalPages}
                 page={page}
+                color="primary"
+                sx={{ py: 2, justifySelf: "center" }}
                 onChange={(_, value) => setPage(value)}
               />
             </Grid>
