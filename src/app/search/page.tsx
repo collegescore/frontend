@@ -8,6 +8,7 @@ import {
   Typography,
   CircularProgress,
   Grid,
+  Pagination,
 } from "@mui/material";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
@@ -25,6 +26,9 @@ function SearchContent() {
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const PAGE_SIZE = 12;
 
   // Parse URL params into an object
   const getFiltersFromURL = useCallback(() => {
@@ -55,6 +59,8 @@ function SearchContent() {
       const data = await filterColleges(filters);
       // the colleges to display are the result of the query with filters
       setColleges(data);
+      // compute total pages based on the number of colleges and page size
+      setTotalPages(Math.ceil(data.length / PAGE_SIZE));
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -123,6 +129,14 @@ function SearchContent() {
                   <CollegeCard college={college} />
                 </Grid>
               ))}
+                <Pagination
+                  aria-label="Reviews pagination"
+                  count={totalPages}
+                  page={page}
+                  color="primary"
+                  sx={{ py: 2, justifySelf: "center" }}
+                  onChange={(_, value) => setPage(value)}
+                />
             </Grid>
           )}
         </Grid>
