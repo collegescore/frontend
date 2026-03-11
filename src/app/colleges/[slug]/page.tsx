@@ -95,7 +95,7 @@ export default function CollegeSlugPage({
     if (reviewsLoading) return;
 
     if (error) return;
-
+    
     // Announces when the new reviews page has finished loading
     setLiveAnnouncement(
       `Page ${page} loaded. Showing ${reviews.length} reviews.`,
@@ -223,17 +223,9 @@ export default function CollegeSlugPage({
                 page={page}
                 color="primary"
                 sx={{ py: 2, justifySelf: "center" }}
-                getItemAriaLabel={(type, selected, itemPage) => {
-                  if (type === "previous") return "Go to previous reviews page";
-                  if (type === "next") return "Go to next reviews page";
-                  if (type === "first") return "Go to first reviews page";
-                  if (type === "last") return "Go to last reviews page";
-                  return selected
-                    ? `Current page, page ${itemPage}`
-                    : `Go to page ${itemPage}`;
-                }}
                 onChange={(_, value) => setPage(value)}
               />
+              
               {/* Announces pagination status updates (loading and loaded page summaries) */}
               <ScreenReaderAnnouncement message={liveAnnouncement} />
             </Grid>
