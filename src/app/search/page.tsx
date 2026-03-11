@@ -121,30 +121,33 @@ function SearchContent() {
               {error}
             </Typography>
           ) : (
-            <Grid
-              container
-              spacing={3}
-              component="ul"
-              aria-label="List of colleges"
-            >
-              {colleges.map((college) => (
-                <Grid
-                  key={college.slug}
-                  size={{ xs: 12, sm: 6, lg: 4 }}
-                  component="li"
-                >
-                  <CollegeCard college={college} />
-                </Grid>
-              ))}
+            <>
+              <Grid
+                container
+                spacing={3}
+                component="ul"
+                aria-label="List of colleges"
+              >
+                {colleges.map((college) => (
+                  <Grid
+                    key={college.slug}
+                    size={{ xs: 12, sm: 6, lg: 4 }}
+                    component="li"
+                  >
+                    <CollegeCard college={college} />
+                  </Grid>
+                ))}
+              </Grid>
+              <Box sx={{ display: "flex", justifyContent: "center", py: 3 }}>
                 <Pagination
                   aria-label="Reviews pagination"
                   count={totalPages}
                   page={page}
                   color="primary"
-                  sx={{ py: 2, justifySelf: "center" }}
                   onChange={(_, value) => setPage(value)}
                 />
-            </Grid>
+              </Box>
+            </>
           )}
         </Grid>
       </Grid>

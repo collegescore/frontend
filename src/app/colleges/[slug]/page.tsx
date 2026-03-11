@@ -222,10 +222,10 @@ export default function CollegeSlugPage({
                 count={totalPages}
                 page={page}
                 color="primary"
-                sx={{ py: 2, justifySelf: "center" }}
+                sx={{ py: 3, justifySelf: "center" }}
                 onChange={(_, value) => setPage(value)}
               />
-              
+
               {/* Announces pagination status updates (loading and loaded page summaries) */}
               <ScreenReaderAnnouncement message={liveAnnouncement} />
             </Grid>
