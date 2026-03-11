@@ -84,7 +84,7 @@ export default function CollegeSlugPage({
               <Grid
                 size={{ xs: 12, md: 3 }}
                 sx={{
-                  position: { xs: "static", md: "sticky" }, //stickly only for desktop
+                  position: { xs: "static", md: "sticky" }, //sticky only for desktop
                   top: { md: 80 },
                 }}
               >

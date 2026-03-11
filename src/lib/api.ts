@@ -83,7 +83,7 @@ export const getCollege = async (slug: string) => {
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
-      "Failed to fetch college details",
+      `Failed to fetch college details for slug: ${slug}`,
     );
     throw new Error(message);
   }
@@ -98,7 +98,7 @@ export const getCollegeReviews = async (slug: string) => {
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
-      "Failed to fetch college reviews",
+      `Failed to fetch college reviews for slug: ${slug}`,
     );
     throw new Error(message);
   }
