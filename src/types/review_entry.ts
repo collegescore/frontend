@@ -10,3 +10,10 @@ export interface ReviewEntry {
   share_groups_text?: string;
   ratings: Ratings;
 }
+
+/**Fetch reviews for a specific college by slug and possible filters */
+export interface ReviewParams {
+  page: number;
+  limit: number;
+  sort?: string; //potential future param
+}

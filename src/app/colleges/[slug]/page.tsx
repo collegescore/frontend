@@ -56,7 +56,7 @@ export default function CollegeSlugPage({
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
     loadData(
-      () => getCollegeReviews(slug, page),
+      () => getCollegeReviews(slug, { page, limit: PAGE_SIZE }),
       setReviews,
       setError,
       setLoading,
