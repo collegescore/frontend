@@ -78,6 +78,7 @@ export const addEmail = async (email: string) => {
 
 /**Fetch college details by slug for dynamic metadata generation */
 export const getCollege = async (slug: string) => {
+  
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
   if (!response.ok) {
@@ -92,8 +93,11 @@ export const getCollege = async (slug: string) => {
 };
 
 /**Fetch reviews for a specific college by slug */
-export const getCollegeReviews = async (slug: string) => {
-  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews`);
+export const getCollegeReviews = async (slug: string, page: number) => {
+  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews?page=${page}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+  });
 
   if (!response.ok) {
     const message = await getErrorMessage(
