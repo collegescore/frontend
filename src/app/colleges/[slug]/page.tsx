@@ -49,7 +49,7 @@ export default function CollegeSlugPage({
   // once college loads, compute total pages
   useEffect(() => {
     if (!college) return;
-    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE));
+    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE));//Round up to nearest whole number
   }, [college]);
 
   //load the reviews from the backend
