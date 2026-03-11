@@ -18,6 +18,7 @@ import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
 import { getCollegeReviews, getCollege } from "@/lib/api";
 import { loadData } from "@/lib/utils";
+import Section from "@/components/common/Section";
 
 export default function CollegeSlugPage({
   params,
@@ -29,6 +30,9 @@ export default function CollegeSlugPage({
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<ReviewEntry[]>([]);
   const [college, setCollege] = useState<College | null>(null);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
+  const PAGE_SIZE = 6; //Number of reviews shown per page
 
   //load colleges info from the backend
   useEffect(() => {
@@ -39,20 +43,26 @@ export default function CollegeSlugPage({
       setError,
       setLoading,
       "Failed to load college information.",
-    )();
+  )();
   }, [slug]);
+  
+  // once college loads, compute total pages
+  useEffect(() => {
+    if (!college) return;
+    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE));
+  }, [college]);
 
   //load the reviews from the backend
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
     loadData(
-      () => getCollegeReviews(slug),
+      () => getCollegeReviews(slug, page),
       setReviews,
       setError,
       setLoading,
       "Failed to load college reviews.",
     )();
-  }, [slug]);
+  }, [slug, page]);
 
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
@@ -66,17 +76,28 @@ export default function CollegeSlugPage({
         <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
           <CircularProgress color="primary" />
         </Box>
-      ) : error || !college ? (
-        //Error or college not found
-        <Typography color="error" textAlign="center">
-          {error || "College not found."}
-        </Typography>
-      ) : (
+      ) : !college ? (
+        //College not found
+        <NotFound />
+        
+      ): (
         //Data loaded successfully
         <Container id="{slug}-page" sx={{ mt: 4, mb: 9 }}>
-          {/**Hero version of the college card from the search page */}
+          {/**Hero version of the college card from the search page **/}
           <CollegeCard variant="hero" college={college} />
 
+          {college.num_reviews === 0 ? (
+          <Section>
+            <Typography textAlign="center">
+              No reviews available. If you are a student at this institution, consider submitting a review!
+            </Typography>
+          </Section>
+          ) : error ? (
+            // Only reach here if college exists AND has reviews BUT the reviews fetch failed
+            <Section>
+              <Typography color="error" textAlign="center">{error}</Typography>
+            </Section>
+          ) : (
           <Grid container spacing={3} py={4} alignItems="start">
             {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
             {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
@@ -148,6 +169,7 @@ export default function CollegeSlugPage({
               </Box>
             </Grid>
           </Grid>
+          )}
         </Container>
       )}
     </>
