@@ -11,5 +11,5 @@ export interface College {
   state: string; //note that this is the state abbreviation, e.g. "CA" for California
   // below are optional fields that may not be present in all contexts
   ratings?: Ratings;
-  num_reviews?: number;
+  num_reviews: number;
 }
