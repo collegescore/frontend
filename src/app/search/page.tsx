@@ -15,7 +15,9 @@ import {
   CircularProgress,
   Grid,
   Pagination,
+  useMediaQuery,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NotFound from "../not-found";
 import { FEATURE_FLAGS } from "@/config/flag";
 import SearchHero from "@/components/search/Hero";
@@ -29,6 +31,8 @@ import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnounceme
 function SearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const theme = useTheme();
+  const isLowerBreakpoint = useMediaQuery(theme.breakpoints.down("md"));
   const searchQueryKey = searchParams.toString(); //used to signial filter change to setPage
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +42,7 @@ function SearchContent() {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
   const hasLoadedOnceRef = useRef(false);
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = isLowerBreakpoint ? 6 : 12;
 
   // Parse URL params into an object
   const getFiltersFromURL = useCallback(() => {
@@ -93,7 +97,7 @@ function SearchContent() {
       setListLoading(false);
       hasLoadedOnceRef.current = true;
     }
-  }, [getFiltersFromURL, page]);
+  }, [getFiltersFromURL, page, PAGE_SIZE]);
 
   useEffect(() => {
     // check if search is enabled before trying to load data (find the colleges to display)
@@ -103,7 +107,7 @@ function SearchContent() {
 
   useEffect(() => {
     setPage(1);
-  }, [searchQueryKey]);
+  }, [searchQueryKey, PAGE_SIZE]);
 
   const handleApplyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams();
