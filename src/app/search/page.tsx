@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, Suspense, useRef } from "react";
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  Suspense,
+  useRef,
+} from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Container,
@@ -67,12 +73,14 @@ function SearchContent() {
       const listParams = { ...filters, page, limit: PAGE_SIZE }; //which slice of matching colleges to return now
       // pass the filters to the filterColleges route
       const data = await filterColleges(listParams);
-      const totalCount = await getFilteredCollegesCount(filters);//will always be >=0
+      const totalCount = await getFilteredCollegesCount(filters); //will always be >=0
       // the colleges to display are the result of the query with filters
       setColleges(data);
       // compute total pages based on the number of colleges and page size
       setTotalPages(Math.max(1, Math.ceil(totalCount / PAGE_SIZE)));
-      setLiveAnnouncement(`Page ${page} loaded. Showing ${data.length} colleges.`);
+      setLiveAnnouncement(
+        `Page ${page} loaded. Showing ${data.length} colleges.`,
+      );
     } catch (error) {
       const errorMessage =
         error instanceof Error
@@ -113,7 +121,7 @@ function SearchContent() {
       <SearchHero />
       {/* Main content area with filters on the left and the college cards 
       with the results on the right */}
-      <Grid container spacing={4}  alignItems="start"> 
+      <Grid container spacing={4} alignItems="start">
         {/* Left Side: Filter Sidebar */}
         <Grid
           size={{ xs: 12, md: 3 }}
@@ -143,7 +151,9 @@ function SearchContent() {
             <>
               <Box aria-busy={listLoading}>
                 {listLoading ? ( //only show loading for the list, not the entire page when moving pages
-                  <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "center", py: 8 }}
+                  >
                     <CircularProgress color="primary" />
                   </Box>
                 ) : (

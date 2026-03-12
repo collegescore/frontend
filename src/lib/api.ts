@@ -79,7 +79,6 @@ export const addEmail = async (email: string) => {
 
 /**Fetch college details by slug for dynamic metadata generation */
 export const getCollege = async (slug: string) => {
-  
   const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}`);
 
   if (!response.ok) {
@@ -92,7 +91,6 @@ export const getCollege = async (slug: string) => {
 
   return response.json();
 };
-
 
 export const getCollegeReviews = async (slug: string, params: ReviewParams) => {
   const query = new URLSearchParams();
@@ -141,7 +139,6 @@ export const filterColleges = async (
   const response = await fetch(
     `${API_BASE_URL}/v0/colleges/filter?${query.toString()}`,
   );
-  
 
   if (!response.ok) {
     const message = await getErrorMessage(

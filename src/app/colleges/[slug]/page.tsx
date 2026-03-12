@@ -18,7 +18,7 @@ import { FEATURE_FLAGS } from "@/config/flag";
 import NotFound from "@/app/not-found";
 import SummaryCard from "@/components/college/SummaryCard";
 import { getCollegeReviews, getCollege } from "@/lib/api";
-import { loadData, scrollToElement} from "@/lib/utils";
+import { loadData, scrollToElement } from "@/lib/utils";
 import Section from "@/components/common/Section";
 import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
@@ -48,17 +48,17 @@ export default function CollegeSlugPage({
       setError,
       setCollegeLoading,
       "Failed to load college information.",
-  )();
+    )();
   }, [slug]);
 
   useEffect(() => {
     setPage(1);
   }, [slug]);
-  
+
   // once college loads, compute total pages
   useEffect(() => {
     if (!college) return;
-    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE));//Round up to nearest whole number
+    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE)); //Round up to nearest whole number
   }, [college]);
 
   //load the reviews from the backend
@@ -73,7 +73,6 @@ export default function CollegeSlugPage({
       "Failed to load college reviews.",
     )();
   }, [slug, page]);
-
 
   /** Scroll to top when page changes */
   useEffect(() => {
@@ -95,7 +94,7 @@ export default function CollegeSlugPage({
     if (reviewsLoading) return;
 
     if (error) return;
-    
+
     // Announces when the new reviews page has finished loading
     setLiveAnnouncement(
       `Page ${page} loaded. Showing ${reviews.length} reviews.`,
@@ -117,120 +116,123 @@ export default function CollegeSlugPage({
       ) : !college ? (
         //College not found
         <NotFound />
-        
-      ): (
+      ) : (
         //Data loaded successfully
         <Container id="{slug}-page" sx={{ mt: 4, mb: 9 }}>
           {/**Hero version of the college card from the search page **/}
           <CollegeCard variant="hero" college={college} />
 
           {college.num_reviews === 0 ? (
-          <Section>
-            <Typography textAlign="center">
-              No reviews available. If you are a student at this institution, consider submitting a review!
-            </Typography>
-          </Section>
+            <Section>
+              <Typography textAlign="center">
+                No reviews available. If you are a student at this institution,
+                consider submitting a review!
+              </Typography>
+            </Section>
           ) : error ? (
             // Only reach here if college exists AND has reviews BUT the reviews fetch failed
             <Section>
-              <Typography color="error" textAlign="center" role="alert">{error}</Typography>
+              <Typography color="error" textAlign="center" role="alert">
+                {error}
+              </Typography>
             </Section>
           ) : (
-          <Grid container spacing={3} py={4} alignItems="start">
-            {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
-            {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
-            {FEATURE_FLAGS.isReviewSummariesEnabled && ( //hide until feature flag is enabled
-              <Grid
-                size={{ xs: 12, md: 3 }}
-                sx={{
-                  position: { xs: "static", md: "sticky" }, //sticky only for desktop
-                  top: { md: 80 },
-                }}
-              >
-                <aside id="response-summaries">
-                  <SummaryCard
-                    title="Accommodations"
-                    content="filler content"
-                  />
-                  <SummaryCard title="Inclusivity" content="filler content" />
-                  <SummaryCard title="Safety" content="filler content" />
-                </aside>
-              </Grid>
-            )}
-            {/* Right Side: Reviews Grid */}
-            <Grid
-              size={{
-                xs: 12,
-                md: FEATURE_FLAGS.isReviewSummariesEnabled ? 9 : 12, //Take up full width if summary cards not enabled
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  mb: 4,
-                }}
-              >
-                <Typography
-                  id="reviews-header"
-                  variant="h4"
-                  component="h2"
-                  sx={{ fontWeight: 800 }}
+            <Grid container spacing={3} py={4} alignItems="start">
+              {/* Left Side: Summary Cards (NOT YET IMPLEMENTED, JUST UI PLACEHOLDER) */}
+              {/*Stick summary cards to the top of the page so they are always visible as you scroll through reviews*/}
+              {FEATURE_FLAGS.isReviewSummariesEnabled && ( //hide until feature flag is enabled
+                <Grid
+                  size={{ xs: 12, md: 3 }}
+                  sx={{
+                    position: { xs: "static", md: "sticky" }, //sticky only for desktop
+                    top: { md: 80 },
+                  }}
                 >
-                  Student Reviews ({college.num_reviews})
-                </Typography>
-                {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                    <FilterAltOutlinedIcon fontSize="small" />
-                    {/* TODO: Add functionality for filter and sort via dropdown */}
-                  </Box>
-                )}
-              </Box>
-              <Box
-                aria-labelledby="reviews-header"
-                component="ul"
-                aria-busy={reviewsLoading}
-                sx={{
-                  listStyle: "none",
-                  padding: 0,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 2,
+                  <aside id="response-summaries">
+                    <SummaryCard
+                      title="Accommodations"
+                      content="filler content"
+                    />
+                    <SummaryCard title="Inclusivity" content="filler content" />
+                    <SummaryCard title="Safety" content="filler content" />
+                  </aside>
+                </Grid>
+              )}
+              {/* Right Side: Reviews Grid */}
+              <Grid
+                size={{
+                  xs: 12,
+                  md: FEATURE_FLAGS.isReviewSummariesEnabled ? 9 : 12, //Take up full width if summary cards not enabled
                 }}
               >
-                {/*Get reviews from backend as list items */}
-                {reviewsLoading ? (
-                  <Box sx={{ display: "flex", justifyContent: "center", py: 4 }}>
-                    <CircularProgress color="primary" />
-                  </Box>
-                ) : (
-                  reviews.map((review, index) => (
-                    <Box component="li" key={review.id}>
-                      <ReviewCard
-                        review={review}
-                        reviewNumber={(page - 1) * PAGE_SIZE + index + 1}
-                      />
-                      {/* Ensures the review number is correctly calculated based on the current page and index
-                          page 1: reviews 1-4, page 2: reviews 5-8, etc. */}
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    mb: 4,
+                  }}
+                >
+                  <Typography
+                    id="reviews-header"
+                    variant="h4"
+                    component="h2"
+                    sx={{ fontWeight: 800 }}
+                  >
+                    Student Reviews ({college.num_reviews})
+                  </Typography>
+                  {FEATURE_FLAGS.isReviewSortEnabled && ( //hide until feature flag is enabled
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                      <FilterAltOutlinedIcon fontSize="small" />
+                      {/* TODO: Add functionality for filter and sort via dropdown */}
                     </Box>
-                  ))
-                )}
-              </Box>
-              <Pagination
-                aria-label="Reviews pagination"
-                count={totalPages}
-                page={page}
-                color="primary"
-                sx={{ py: 3, justifySelf: "center" }}
-                onChange={(_, value) => setPage(value)}
-              />
+                  )}
+                </Box>
+                <Box
+                  aria-labelledby="reviews-header"
+                  component="ul"
+                  aria-busy={reviewsLoading}
+                  sx={{
+                    listStyle: "none",
+                    padding: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                  }}
+                >
+                  {/*Get reviews from backend as list items */}
+                  {reviewsLoading ? (
+                    <Box
+                      sx={{ display: "flex", justifyContent: "center", py: 4 }}
+                    >
+                      <CircularProgress color="primary" />
+                    </Box>
+                  ) : (
+                    reviews.map((review, index) => (
+                      <Box component="li" key={review.id}>
+                        <ReviewCard
+                          review={review}
+                          reviewNumber={(page - 1) * PAGE_SIZE + index + 1}
+                        />
+                        {/* Ensures the review number is correctly calculated based on the current page and index
+                          page 1: reviews 1-4, page 2: reviews 5-8, etc. */}
+                      </Box>
+                    ))
+                  )}
+                </Box>
+                <Pagination
+                  aria-label="Reviews pagination"
+                  count={totalPages}
+                  page={page}
+                  color="primary"
+                  sx={{ py: 3, justifySelf: "center" }}
+                  onChange={(_, value) => setPage(value)}
+                />
 
-              {/* Announces pagination status updates (loading and loaded page summaries) */}
-              <ScreenReaderAnnouncement message={liveAnnouncement} />
+                {/* Announces pagination status updates (loading and loaded page summaries) */}
+                <ScreenReaderAnnouncement message={liveAnnouncement} />
+              </Grid>
             </Grid>
-          </Grid>
-          
           )}
         </Container>
       )}
