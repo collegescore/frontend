@@ -7,7 +7,13 @@ interface EmailInputBarProps {
   email: string;
   setEmail: (val: string) => void;
   onSubmit?: (e: React.FormEvent) => void;
-  variant?: "subscription" | "field"; // Added variant prop so email bar can look different in different contexts
+  /**
+   * Use 'subscription' variant for a standalone form with a "Submit" button, for instance
+   * in mailing list subscription popups.
+   * Use 'field' for a simple text input intended to be part of a larger form, for instance
+   * as the email field in a login or registration form.
+   */
+  variant?: "subscription" | "field";
   buttonText?: string;
   captionText?: string;
   loading?: boolean;
