@@ -141,6 +141,7 @@ export const filterColleges = async (
   const response = await fetch(
     `${API_BASE_URL}/v0/colleges/filter?${query.toString()}`,
   );
+  
 
   if (!response.ok) {
     const message = await getErrorMessage(
@@ -151,4 +152,37 @@ export const filterColleges = async (
   }
 
   return response.json(); // Returns the array of College objects
+};
+
+/** Get total number of colleges matching current filters */
+export const getFilteredCollegesCount = async (
+  params: Record<string, string | number | boolean | null>,
+) => {
+  const query = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (
+      value !== null &&
+      value !== undefined &&
+      value !== "" &&
+      value !== 0 &&
+      value !== false
+    ) {
+      query.append(key, value.toString());
+    }
+  });
+
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/filter/count?${query.toString()}`,
+  );
+
+  if (!response.ok) {
+    const message = await getErrorMessage(
+      response,
+      "Failed to fetch college count",
+    );
+    throw new Error(message);
+  }
+
+  return response.json();
 };
