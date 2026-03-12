@@ -25,6 +25,7 @@ import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
 import { SearchFilters } from "@/types/search_filters";
 import { filterColleges, getFilteredCollegesCount } from "@/lib/api";
+import { scrollToElement } from "@/lib/utils";
 import FilterSidebar from "@/components/search/FilterSidebar";
 import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
@@ -41,6 +42,7 @@ function SearchContent() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
+  const hasMountedPageRef = useRef(false);
   const hasLoadedOnceRef = useRef(false);
   const PAGE_SIZE = isLowerBreakpoint ? 6 : 12;
 
@@ -109,6 +111,17 @@ function SearchContent() {
     setPage(1);
   }, [searchQueryKey, PAGE_SIZE]);
 
+  useEffect(() => {
+    if (!hasMountedPageRef.current) {
+      hasMountedPageRef.current = true;
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      scrollToElement("results-grid");
+    });
+  }, [page]);
+
   const handleApplyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams();
     Object.entries(newFilters).forEach(([key, value]) => {
@@ -142,7 +155,7 @@ function SearchContent() {
         </Grid>
 
         {/* Right Side: Results Grid */}
-        <Grid size={{ xs: 12, md: 9 }}>
+        <Grid id="results-grid" size={{ xs: 12, md: 9 }}>
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
               <CircularProgress color="primary" />
