@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useState, useCallback, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Container,
@@ -16,18 +16,22 @@ import SearchHero from "@/components/search/Hero";
 import CollegeCard from "@/components/common/CollegeCard";
 import { College } from "@/types/college";
 import { SearchFilters } from "@/types/search_filters";
-import { filterColleges } from "@/lib/api";
+import { filterColleges, getFilteredCollegesCount } from "@/lib/api";
 import FilterSidebar from "@/components/search/FilterSidebar";
+import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
 function SearchContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  const searchQueryKey = searchParams.toString(); //used to signial filter change to setPage
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
+  const [listLoading, setListLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [liveAnnouncement, setLiveAnnouncement] = useState("");
+  const hasLoadedOnceRef = useRef(false);
   const PAGE_SIZE = 12;
 
   // Parse URL params into an object
@@ -52,31 +56,46 @@ function SearchContent() {
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
-    setLoading(true);
+    if (hasLoadedOnceRef.current) {
+      setListLoading(true);
+      setLiveAnnouncement(`Loading colleges page ${page}`);
+    } else {
+      setLoading(true);
+    }
     try {
-      const filters = getFiltersFromURL();
+      const filters = getFiltersFromURL(); //which colleges match
+      const listParams = { ...filters, page, limit: PAGE_SIZE }; //which slice of matching colleges to return now
       // pass the filters to the filterColleges route
-      const data = await filterColleges(filters);
+      const data = await filterColleges(listParams);
+      const totalCount = await getFilteredCollegesCount(filters);//will always be >=0
       // the colleges to display are the result of the query with filters
       setColleges(data);
       // compute total pages based on the number of colleges and page size
-      setTotalPages(Math.ceil(data.length / PAGE_SIZE));
+      setTotalPages(Math.max(1, Math.ceil(totalCount / PAGE_SIZE)));
+      setLiveAnnouncement(`Page ${page} loaded. Showing ${data.length} colleges.`);
     } catch (error) {
       const errorMessage =
         error instanceof Error
           ? error.message
           : "We're having trouble loading the colleges right now.";
       setError(errorMessage);
+      setLiveAnnouncement(errorMessage);
     } finally {
       setLoading(false);
+      setListLoading(false);
+      hasLoadedOnceRef.current = true;
     }
-  }, [getFiltersFromURL]);
+  }, [getFiltersFromURL, page]);
 
   useEffect(() => {
     // check if search is enabled before trying to load data (find the colleges to display)
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     loadData();
   }, [loadData]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [searchQueryKey]);
 
   const handleApplyFilters = (newFilters: SearchFilters) => {
     const params = new URLSearchParams();
@@ -122,31 +141,41 @@ function SearchContent() {
             </Typography>
           ) : (
             <>
-              <Grid
-                container
-                spacing={3}
-                component="ul"
-                aria-label="List of colleges"
-              >
-                {colleges.map((college) => (
+              <Box aria-busy={listLoading}>
+                {listLoading ? ( //only show loading for the list, not the entire page when moving pages
+                  <Box sx={{ display: "flex", justifyContent: "center", py: 8 }}>
+                    <CircularProgress color="primary" />
+                  </Box>
+                ) : (
                   <Grid
-                    key={college.slug}
-                    size={{ xs: 12, sm: 6, lg: 4 }}
-                    component="li"
+                    container
+                    spacing={3}
+                    component="ul"
+                    aria-label="List of colleges"
                   >
-                    <CollegeCard college={college} />
+                    {colleges.map((college) => (
+                      <Grid
+                        key={college.slug}
+                        size={{ xs: 12, sm: 6, lg: 4 }}
+                        component="li"
+                      >
+                        <CollegeCard college={college} />
+                      </Grid>
+                    ))}
                   </Grid>
-                ))}
-              </Grid>
+                )}
+              </Box>
               <Box sx={{ display: "flex", justifyContent: "center", py: 3 }}>
                 <Pagination
-                  aria-label="Reviews pagination"
+                  aria-label="Colleges pagination"
                   count={totalPages}
                   page={page}
                   color="primary"
+                  disabled={listLoading}
                   onChange={(_, value) => setPage(value)}
                 />
               </Box>
+              <ScreenReaderAnnouncement message={liveAnnouncement} />
             </>
           )}
         </Grid>
