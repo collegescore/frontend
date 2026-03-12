@@ -24,13 +24,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ minHeight: "100dvh", display: "flex", flexDirection: "column" }}>
+      <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <Header /> {/* Header stays at the top */}
             {/* Main tag with ID for the "Skip to Content" link */}
-            <main id="main-content" style={{ flex: 1 }}>{children}</main>
+            <main id="main-content">{children}</main>
             <Footer /> {/* Footer stays at the bottom */}
           </ThemeProvider>
         </AppRouterCacheProvider>

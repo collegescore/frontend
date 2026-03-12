@@ -20,7 +20,9 @@ export default function ScreenReaderAnnouncement({
       aria-live={politeness}
       aria-atomic={atomic}
       sx={{
-        position: "absolute",
+        position: "fixed",
+        top: 0,
+        left: 0,
         width: 1,
         height: 1,
         padding: 0,
