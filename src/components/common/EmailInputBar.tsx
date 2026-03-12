@@ -8,7 +8,7 @@ interface EmailInputBarProps {
   setEmail: (val: string) => void;
   onSubmit?: (e: React.FormEvent) => void;
   /**
-   * Use 'subscription' variant for a standalone form with a "Submit" button, for instance
+   * Use 'subscription' variant for a standalone email bar with an attached "Submit" button, for instance
    * in mailing list subscription popups.
    * Use 'field' for a simple text input intended to be part of a larger form, for instance
    * as the email field in a login or registration form.
