@@ -34,7 +34,7 @@ function SearchContent() {
   const searchParams = useSearchParams();
   const theme = useTheme();
   const isLowerBreakpoint = useMediaQuery(theme.breakpoints.down("md"));
-  const searchQueryKey = searchParams.toString(); //used to signial filter change to setPage
+  const searchQueryKey = searchParams.toString(); //used to signal filter change to setPage
   const [colleges, setColleges] = useState<College[]>([]);
   const [loading, setLoading] = useState(true);
   const [listLoading, setListLoading] = useState(false);
