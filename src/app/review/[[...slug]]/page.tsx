@@ -212,6 +212,40 @@ function ReviewPage({ params }: ReviewPageProps) {
         <Box sx={{ width: 48 }} />
       </Container>
 
+      {/* Pre-survey note */}
+      {currentStep === 0 && (
+        <Container maxWidth="lg" disableGutters>
+          <Alert
+            severity="info"
+            sx={{
+              bgcolor: "white",
+              borderRadius: 4,
+              alignItems: "flex-start",
+              width: "100%",
+            }}
+          >
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1 }}>
+              Before you begin
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1.5 }}>
+              Thank you for sharing your experience! Honest reviews help future
+              students make informed decisions.
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 1.5 }}>
+              Please use respectful and appropriate language. We welcome open,
+              candid feedback, but do not allow harassment, hate speech, or
+              personal attacks.
+            </Typography>
+            <Typography variant="body2">
+              We try to maintain anonymity for responses we share publicly.
+              However, we cannot fully protect privacy for personal details you
+              include in written responses, so please avoid names or identifying
+              information.
+            </Typography>
+          </Alert>
+        </Container>
+      )}
+
       {/* Render visible questions for the current step */}
       {visibleQuestions.map((question) => (
         <Container
