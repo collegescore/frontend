@@ -109,9 +109,8 @@ export const UniversitySearch = ({
         }
         renderOption={(props, option) => {
           const { key, ...optionProps } = props;
-          // Use slug as fallback for key if id isn't present
           return (
-            <li key={option.id || option.slug} {...optionProps}>
+            <li key={option.id} {...optionProps}>
               <Box>
                 <Typography variant="body1">{option.name}</Typography>
                 <Typography variant="caption" color="text.secondary">
