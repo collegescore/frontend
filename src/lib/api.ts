@@ -132,10 +132,24 @@ export const filterColleges = async (
   if (!response.ok) {
     const message = await getErrorMessage(
       response,
-      "Failed to search colleges",
+      "Failed to filter colleges with the provided criteria",
     );
     throw new Error(message);
   }
 
   return response.json(); // Returns the array of College objects
 };
+
+export const searchColleges = async (q: string) => {
+  const response = await fetch(`${API_BASE_URL}/v0/colleges/search?q=${encodeURIComponent(q)}`);
+
+  if (!response.ok) {
+    const message = await getErrorMessage(
+      response,
+      "Failed to search colleges",
+    );
+    throw new Error(message);
+  }
+
+  return response.json(); // Returns the array of College objects
+}
