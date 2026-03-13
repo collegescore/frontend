@@ -99,8 +99,6 @@ export default function CollegeSlugPage({
   }, [page]);
 
   const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
-    // Announces that a new reviews page is loading
-    setLiveAnnouncement(`Loading reviews page ${value}`);
     setPage(value);
   };
 
