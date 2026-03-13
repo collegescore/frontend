@@ -76,7 +76,7 @@ function SearchContent() {
       setLoading(true);
     }
     try {
-      const filters = getFiltersFromURL(); //which colleges match
+      const filters = getFiltersFromURL(); //criteria colleges must meet
       const listParams = { ...filters, page, limit: PAGE_SIZE }; //which slice of matching colleges to return now
       // pass the filters to the filterColleges route
       const data = await filterColleges(listParams);
