@@ -33,45 +33,57 @@ export default function CollegeSlugPage({
   const [reviewsLoading, setReviewsLoading] = useState(false);
   const [reviews, setReviews] = useState<ReviewEntry[]>([]);
   const [college, setCollege] = useState<College | null>(null);
-  const [totalPages, setTotalPages] = useState<number>(1);
   const [page, setPage] = useState<number>(1);
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
   const hasMountedRef = useRef(false);
   const PAGE_SIZE = 4; //Number of reviews shown per page
+  const totalPages = college
+    ? Math.max(1, Math.ceil(college.num_reviews / PAGE_SIZE))
+    : 1;
 
   //load colleges info from the backend
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
-    loadData(
-      () => getCollege(slug),
-      setCollege,
-      setError,
-      setCollegeLoading,
-      "Failed to load college information.",
-    )();
-  }, [slug]);
+    const loadCollege = async () => {
+      setCollegeLoading(true);
+      const result = await loadData(
+        () => getCollege(slug),
+        "Failed to load college information.",
+      );
 
-  useEffect(() => {
-    setPage(1);
-  }, [slug]);
+      if (result.error) {
+        setError(result.error);
+      } else if (result.data) {
+        setCollege(result.data);
+      }
 
-  // once college loads, compute total pages
-  useEffect(() => {
-    if (!college) return;
-    setTotalPages(Math.ceil(college.num_reviews / PAGE_SIZE)); //Round up to nearest whole number
-  }, [college]);
+      setCollegeLoading(false);
+    };
+
+    loadCollege();
+  }, [slug]);
 
   //load the reviews from the backend
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
-    setError("");
-    loadData(
-      () => getCollegeReviews(slug, { page, limit: PAGE_SIZE }),
-      setReviews,
-      setError,
-      setReviewsLoading,
-      "Failed to load college reviews.",
-    )();
+    const loadReviews = async () => {
+      setReviewsLoading(true);
+      try {
+        const data = await getCollegeReviews(slug, { page, limit: PAGE_SIZE });
+        setReviews(data);
+        setError("");
+        // Announces when the new reviews page has finished loading
+        setLiveAnnouncement(
+          `Page ${page} loaded. Showing ${data.length} reviews.`,
+        );
+      } catch {
+        setError("Failed to load college reviews.");
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    loadReviews();
   }, [slug, page]);
 
   /** Scroll to top when page changes */
@@ -84,22 +96,13 @@ export default function CollegeSlugPage({
     requestAnimationFrame(() => {
       scrollToElement("reviews-header");
     });
-
-    // Announces that a new reviews page is loading
-    setLiveAnnouncement(`Loading reviews page ${page}`);
   }, [page]);
 
-  useEffect(() => {
-    if (!hasMountedRef.current) return;
-    if (reviewsLoading) return;
-
-    if (error) return;
-
-    // Announces when the new reviews page has finished loading
-    setLiveAnnouncement(
-      `Page ${page} loaded. Showing ${reviews.length} reviews.`,
-    );
-  }, [reviewsLoading, error, reviews.length, page]);
+  const handlePageChange = (_: React.ChangeEvent<unknown>, value: number) => {
+    // Announces that a new reviews page is loading
+    setLiveAnnouncement(`Loading reviews page ${value}`);
+    setPage(value);
+  };
 
   // if the search flag is disabled, show the not found screen.
   if (!FEATURE_FLAGS.isSearchEnabled) {
@@ -226,7 +229,7 @@ export default function CollegeSlugPage({
                   page={page}
                   color="primary"
                   sx={{ py: 3, justifySelf: "center" }}
-                  onChange={(_, value) => setPage(value)}
+                  onChange={handlePageChange}
                 />
 
                 {/* Announces pagination status updates (loading and loaded page summaries) */}
