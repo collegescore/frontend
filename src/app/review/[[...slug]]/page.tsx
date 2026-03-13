@@ -143,13 +143,11 @@ function ReviewPage({ params }: ReviewPageProps) {
         });
         if (signUpError) {
           setAuthError(signUpError.message);
-          setAuthAnnouncement("Authentication failed. " + signInError.message);
         } else {
           setAuthAnnouncement("Account created successfully. Logging you in.");
         }
       } else {
         setAuthError(signInError.message);
-        setAuthAnnouncement("Authentication failed.");
       }
     } else {
       setAuthAnnouncement(
