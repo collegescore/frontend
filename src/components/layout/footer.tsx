@@ -64,7 +64,7 @@ const Footer = () => {
           {/* Column 2: Quick Links */}
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <Typography
-              variant="body2"
+              variant="subtitle1"
               id="footer-links"
               sx={{ fontWeight: 700, mb: 2 }}
             >
