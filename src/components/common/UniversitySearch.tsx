@@ -27,7 +27,9 @@ export const UniversitySearch = ({
   width = "100%",
   value: controlledValue = null,
 }: UniversitySearchProps) => {
-  const [options, setOptions] = useState<College[]>(V0_COLLEGES);
+  const [options, setOptions] = useState<College[]>(
+    FEATURE_FLAGS.allowSearchAllSchools ? [] : V0_COLLEGES,
+  );
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -46,7 +48,7 @@ export const UniversitySearch = ({
           setLoading(false);
         }
       }, 400),
-    []
+    [],
   );
 
   useEffect(() => {
@@ -55,8 +57,7 @@ export const UniversitySearch = ({
       if (inputValue.trim().length > 0) {
         performRemoteSearch(inputValue);
       } else {
-        // If search is cleared, show the default V0 list
-        setOptions(V0_COLLEGES);
+        setOptions([]);
         setLoading(false);
       }
     }
@@ -80,7 +81,13 @@ export const UniversitySearch = ({
         }}
         getOptionLabel={(option) => option.name || ""}
         isOptionEqualToValue={(option, value) => option.slug === value?.slug}
-        
+        noOptionsText={
+          FEATURE_FLAGS.allowSearchAllSchools
+            ? inputValue.length > 0
+              ? "No schools found"
+              : "Type to search all schools..."
+            : "No matches found in our list"
+        }
         // If we are searching the backend, we disable MUI's local filter
         filterOptions={
           FEATURE_FLAGS.allowSearchAllSchools
@@ -91,11 +98,10 @@ export const UniversitySearch = ({
                   (college) =>
                     college.name.toLowerCase().includes(query) ||
                     college.city.toLowerCase().includes(query) ||
-                    college.state.toLowerCase().includes(query)
+                    college.state.toLowerCase().includes(query),
                 );
               }
         }
-
         renderOption={(props, option) => {
           const { key, ...optionProps } = props;
           // Use slug as fallback for key if id isn't present
@@ -110,7 +116,6 @@ export const UniversitySearch = ({
             </li>
           );
         }}
-
         renderInput={(params) => (
           <TextField
             {...params}

@@ -141,7 +141,9 @@ export const filterColleges = async (
 };
 
 export const searchColleges = async (q: string) => {
-  const response = await fetch(`${API_BASE_URL}/v0/colleges/search?q=${encodeURIComponent(q)}`);
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/search?q=${encodeURIComponent(q)}`,
+  );
 
   if (!response.ok) {
     const message = await getErrorMessage(
@@ -152,4 +154,4 @@ export const searchColleges = async (q: string) => {
   }
 
   return response.json(); // Returns the array of College objects
-}
+};
