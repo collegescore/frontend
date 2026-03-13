@@ -43,7 +43,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    color: "common.white", // Using secondary color to make it pop
+                    color: "common.white",
                     display: "inline-flex",
                     alignItems: "center",
                     textDecoration: "none",
