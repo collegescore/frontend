@@ -24,7 +24,12 @@ const scrollToElement = (elementId: string) => {
   });
 };
 
-/** Generic async data loader that returns either data or an error message. */
+/**
+ * Generic function to fetch data from an API and handle success/error outcomes.
+ * @param apiCall - The API call function that returns a promise.
+ * @param errorMessage - The fallback error message returned if the API call fails.
+ * @returns An object containing either the fetched data or an error message.
+ */
 const loadData = async <T>(
   apiCall: () => Promise<T>,
   errorMessage: string,
