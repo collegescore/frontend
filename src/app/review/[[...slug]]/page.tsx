@@ -36,6 +36,7 @@ function ReviewPage({ params }: ReviewPageProps) {
   const [password, setPassword] = useState("");
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [authError, setAuthError] = useState("");
+  const [authAnnouncement, setAuthAnnouncement] = useState("");
   /////////////////////////////////////////////////
 
   const resolvedParams = use(params);
@@ -108,7 +109,9 @@ function ReviewPage({ params }: ReviewPageProps) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isLoggingIn) return;
     setAuthError("");
+    setAuthAnnouncement("");
 
     // --- email validation block ---
     if (!isValidEmail(email)) {
@@ -120,6 +123,7 @@ function ReviewPage({ params }: ReviewPageProps) {
     // ---------------------------------
 
     setIsLoggingIn(true);
+    setAuthAnnouncement("Authenticating, please wait...");
 
     // 1. Try to Sign In
     const { data, error: signInError } = await supabase.auth.signInWithPassword(
@@ -136,12 +140,19 @@ function ReviewPage({ params }: ReviewPageProps) {
           email,
           password,
         });
-        if (signUpError) setAuthError(signUpError.message);
+        if (signUpError) {
+          setAuthError(signUpError.message);
+          setAuthAnnouncement("Authentication failed. " + signInError.message);
+        } else {
+          setAuthAnnouncement("Account created successfully. Logging you in.");
+        }
       } else {
         setAuthError(signInError.message);
+        setAuthAnnouncement("Authentication failed.");
       }
+    } else {
+      setAuthAnnouncement("Logged in successfully. Redirecting to survey...");
     }
-
     setIsLoggingIn(false);
   };
 
