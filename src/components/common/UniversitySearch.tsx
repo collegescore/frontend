@@ -18,7 +18,12 @@ import debounce from "lodash/debounce";
 
 interface UniversitySearchProps {
   onSelect?: (college: College | null) => void;
+  // width of search bar is adjustable, parent component can decide how wide the search bar should be.
   width?: string | number;
+  // allow for a default value to be passed in, for example in the review form if the user has already
+  // selected a college from the search page and we want to pre-fill the search bar with their selected
+  // college. This should be a College object or null (if no college is selected) rather than just a
+  // string slug, so that the search bar can display the college name properly instead of just showing the slug.
   value?: College | null;
 }
 
