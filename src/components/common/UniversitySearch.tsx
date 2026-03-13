@@ -127,6 +127,7 @@ export const UniversitySearch = ({
             InputProps={{
               ...params.InputProps,
               startAdornment: (
+                // this is for the magnifying glass search icon
                 <InputAdornment position="start">
                   <SearchIcon color="action" aria-hidden="true" />
                 </InputAdornment>
