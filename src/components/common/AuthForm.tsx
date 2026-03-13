@@ -3,13 +3,6 @@ import { Box, Stack, TextField, Typography } from "@mui/material";
 import EmailInputBar from "./EmailInputBar";
 import BasicButton from "./BasicButton";
 
-interface AuthEmailFormProps {
-  email: string;
-  setEmail: (email: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
-  loading: boolean;
-}
-
 interface AuthFormProps {
   email: string;
   setEmail: (val: string) => void;
