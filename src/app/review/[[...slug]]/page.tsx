@@ -151,7 +151,9 @@ function ReviewPage({ params }: ReviewPageProps) {
         setAuthAnnouncement("Authentication failed.");
       }
     } else {
-      setAuthAnnouncement("Logged in successfully. Redirecting to survey...");
+      setAuthAnnouncement(
+        "Logged in successfully. The survey form is now available!",
+      );
     }
     setIsLoggingIn(false);
   };
@@ -253,6 +255,19 @@ function ReviewPage({ params }: ReviewPageProps) {
         sx={{ minHeight: "100vh", color: "white", p: 4 }}
       >
         <Container maxWidth="sm" sx={{ textAlign: "center" }}>
+          <div
+            role="status"
+            aria-live="polite"
+            style={{
+              position: "absolute",
+              left: "-10000px",
+              width: "1px",
+              height: "1px",
+              overflow: "hidden",
+            }}
+          >
+            {authAnnouncement}
+          </div>
           <Typography
             component="h1"
             variant="h3"
