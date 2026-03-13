@@ -197,7 +197,7 @@ export const reviewQuestions: Question[] = [
     category: "Written",
     type: "text",
     question:
-      "Please share 1-3 challenges you have experienced related to your identity, particularly as part of one or more underrepresented groups?",
+      "Please share 1-3 challenges you have experienced related to your identity and if at all how the institution responded, particularly as part of one or more underrepresented groups?",
     multiline: true,
     placeholder: "Enter your response here...",
   },
