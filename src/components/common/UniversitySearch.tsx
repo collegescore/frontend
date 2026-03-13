@@ -39,7 +39,7 @@ export const UniversitySearch = ({
   const [inputValue, setInputValue] = useState("");
 
   // Memoized debounced search to avoid unnecessary re-renders and API calls
-  const performRemoteSearch = useMemo(
+  const performDatabaseCollegeSearch = useMemo(
     () =>
       debounce(async (query: string) => {
         setLoading(true);
@@ -60,13 +60,13 @@ export const UniversitySearch = ({
     // Only search the full database if flag is enabled
     if (FEATURE_FLAGS.allowSearchAllSchools) {
       if (inputValue.trim().length > 0) {
-        performRemoteSearch(inputValue);
+        performDatabaseCollegeSearch(inputValue);
       } else {
         setOptions([]);
         setLoading(false);
       }
     }
-  }, [inputValue, performRemoteSearch]);
+  }, [inputValue, performDatabaseCollegeSearch]);
 
   return (
     <Box sx={{ width: width, margin: "2rem auto" }}>
