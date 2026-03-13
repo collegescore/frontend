@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Box, Stack, TextField, Typography } from "@mui/material";
 import EmailInputBar from "./EmailInputBar";
 import BasicButton from "./BasicButton";
@@ -29,31 +29,29 @@ export default function AuthForm({
   loading,
   buttonText,
 }: AuthFormProps) {
-  // Synchronous lock to prevent duplicate submit clicks before React re-renders the 'disabled' state
+  // lock to prevent duplicate submit clicks before React re-renders the 'disabled' state
   const submitLockRef = useRef(false);
+  useEffect(() => {
+    if (!loading) {
+      submitLockRef.current = false;
+    }
+  }, [loading]); // Only run this when the 'loading' state changes
+
   const internalOnSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // If the lock is active or the parent state says we are loading, block the attempt
     if (submitLockRef.current || loading) {
       return;
     }
 
-    // Set the lock immediately (synchronous)
     submitLockRef.current = true;
-
-    // Call the parent submission logic
     onSubmit(e);
   };
 
-  // Re-enable the lock if loading flips from true back to false (e.g., after an error)
-  if (!loading && submitLockRef.current) {
-    submitLockRef.current = false;
-  }
   return (
     <Box
       component="form"
-      onSubmit={onSubmit}
+      onSubmit={internalOnSubmit}
       sx={{ width: "100%", maxWidth: 400 }}
     >
       <Stack spacing={2.5}>
