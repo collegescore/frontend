@@ -42,10 +42,10 @@ function SearchContent() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
-  // Used only for pagination scroll behavior: only scroll for pagination interaction, not initial render
-  const hasMountedPageRef = useRef(false);
-  // Used only for data-loading UX: on pagination interaction just reload college list instead of whole page loading
-  const hasLoadedOnceRef = useRef(false);
+  // Enables scroll-to-results only after initial render, so pagination changes control scrolling.
+  const allowPaginationScrollRef = useRef(false);
+  // After first load, show list-only loading instead of full-page loading.
+  const hasInitialResultsLoadedRef = useRef(false);
   const PAGE_SIZE = isLowerBreakpoint ? 6 : 12;
 
   // Parse URL params into an object
@@ -70,7 +70,7 @@ function SearchContent() {
 
   const loadData = useCallback(async () => {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
-    if (hasLoadedOnceRef.current) {
+    if (hasInitialResultsLoadedRef.current) {
       setListLoading(true);
     } else {
       setLoading(true);
@@ -98,7 +98,7 @@ function SearchContent() {
     } finally {
       setLoading(false);
       setListLoading(false);
-      hasLoadedOnceRef.current = true;
+      hasInitialResultsLoadedRef.current = true;
     }
   }, [getFiltersFromURL, page, PAGE_SIZE]);
 
@@ -113,8 +113,8 @@ function SearchContent() {
   }, [searchQueryKey, PAGE_SIZE]);
 
   useEffect(() => {
-    if (!hasMountedPageRef.current) {
-      hasMountedPageRef.current = true;
+    if (!allowPaginationScrollRef.current) {
+      allowPaginationScrollRef.current = true;
       return;
     }
 
