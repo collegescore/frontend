@@ -19,6 +19,7 @@ import { reviewQuestions } from "@/lib/reviewQuestions";
 import { submitReview } from "@/lib/api";
 import { scrollToTop } from "@/lib/utils";
 import { Alert } from "@mui/material";
+import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -99,11 +100,13 @@ function ReviewPage({ params }: ReviewPageProps) {
             (q) => q.id === question.followUpQuestionId,
           );
           if (followUpQuestion) {
+            // Announces that a conditional follow-up question has appeared
             setAnnouncement(
               `Additional question appeared: ${followUpQuestion.question}`,
             );
           }
         } else if (value === "no") {
+          // Announces that the conditional follow-up question was removed
           setAnnouncement(`Follow-up question hidden`);
         }
       }
@@ -136,6 +139,7 @@ function ReviewPage({ params }: ReviewPageProps) {
 
     submitLockRef.current = true;
     setIsSubmitting(true);
+    // Announces submit progress while request is in flight
     setAnnouncement("Submitting review, please wait.");
     setError(""); // Clear previous errors
 
@@ -165,21 +169,8 @@ function ReviewPage({ params }: ReviewPageProps) {
       bgcolor="primary.main"
       sx={{ py: 6, overflow: "hidden", width: "100%" }}
     >
-      {/* Screen reader announcements for conditional questions */}
-      <div
-        role="status"
-        aria-live="polite"
-        aria-atomic="true"
-        style={{
-          position: "absolute",
-          left: "-10000px",
-          width: "1px",
-          height: "1px",
-          overflow: "hidden",
-        }}
-      >
-        {announcement}
-      </div>
+      {/* Announces follow-up question visibility changes and submit progress */}
+      <ScreenReaderAnnouncement message={announcement} />
 
       <Container
         maxWidth="lg"

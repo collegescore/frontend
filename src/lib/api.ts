@@ -1,4 +1,5 @@
 /*All functions that call FastAPI backend */
+import { ReviewParams } from "@/types/review_entry";
 import type { Answer } from "@/types/review_qa";
 export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://localhost:8000";
@@ -91,9 +92,19 @@ export const getCollege = async (slug: string) => {
   return response.json();
 };
 
-/**Fetch reviews for a specific college by slug */
-export const getCollegeReviews = async (slug: string) => {
-  const response = await fetch(`${API_BASE_URL}/v0/colleges/${slug}/reviews`);
+export const getCollegeReviews = async (slug: string, params: ReviewParams) => {
+  const query = new URLSearchParams();
+
+  /**Append params only if they have a value */
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== null && value !== undefined && value !== "") {
+      query.append(key, value.toString());
+    }
+  });
+
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/${slug}/reviews?${query.toString()}`,
+  );
 
   if (!response.ok) {
     const message = await getErrorMessage(
@@ -138,4 +149,37 @@ export const filterColleges = async (
   }
 
   return response.json(); // Returns the array of College objects
+};
+
+/** Get total number of colleges matching current filters */
+export const getFilteredCollegesCount = async (
+  params: Record<string, string | number | boolean | null>,
+) => {
+  const query = new URLSearchParams();
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (
+      value !== null &&
+      value !== undefined &&
+      value !== "" &&
+      value !== 0 &&
+      value !== false
+    ) {
+      query.append(key, value.toString());
+    }
+  });
+
+  const response = await fetch(
+    `${API_BASE_URL}/v0/colleges/filter/count?${query.toString()}`,
+  );
+
+  if (!response.ok) {
+    const message = await getErrorMessage(
+      response,
+      "Failed to fetch college count",
+    );
+    throw new Error(message);
+  }
+
+  return response.json();
 };

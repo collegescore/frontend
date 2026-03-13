@@ -8,6 +8,7 @@ export const V0_COLLEGES: College[] = [
     name: "University of Washington-Bothell Campus",
     city: "Bothell",
     state: "WA",
+    num_reviews: 0,
   },
   {
     id: 236948,
@@ -15,6 +16,7 @@ export const V0_COLLEGES: College[] = [
     name: "University of Washington-Seattle Campus",
     city: "Seattle",
     state: "WA",
+    num_reviews: 0,
   },
   {
     id: 377564,
@@ -22,5 +24,6 @@ export const V0_COLLEGES: College[] = [
     name: "University of Washington-Tacoma Campus",
     city: "Tacoma",
     state: "WA",
+    num_reviews: 0,
   },
 ];

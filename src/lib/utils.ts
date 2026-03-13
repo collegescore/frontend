@@ -9,31 +9,37 @@ const scrollToTop = () => {
   });
 };
 
-/** Generic function to fetch data from an API and handle loading and error states.
- * @param apiCall - The API call function that returns a promise.
- * @param setSetter - The state setter function to update the data.
- * @param setError - The state setter function to update the error message.
- * @param setLoading - The state setter function to update the loading state.
- * @param errorMessage - The error message to set if the API call fails.
- */
-const loadData = <T>(
-  apiCall: () => Promise<T>,
-  setSetter: (data: T) => void,
-  setError: (error: string) => void,
-  setLoading: (loading: boolean) => void,
-  errorMessage: string,
-) => {
-  return async () => {
-    setLoading(true);
-    try {
-      const data = await apiCall();
-      setSetter(data);
-    } catch {
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  };
+/** Scrolls the window to a specific element smoothly */
+const scrollToElement = (elementId: string) => {
+  const element = document.getElementById(elementId);
+  if (!element) return;
+
+  const stickyOffset = 80;
+  const elementTop = element.getBoundingClientRect().top + window.scrollY;
+
+  window.scrollTo({
+    top: Math.max(elementTop - stickyOffset, 0),
+    left: 0,
+    behavior: "smooth", // Use 'auto' for an instant jump
+  });
 };
 
-export { scrollToTop, loadData };
+/**
+ * Generic function to fetch data from an API and handle success/error outcomes.
+ * @param apiCall - The API call function that returns a promise.
+ * @param errorMessage - The fallback error message returned if the API call fails.
+ * @returns An object containing either the fetched data or an error message.
+ */
+const loadData = async <T>(
+  apiCall: () => Promise<T>,
+  errorMessage: string,
+): Promise<{ data: T | null; error: string | null }> => {
+  try {
+    const data = await apiCall();
+    return { data, error: null };
+  } catch {
+    return { data: null, error: errorMessage };
+  }
+};
+
+export { scrollToTop, scrollToElement, loadData };
