@@ -72,7 +72,6 @@ function SearchContent() {
     if (!FEATURE_FLAGS.isSearchEnabled) return;
     if (hasLoadedOnceRef.current) {
       setListLoading(true);
-      setLiveAnnouncement(`Loading colleges page ${page}`);
     } else {
       setLoading(true);
     }
