@@ -42,6 +42,7 @@ const Footer = () => {
                   href="https://github.com/collegescore/documentation" // TODO: replace with link to contributing md file once the overhaul branch is merged
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Learn how to contribute on GitHub (opens in a new tab)"
                   sx={{
                     color: "common.white",
                     display: "inline-flex",
@@ -51,7 +52,10 @@ const Footer = () => {
                   }}
                 >
                   here
-                  <OpenInNewIcon sx={{ fontSize: "0.9rem", ml: 0.5 }} />
+                  <OpenInNewIcon
+                    aria-hidden="true"
+                    sx={{ fontSize: "0.9rem", ml: 0.5 }}
+                  />
                 </MuiLink>
               </Typography>
             </Box>
