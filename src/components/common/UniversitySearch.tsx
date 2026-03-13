@@ -74,6 +74,7 @@ export const UniversitySearch = ({
         // Determine source based on flag
         options={FEATURE_FLAGS.allowSearchAllSchools ? options : V0_COLLEGES}
         loading={loading}
+        loadingText="Searching colleges..."
         value={controlledValue}
         inputValue={inputValue}
         onInputChange={(_event, newInputValue) => {
