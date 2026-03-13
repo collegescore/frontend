@@ -50,7 +50,7 @@ export const UniversitySearch = ({
   );
 
   useEffect(() => {
-    // Only use remote search if flag is enabled
+    // Only search the full database if flag is enabled
     if (FEATURE_FLAGS.allowSearchAllSchools) {
       if (inputValue.trim().length > 0) {
         performRemoteSearch(inputValue);
