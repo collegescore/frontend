@@ -23,6 +23,7 @@ import { supabase } from "@/lib/supabaseClient";
 import AuthForm from "@/components/common/AuthForm";
 import { Session } from "@supabase/supabase-js";
 import { isValidEmail } from "@/lib/emailValidation";
+import ScreenReaderAnnouncement from "@/components/common/ScreenReaderAnnouncement";
 
 interface ReviewPageProps {
   params: Promise<{ slug?: string[] }>;
@@ -255,19 +256,7 @@ function ReviewPage({ params }: ReviewPageProps) {
         sx={{ minHeight: "100vh", color: "white", p: 4 }}
       >
         <Container maxWidth="sm" sx={{ textAlign: "center" }}>
-          <div
-            role="status"
-            aria-live="polite"
-            style={{
-              position: "absolute",
-              left: "-10000px",
-              width: "1px",
-              height: "1px",
-              overflow: "hidden",
-            }}
-          >
-            {authAnnouncement}
-          </div>
+          <ScreenReaderAnnouncement message={authAnnouncement} />
           <Typography
             component="h1"
             variant="h3"
