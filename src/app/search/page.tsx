@@ -42,7 +42,9 @@ function SearchContent() {
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [liveAnnouncement, setLiveAnnouncement] = useState("");
+  // Used only for pagination scroll behavior: only scroll for pagination interaction, not initial render
   const hasMountedPageRef = useRef(false);
+  // Used only for data-loading UX: on pagination interaction just reload college list instead of whole page loading
   const hasLoadedOnceRef = useRef(false);
   const PAGE_SIZE = isLowerBreakpoint ? 6 : 12;
 
