@@ -91,7 +91,7 @@ export const UniversitySearch = ({
           FEATURE_FLAGS.allowSearchAllSchools
             ? inputValue.length > 0
               ? "No schools found"
-              : "Type to search all schools..."
+              : "Type to search schools..."
             : "No matches found in our list"
         }
         // If we are searching the backend, we disable MUI's local filter
