@@ -9,6 +9,7 @@ import {
   Grid,
   Stack,
 } from "@mui/material";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import NextLink from "next/link";
 import { FEATURE_FLAGS } from "@/config/flag";
 
@@ -17,20 +18,49 @@ const Footer = () => {
     <Box component="footer" bgcolor="grayscale.dark" py={{ xs: 8, md: 10 }}>
       <Container sx={{ color: "white" }}>
         <Grid container spacing={4}>
-          {/* Column 1: Logo/Branding */}
+          {/* Column 1: Logo/Branding and contributing link*/}
           <Grid size={{ xs: 12, md: 4 }}>
-            <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
-              College Score
-            </Typography>
-            <Typography variant="body2" sx={{ opacity: 0.7 }}>
-              Real reviews from real students. <br />
-            </Typography>
+            <Box>
+              <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                College Score
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 3}}>
+                Real reviews from real students. <br />
+              </Typography>
+            </Box>
+          
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
+                Join Us?
+              </Typography>
+              <Typography variant="body2">
+                College Score is an open source project!
+              </Typography>
+              <Typography variant="body2">
+                Learn how to contribute{" "}
+                <MuiLink
+                  href="https://github.com/collegescore/documentation" // TODO: replace with link to contributing md file once the overhaul branch is merged
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: "common.white", // Using secondary color to make it pop
+                    display: "inline-flex",
+                    alignItems: "center",
+                    textDecoration: "none",
+                    "&:hover": { textDecoration: "underline" },
+                  }}
+                >
+                  here
+                  <OpenInNewIcon sx={{ fontSize: "0.9rem", ml: 0.5 }} />
+                </MuiLink>
+              </Typography>
+            </Box>
           </Grid>
 
           {/* Column 2: Quick Links */}
           <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <Typography
-              variant="subtitle1"
+              variant="body2"
               id="footer-links"
               sx={{ fontWeight: 700, mb: 2 }}
             >
@@ -91,7 +121,7 @@ const Footer = () => {
             <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 2 }}>
               Acknowledgment
             </Typography>
-            <Typography variant="body2" sx={{ opacity: 0.8, lineHeight: 1.6 }}>
+            <Typography variant="body2">
               We are proud to be part of <strong>CREATE</strong>, the Center for
               Research and Education on Accessible Technology and Experiences.
               As such, our mission is to make education accessible and to make
