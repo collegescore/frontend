@@ -24,11 +24,11 @@ const Footer = () => {
               <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
                 College Score
               </Typography>
-              <Typography variant="body2" sx={{ mb: 3}}>
+              <Typography variant="body2" sx={{ mb: 3 }}>
                 Real reviews from real students. <br />
               </Typography>
             </Box>
-          
+
             <Box>
               <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
                 Join Us?
