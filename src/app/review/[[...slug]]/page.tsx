@@ -239,8 +239,8 @@ function ReviewPage({ params }: ReviewPageProps) {
             <Typography variant="body2">
               We try to maintain anonymity for responses we share publicly.
               However, we cannot fully protect privacy for personal details you
-              include in written responses, so please avoid names or
-              identifying information.
+              include in written responses, so please avoid names or identifying
+              information.
             </Typography>
           </Alert>
         </Container>
