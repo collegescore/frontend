@@ -39,7 +39,7 @@ const Footer = () => {
               <Typography variant="body2">
                 Learn how to contribute{" "}
                 <MuiLink
-                  href="https://github.com/collegescore/documentation" // TODO: replace with link to contributing md file once the overhaul branch is merged
+                  href="https://github.com/collegescore/documentation/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Learn how to contribute on GitHub (opens in a new tab)"
