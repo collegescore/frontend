@@ -8,5 +8,7 @@ export const FEATURE_FLAGS = {
   isReviewSortEnabled: process.env.NEXT_PUBLIC_REVIEW_SORT === "true",
   isReviewSummariesEnabled: process.env.NEXT_PUBLIC_SHOW_SUMMARIES === "true",
   isCedarLinked: process.env.NEXT_PUBLIC_CEDAR_LINK === "true",
+  allowSearchAllSchools:
+    process.env.NEXT_PUBLIC_ALLOW_SEARCH_ALL_SCHOOLS === "true",
   // more flags can be added here in the future as needed
 } as const;
