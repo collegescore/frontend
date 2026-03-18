@@ -54,7 +54,7 @@ export default function CollegeSlugPage({
     )();
   }, [slug]);
 
-  // if the search flag is disabled, show the not found screen.
+  // if the search flag is disabled, show the not found screen. DEMO
   if (!FEATURE_FLAGS.isSearchEnabled) {
     return <NotFound />;
   }
