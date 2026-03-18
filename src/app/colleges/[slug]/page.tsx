@@ -42,7 +42,7 @@ export default function CollegeSlugPage({
     )();
   }, [slug]);
 
-  //load the reviews from the backend
+  //load the reviews from the backend DEMO
   useEffect(() => {
     if (!FEATURE_FLAGS.isCollegePageBackendEnabled) return;
     loadData(
